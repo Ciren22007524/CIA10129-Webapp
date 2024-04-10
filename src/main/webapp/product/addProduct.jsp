@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.product.model.*"%>
+<%@ page import="com.ren.product.model.ProductVO" %>
 
-<% //見com.product.controller.ProductServlet.java第238行存入req的productVO物件 (此為輸入格式有錯誤時的productVO物件)
+<% //見com.product.com.controller.ProductServlet.java第238行存入req的productVO物件 (此為輸入格式有錯誤時的productVO物件)
    ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 %>
 --<%= productVO==null %>--${productVO.pCatNo}-- <!-- line 100 -->
@@ -112,7 +113,7 @@
 		<td><input type="TEXT" name="pComScore" value="<%= (productVO==null)? "3" : productVO.getpComScore()%>" size="45"/></td>
 	</tr>					
 
-	<jsp:useBean id="productCategorySvc" scope="page" class="com.productcategory.model.ProductCategoryServiceImpl" />
+	<jsp:useBean id="productCategorySvc" scope="page" class="com.ren.productcategory.service.ProductCategoryServiceImpl" />
 	<tr>
 		<td>商品類別編號:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="pCatNo">

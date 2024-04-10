@@ -39,6 +39,7 @@ h4 {
 </style>
 
 </head>
+
 <body bgcolor='white'>
 
 	<table id="table-1">
@@ -81,7 +82,7 @@ h4 {
 		</li>
 
 		<jsp:useBean id="productSvc" scope="page"
-			class="com.product.model.ProductServiceImpl" />
+			class="com.ren.product.service.ProductServiceImpl" />
 
 		<li>
 			<FORM METHOD="post" ACTION="product.do">
