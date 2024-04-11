@@ -13,7 +13,7 @@ public class ProductServiceImpl implements ProductService_interface {
 	private ProductDAO_interface dao;
 	// DI
 	public ProductServiceImpl() {
-		dao = new ProductJDBCDAOImpl();
+		dao = new ProductJNDIDAOImpl();
 	}
 
 	// 新增成功後，返回VO至呼叫Service的Controller，並由Controller轉給View呈現在網頁上
