@@ -1,5 +1,6 @@
 package com.ren.product.service;
 
+import com.ren.product.dao.ProductJNDIDAOImpl;
 import com.ren.product.model.ProductVO;
 import com.ren.product.dao.ProductDAO_interface;
 import com.ren.product.dao.ProductJDBCDAOImpl;

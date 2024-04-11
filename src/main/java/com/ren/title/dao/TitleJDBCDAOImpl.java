@@ -122,7 +122,7 @@ public class TitleJDBCDAOImpl implements TitleDAO_interface {
     }
 
     @Override
-    public List<TitleAdmVO> getAdmsByTitleNo(Integer titleNo) {
+    public List<TitleAdmVO> getAdms(Integer titleNo) {
         // 宣告ArrayList作為放入搜尋結果的列表
         List<TitleAdmVO> list = new ArrayList<>();
         // 宣告VO並指定空值，若查詢無結果會出現空值，後續於Controller作錯誤處理
@@ -155,7 +155,7 @@ public class TitleJDBCDAOImpl implements TitleDAO_interface {
     }
 
     @Override
-    public List<TitleAdmVO> getAdmsByTitleName(String titleName) {
+    public List<TitleAdmVO> getAdms(String titleName) {
         // 宣告ArrayList作為放入搜尋結果的列表
         List<TitleAdmVO> list = new ArrayList<>();
         // 宣告VO並指定空值，若查詢無結果會出現空值，後續於Controller作錯誤處理

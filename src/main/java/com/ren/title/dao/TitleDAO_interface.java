@@ -25,9 +25,9 @@ public interface TitleDAO_interface {
     // 查詢全部(職位編號, 職位名稱)
     public List<TitleVO> getAll();
     // 以職位編號查詢(職位編號, 職位名稱, 管理員名稱)
-    public List<TitleAdmVO> getAdmsByTitleNo(Integer titleNo);
+    public List<TitleAdmVO> getAdms(Integer titleNo);
     // 以職稱查詢(職位編號, 職位名稱, 管理員名稱)
-    public List<TitleAdmVO> getAdmsByTitleName(String titleName);
+    public List<TitleAdmVO> getAdms(String titleName);
     // 查詢全部(職位編號, 職位名稱, 管理員名稱)並以職位編號排序
     public List<TitleAdmVO> getAdmsAll();
     // 修改

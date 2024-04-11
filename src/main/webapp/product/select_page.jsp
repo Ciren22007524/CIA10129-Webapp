@@ -75,7 +75,7 @@ h4 {
 
 		<li>
 			<FORM METHOD="post" ACTION="product.do">
-				<b>輸入商品編號 (如10000001):</b> <input type="text" name="pNo">
+				<b>輸入商品編號 (從1開始):</b> <input type="text" name="pNo">
 				<input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
 			</FORM>

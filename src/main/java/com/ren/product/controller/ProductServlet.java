@@ -61,7 +61,9 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			ProductServiceImpl productSvc = new ProductServiceImpl();
+			// 執行Service的getOnProduct，該方法執行DAO的findByPrimaryKey，將資料庫內的資料以VO的形式傳回
 			ProductVO productVO = productSvc.getOneProduct(pNo);
+			// 引用類型的屬性在未附值時預設為null
 			if (productVO == null) {
 				errorMsgs.add("查無資料");
 			}
