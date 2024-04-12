@@ -1,16 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.product.model.*"%>
-<%@ page import="com.ren.product.model.ProductVO" %>
+<%@ page import="com.ren.productcategory.service.*"%>
+<%@ page import="com.ren.productcategory.model.*"%>
+<%@ page import="com.ren.product.model.*" %>
 
-<% //見com.product.com.controller.ProductServlet.java第238行存入req的productVO物件 (此為輸入格式有錯誤時的productVO物件)
+<% //見com.product.com.controller.ProductServlet.java第163行存入req的productVO物件 (此為從資料庫取出的productVO, 也可以是輸入格式有錯誤時的productVO物件)
    ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 %>
---<%= productVO==null %>--${productVO.pCatNo}-- <!-- line 100 -->
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addProduct.jsp</title>
+<title>商品資料修改 - update_product_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -49,12 +50,12 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料新增 - addProduct.jsp</h3></td><td>
-		 <h4><a href="select_product.jsp">回首頁</a></h4>
+		 <h3>商品資料修改 - update_product_input.jsp</h3>
+		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
-<h3>資料新增:</h3>
+<h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -68,14 +69,10 @@
 
 <FORM METHOD="post" ACTION="product.do" name="form1">
 <table>
-	
-	
-	
-	
-<!-- 	<tr> -->
-<!-- 		<td>商品編號:</td> -->
-<%-- 		<td><input type="TEXT" name="pNo" value="<%= (productVO==null)? "10000001" : productVO.getpNo()%>" size="45"/></td> --%>
-<!-- 	</tr> -->
+	<tr>
+		<td>商品編號:</td>
+		<td><input type="TEXT" name="pNo" value="<%= (productVO==null)? "10000001" : productVO.getpNo()%>" size="45"/></td>
+	</tr>
 	<tr>
 		<td>商品名稱:</td>
 		<td><input type="TEXT" name="pName" value="<%= (productVO==null)? "短襯衫" : productVO.getpName()%>" size="45"/></td>
@@ -122,14 +119,10 @@
 			</c:forEach>
 		</select></td>
 	</tr>
-
 </table>
-
 <br>
-
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
-
+<input type="hidden" name="action" value="update">
+<input type="hidden" name="pNo" value="<%=productVO.getpNo()%>">
+<input type="submit" value="送出修改"></FORM>
 </body>
-
 </html>

@@ -35,7 +35,7 @@ public class ProductJNDIDAOImpl implements ProductDAO_interface {
 	// 查詢全部
 	private static final String GET_ALL_STMT = "SELECT pNo,pCatNo,pName,pInfo,pSize,pColor,pPrice,pStat,pSalQty,pComPeople,pComScore FROM product ORDER BY pNo";
 	// 修改商品資料
-	private static final String UPDATE_STMT = "UPDATE product SET pCatNo=?, pName=?, pInfo=?, pSize=?, pColor=?, pPrice=?, pStat=?, pSalQty=?, pComPeople=?, pComScore=? WHERE pNo = ?";
+	private static final String UPDATE_STMT = "UPDATE product SET pName=?, pInfo=?, pSize=?, pColor=?, pPrice=?, pStat=?, pSalQty=?, pComPeople=?, pComScore=? WHERE pNo = ?";
 	// 刪除所有參照商品的表格
 	// 刪除商品訂單明細
 	private static final String DELETE_PRODUCTORDERDETAILS_STMT = "DELETE FROM ProductOrderDetail WHERE pNo = ?";
@@ -141,17 +141,16 @@ public class ProductJNDIDAOImpl implements ProductDAO_interface {
 
 		try (Connection con = ds.getConnection(); PreparedStatement ps = con.prepareStatement(UPDATE_STMT)) {
 			// 從request的VO取值放入PreparedStatement
-			ps.setInt(1, productVO.getpCatNo());
-			ps.setString(2, productVO.getpName());
-			ps.setString(3, productVO.getpInfo());
-			ps.setInt(4, productVO.getpSize());
-			ps.setString(5, productVO.getpColor());
-			ps.setBigDecimal(6, productVO.getpPrice());
-			ps.setByte(7, productVO.getpStat());
-			ps.setInt(8, productVO.getpSalQty());
-			ps.setInt(9, productVO.getpComPeople());
-			ps.setInt(10, productVO.getpComScore());
-			ps.setInt(11, productVO.getpNo());
+			ps.setString(1, productVO.getpName());
+			ps.setString(2, productVO.getpInfo());
+			ps.setInt(3, productVO.getpSize());
+			ps.setString(4, productVO.getpColor());
+			ps.setBigDecimal(5, productVO.getpPrice());
+			ps.setByte(6, productVO.getpStat());
+			ps.setInt(7, productVO.getpSalQty());
+			ps.setInt(8, productVO.getpComPeople());
+			ps.setInt(9, productVO.getpComScore());
+			ps.setInt(10, productVO.getpNo());
 			// 執行SQL指令將資料庫內對應的資料修改成VO的值
 			ps.executeUpdate();
 			// Handle any SQL errors

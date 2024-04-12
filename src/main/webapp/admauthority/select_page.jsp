@@ -45,7 +45,7 @@ h4 {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>FallELove Product Management</h3>
+				<h3>商品管理頁面</h3>
 				<h4>
 					<a class="icon-link" href="select_page.jsp">
 						<i class="fa-solid fa-house">首頁</i>
@@ -70,7 +70,8 @@ h4 {
 	</c:if>
 
 	<ul>
-		<li><a href='listAllProduct.jsp'>List</a> all Products. <br> <br></li>
+		<li><a href='listAllAdmAuthority.jsp'>List</a> all Products. <br> <br></li>
+
 
 
 		<li>
@@ -108,10 +109,9 @@ h4 {
 	</ul>
 
 
-	<h3>商品管理</h3>
-
+	<h3>商品新增</h3>
 	<ul>
-		<li><a href='addProduct.jsp'>Add</a> a new Product.</li>
+		<li><a href='addAdmAuthority.jsp'>Add</a> a new Product.</li>
 	</ul>
 
 </body>

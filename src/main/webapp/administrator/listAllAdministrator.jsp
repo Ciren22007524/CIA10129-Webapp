@@ -3,15 +3,18 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.ren.product.service.*" %>
 <%@ page import="com.ren.product.model.ProductVO" %>
-<%-- 此頁暫練習採用 Script 的寫法取值 --%>
+<%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //ProductServlet.java(Concroller), 存入req的productVO物件
+    ProductServiceImpl productSvc = new ProductServiceImpl();
+    List<ProductVO> list = productSvc.getAll();
+    pageContext.setAttribute("list", list);
 %>
+
 
 <html>
 <head>
-    <title>商品資料 - listOneProduct.jsp</title>
+    <title>所有員工資料 - listAllProduct.jsp</title>
 
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -44,7 +47,7 @@
 
     <style>
         table {
-            width: 600px;
+            width: 800px;
             background-color: white;
             margin-top: 5px;
             margin-bottom: 5px;
@@ -63,35 +66,35 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+<h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
     <tr>
         <td>
-            <h3>單筆商品資料</h3>
-            <h4><a class="icon-link" href="select_product.jsp">
-                <i class="fa-solid fa-house">首頁</i>
-            </a></h4>
+            <h3>所有商品資料 - listAllProduct.jsp</h3>
+            <h4><a href="select_administrator.jsp"><i class="fa-solid fa-house">回首頁</i></a></h4>
         </td>
     </tr>
 </table>
 
-<div style="display: flex; flex-direction: row;">
-    <table>
-        <tr>
-            <th>商品編號</th>
-            <th>商品類別編號</th>
-            <th>商品名稱</th>
-            <th>商品資訊</th>
-            <th>尺寸</th>
-            <th>顏色</th>
-            <th>商品單價</th>
-            <th>商品狀態</th>
-            <th>商品已售出數量</th>
-            <th>評價總人數</th>
-            <th>評價總星數</th>
-            <th>修改</th>
-            <th>刪除</th>
-        </tr>
+<table>
+    <tr>
+        <th>商品編號</th>
+        <th>商品類別編號</th>
+        <th>商品名稱</th>
+        <th>商品資訊</th>
+        <th>尺寸</th>
+        <th>顏色</th>
+        <th>商品單價</th>
+        <th>商品狀態</th>
+        <th>商品已售出數量</th>
+        <th>評價總人數</th>
+        <th>評價總星數</th>
+        <th>修改</th>
+        <th>刪除</th>
+    </tr>
+    <%@ include file="page1.file" %>
+    <c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+
         <tr>
             <td>${productVO.pNo}</td>
             <td>${productVO.pCatNo}</td>
@@ -123,19 +126,18 @@
                 </form>
             </td>
         </tr>
-    </table>
-</div>
+    </c:forEach>
+</table>
+<%@ include file="page2.file" %>
 
 <script>
     function confirmDelete() {
         if (confirm("確定要刪除嗎？")) {
             document.getElementById("deleteForm").submit(); // 提交表?
             alert("刪除成功！"); // 彈出成功訊息!
-            window.location.href = "select_product.jsp"; // 重定向到首?
         }
     }
 </script>
 
 </body>
-
 </html>

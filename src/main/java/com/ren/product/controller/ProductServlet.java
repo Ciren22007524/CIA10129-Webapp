@@ -41,7 +41,7 @@ public class ProductServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/product/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/product/select_product.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -54,7 +54,7 @@ public class ProductServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/product/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/product/select_product.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -69,7 +69,7 @@ public class ProductServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/product/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/product/select_product.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -111,8 +111,6 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer pNo = Integer.valueOf(req.getParameter("pNo").trim());
-
-			Integer pCatNo = Integer.valueOf(req.getParameter("pCatNo").trim());
 
 			String pName = req.getParameter("pName");
 			String pNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -158,7 +156,7 @@ public class ProductServlet extends HttpServlet {
 			Integer pComScore = Integer.valueOf(req.getParameter("pComScore").trim());
 
 			ProductVO productVO = new ProductVO();
-			productVO.setpCatNo(pCatNo);
+			productVO.setpCatNo(pNo);
 			productVO.setpName(pName);
 			productVO.setpInfo(pInfo);
 			productVO.setpSize(pSize);
@@ -179,7 +177,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ProductServiceImpl productSvc = new ProductServiceImpl();
-			productVO = productSvc.updateProduct(pNo, pCatNo, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty,
+			productVO = productSvc.updateProduct(pNo, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty,
 					pComPeople, pComScore);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
@@ -257,7 +255,7 @@ public class ProductServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("productVO", productVO); // 含有輸入格式錯誤的productVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/product/addproduct.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/product/addProduct.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -269,7 +267,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/product/listAllProduct.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllProduct.jsp
 			successView.forward(req, res);
 		}
 
@@ -293,4 +291,5 @@ public class ProductServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 	}
+
 }

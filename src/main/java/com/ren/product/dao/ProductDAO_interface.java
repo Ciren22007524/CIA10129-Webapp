@@ -17,7 +17,8 @@ public interface ProductDAO_interface {
     // 查詢所有商品
     public List<ProductVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<ProductVO> getAll(Map<String, String[]> map); 
+//  public List<ProductVO> getAll(Map<String, String[]> map);
+    // 商品照片新增
 
 }
 

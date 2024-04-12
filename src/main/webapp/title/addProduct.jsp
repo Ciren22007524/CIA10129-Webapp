@@ -50,7 +50,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>員工資料新增 - addProduct.jsp</h3></td><td>
-		 <h4><a href="select_product.jsp">回首頁</a></h4>
+		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -124,12 +124,9 @@
 	</tr>
 
 </table>
-
 <br>
-
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
 
 </body>
-
 </html>

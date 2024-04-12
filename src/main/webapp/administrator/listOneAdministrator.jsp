@@ -68,7 +68,7 @@
     <tr>
         <td>
             <h3>單筆商品資料</h3>
-            <h4><a class="icon-link" href="select_product.jsp">
+            <h4><a class="icon-link" href="select_administrator.jsp">
                 <i class="fa-solid fa-house">首頁</i>
             </a></h4>
         </td>
@@ -131,7 +131,7 @@
         if (confirm("確定要刪除嗎？")) {
             document.getElementById("deleteForm").submit(); // 提交表?
             alert("刪除成功！"); // 彈出成功訊息!
-            window.location.href = "select_product.jsp"; // 重定向到首?
+            window.location.href = "select_administrator.jsp"; // 重定向到首?
         }
     }
 </script>
