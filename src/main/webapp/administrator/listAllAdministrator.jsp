@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.ren.product.service.*" %>
-<%@ page import="com.ren.product.model.ProductVO" %>
+<%@ page import="com.ren.administrator.service.*" %>
+<%@ page import="com.ren.administrator.model.AdministratorVO" %>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ProductServiceImpl productSvc = new ProductServiceImpl();
-    List<ProductVO> list = productSvc.getAll();
+    AdministratorServiceImpl administratorSvc = new AdministratorServiceImpl();
+    List<AdministratorVO> list = administratorSvc.getAll();
     pageContext.setAttribute("list", list);
 %>
 
@@ -76,51 +76,54 @@
     </tr>
 </table>
 
-<table>
+
+<table id="sort-table" data-toggle="table">
+    <thead>
     <tr>
-        <th>商品編號</th>
-        <th>商品類別編號</th>
-        <th>商品名稱</th>
-        <th>商品資訊</th>
-        <th>尺寸</th>
-        <th>顏色</th>
-        <th>商品單價</th>
-        <th>商品狀態</th>
-        <th>商品已售出數量</th>
-        <th>評價總人數</th>
-        <th>評價總星數</th>
-        <th>修改</th>
-        <th>刪除</th>
+        <th data-field="admNo" data-sortable="true">商品編號</th>
+        <th data-field="admPwd" data-sortable="true">商品類別編號</th>
+        <th data-field="admName" data-sortable="true">商品名稱</th>
+        <th data-field="pInfo" data-sortable="true">商品資訊</th>
+        <th data-field="admStat" data-sortable="true">尺寸</th>
+        <th data-field="admEmail" data-sortable="true">顏色</th>
+        <th data-field="titleNo" data-sortable="true">商品單價</th>
+        <th data-field="admHireDate" data-sortable="true">商品狀態</th>
+        <th data-field="admPhoto" data-sortable="true">商品已售出數量</th>
+        <th data-field="pComPeople" data-sortable="true">評價總人數</th>
+        <th data-field="pComScore" data-sortable="true">評價總星數</th>
+        <th data-field="Correct" data-sortable="true">修改</th>
+        <th data-field="Delete" data-sortable="true">刪除</th>
     </tr>
+    </thead>
     <%@ include file="page1.file" %>
-    <c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+    <c:forEach var="adminitratorVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
         <tr>
-            <td>${productVO.pNo}</td>
-            <td>${productVO.pCatNo}</td>
-            <td>${productVO.pName}</td>
-            <td>${productVO.pInfo}</td>
-            <td>${productVO.pSize}</td>
-            <td>${productVO.pColor}</td>
-            <td>${productVO.pPrice}</td>
-            <td>${productVO.pStat}</td>
-            <td>${productVO.pSalQty}</td>
-            <td>${productVO.pComPeople}</td>
-            <td>${productVO.pComScore}</td>
+            <td>${adminitratorVO.admNo}</td>
+            <td>${adminitratorVO.admPwd}</td>
+            <td>${adminitratorVO.admName}</td>
+            <td>${adminitratorVO.pInfo}</td>
+            <td>${adminitratorVO.admStat}</td>
+            <td>${adminitratorVO.admEmail}</td>
+            <td>${adminitratorVO.titleNo}</td>
+            <td>${adminitratorVO.admHireDate}</td>
+            <td>${adminitratorVO.admPhoto}</td>
+            <td>${adminitratorVO.pComPeople}</td>
+            <td>${adminitratorVO.pComScore}</td>
             <td>
-                <form METHOD="post" ACTION="<%=request.getContextPath()%>/product/product.do"
+                <form METHOD="post" ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
                       style="margin-bottom: 0px;">
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="hidden" name="pNo" value="${productVO.pNo}">
+                        <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
                 </form>
             </td>
             <td>
-                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/product/product.do" style="margin-bottom: 0px;">
+                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/administrator/administrator.do" style="margin-bottom: 0px;">
                     <button type="button" onclick="confirmDelete()">
                         <i class="fa-solid fa-trash-can"></i>
-                        <input type="hidden" name="pNo" value="${productVO.pNo}">
+                        <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
                         <input type="hidden" name="action" value="delete">
                     </button>
                 </form>
@@ -130,7 +133,20 @@
 </table>
 <%@ include file="page2.file" %>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+
 <script>
+
+    $('#sort-table').bootstrapTable();
+
     function confirmDelete() {
         if (confirm("確定要刪除嗎？")) {
             document.getElementById("deleteForm").submit(); // 提交表?

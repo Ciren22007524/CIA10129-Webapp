@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TitleService_interface {
     // 新增(將前端request值放入VO由DAO執行SQL語法，並返回VO由Controller轉給View)
-    public TitleVO addTitle(Integer titleNo, String titleName);
+    public TitleVO addTitle(String titleName);
     // 查詢單筆資料
     public TitleVO getOneTitle(Integer titleNo);
     // 查詢所有資料

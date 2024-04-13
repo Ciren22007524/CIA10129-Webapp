@@ -76,22 +76,25 @@
     </tr>
 </table>
 
-<table>
+
+<table id="sort-table" data-toggle="table">
+    <thead>
     <tr>
-        <th>商品編號</th>
-        <th>商品類別編號</th>
-        <th>商品名稱</th>
-        <th>商品資訊</th>
-        <th>尺寸</th>
-        <th>顏色</th>
-        <th>商品單價</th>
-        <th>商品狀態</th>
-        <th>商品已售出數量</th>
-        <th>評價總人數</th>
-        <th>評價總星數</th>
-        <th>修改</th>
-        <th>刪除</th>
+        <th data-field="pNo" data-sortable="true">商品編號</th>
+        <th data-field="pCatNo" data-sortable="true">商品類別編號</th>
+        <th data-field="pName" data-sortable="true">商品名稱</th>
+        <th data-field="pInfo" data-sortable="true">商品資訊</th>
+        <th data-field="pSize" data-sortable="true">尺寸</th>
+        <th data-field="pColor" data-sortable="true">顏色</th>
+        <th data-field="pPrice" data-sortable="true">商品單價</th>
+        <th data-field="pStat" data-sortable="true">商品狀態</th>
+        <th data-field="pSalQty" data-sortable="true">商品已售出數量</th>
+        <th data-field="pComPeople" data-sortable="true">評價總人數</th>
+        <th data-field="pComScore" data-sortable="true">評價總星數</th>
+        <th data-field="Correct" data-sortable="true">修改</th>
+        <th data-field="Delete" data-sortable="true">刪除</th>
     </tr>
+    </thead>
     <%@ include file="page1.file" %>
     <c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -130,7 +133,20 @@
 </table>
 <%@ include file="page2.file" %>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+
 <script>
+
+    $('#sort-table').bootstrapTable();
+
     function confirmDelete() {
         if (confirm("確定要刪除嗎？")) {
             document.getElementById("deleteForm").submit(); // 提交表?

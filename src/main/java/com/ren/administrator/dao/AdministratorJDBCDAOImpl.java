@@ -3,6 +3,7 @@ package com.ren.administrator.dao;
 import com.ren.administrator.model.AdministratorVO;
 import com.ren.product.model.ProductVO;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,19 +17,22 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
 
     // 新增商品
     private static final String INSERT_STMT =
-            "INSERT INTO Administrator (admPwd,admName,admStat,admEmail,titleNo,admHireDat) VALUES (?, ?, ?, ?, ?, ?)";
+            "INSERT INTO Administrator (admPwd,admName,admStat,admEmail,titleNo,admHireDate,admPhoto) VALUES (?, ?, ?, ?, ?, ?, ?)";
     // 查詢單一品項
     private static final String GET_ONE_STMT =
-            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDat FROM Administrator WHERE admNo = ?";
+            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admNo = ?";
     // 查詢全部
     private static final String GET_ALL_STMT =
-            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDat FROM Administrator ORDER BY admNo";
+            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator ORDER BY admNo";
     // 修改商品資料
     private static final String UPDATE_STMT =
-            "UPDATE Administrator SET admPwd=?, admName=?, admStat=?, admEmail=?, titleNo=?, admHireDate=? WHERE admNo = ?";
+            "UPDATE Administrator SET admPwd=?, admName=?, admStat=?, admEmail=?, titleNo=?, admHireDate=?, admPhoto WHERE admNo = ?";
     // 刪除會員
     private static final String DELETE_ADMINISTRATOR_STMT =
             "DELETE FROM Administrator WHERE admNo = ?";
+    // 放入圖片
+    private static final String UPLOAD_STMT =
+            "insert into administrator(admPwd,admName,admStat,admEmail,titleNo,admHireDate,admPhoto) value (1, '1', '1', 1, '1', '2024-04-12', ?)";
 
     @Override
     public void insert(AdministratorVO administratorVO) {
@@ -44,6 +48,7 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
             ps.setString(4, administratorVO.getAdmEmail());
             ps.setInt(5, administratorVO.getTitleNo());
             ps.setDate(6, administratorVO.getAdmHireDate());
+            ps.setBytes(7, administratorVO.getAdmPhoto());
             // 執行SQL指令將VO資料新增進資料庫
             ps.executeUpdate();
             // Handle any driver errors
@@ -78,6 +83,7 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
                 administratorVO.setAdmEmail(rs.getString("AdmEmail"));
                 administratorVO.setTitleNo(rs.getInt("TitleNo"));
                 administratorVO.setAdmHireDate(rs.getDate("AdmHireDate"));
+                administratorVO.setAdmPhoto(rs.getBytes("admPhoto"));
             }
             // Handle any driver errors
         } catch (ClassNotFoundException e) {
@@ -137,7 +143,8 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
             ps.setString(4, administratorVO.getAdmEmail());
             ps.setInt(5, administratorVO.getTitleNo());
             ps.setDate(6, administratorVO.getAdmHireDate());
-            ps.setInt(7, administratorVO.getAdmNo());
+            ps.setBytes(7, administratorVO.getAdmPhoto());
+            ps.setInt(8, administratorVO.getAdmNo());
             // 執行SQL指令將資料庫內對應的資料修改成VO的值
             ps.executeUpdate();
             // Handle any driver errors
@@ -186,6 +193,25 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
                     e.printStackTrace(System.err);
                 }
             }
+        }
+    }
+
+    @Override
+    public void upload(byte[] admPhoto) {
+        try (Connection con = DriverManager.getConnection(url, userid, passwd);
+             PreparedStatement ps = con.prepareStatement(UPLOAD_STMT)) {
+            // 載入Driver介面的實作類別.class檔來註冊JDBC
+            Class.forName(driver);
+            // 從request的VO取值放入PreparedStatement
+            ps.setBytes(1, admPhoto);
+            // 執行SQL指令將資料庫內對應的資料修改成VO的值
+            ps.executeUpdate();
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
         }
     }
 

@@ -85,22 +85,26 @@ h4 {
 
 		<li>
 			<FORM METHOD="post" ACTION="product.do">
-				<b>選擇商品編號:</b> <select size="1" name="pNo">
+				<b>選擇商品編號:</b>
+				<select size="1" name="pNo">
 					<c:forEach var="productVO" items="${productSvc.all}">
-						<option value="${productVO.pNo}">${productVO.pNo}
+						<option value="${productVO.pNo}">${productVO.pNo}</option>
 					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
+				</select>
+				<input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
 			</FORM>
 		</li>
 
 		<li>
 			<FORM METHOD="post" ACTION="product.do">
-				<b>選擇商品名稱:</b> <select size="1" name="pNo">
+				<b>選擇商品名稱:</b>
+				<select size="1" name="pNo">
 					<c:forEach var="productVO" items="${productSvc.all}">
-						<option value="${productVO.pNo}">${productVO.pName}
+						<option value="${productVO.pNo}">${productVO.pName}</option>
 					</c:forEach>
-				</select> <input type="hidden" name="action" value="getOne_For_Display">
+				</select>
+				<input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
 			</FORM>
 		</li>

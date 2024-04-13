@@ -27,9 +27,9 @@ public class TitleJDBCDAOImpl implements TitleDAO_interface {
     String passwd = "SaiKou97607";
 
     private static final String INSERT_STMT =
-            "INSERT INTO Title (titleNo, titleName) VALUES (?, ?)";
+            "INSERT INTO Title (titleName) VALUES (?)";
     private static final String GET_ONE_STMT =
-            "INSERT INTO Title (titleNo, titleName) VALUES (?, ?)";
+            "SELECT titleNo,titleName FROM Title WHERE titleNo= ?";
     private static final String GET_ALL_STMT =
             "SELECT titleNo,titleName FROM Title order by titleNo";
     private static final String GET_ADMS_BytitleNo_STMT =
@@ -51,7 +51,7 @@ public class TitleJDBCDAOImpl implements TitleDAO_interface {
             // 載入Driver介面的實作類別.class檔來註冊JDBC
             Class.forName(driver);
             // 從request的VO取值放入PreparedStatement
-            ps.setString(2, titleVO.getTitleName());
+            ps.setString(1, titleVO.getTitleName());
             // 執行SQL指令將VO資料新增進資料庫
             ps.executeUpdate();
             // Handle any driver errors

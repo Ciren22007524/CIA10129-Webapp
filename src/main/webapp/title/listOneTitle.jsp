@@ -68,7 +68,7 @@
     <tr>
         <td>
             <h3>單筆商品資料</h3>
-            <h4><a class="icon-link" href="select_page.jsp">
+            <h4><a class="icon-link" href="select_title.jsp">
                 <i class="fa-solid fa-house">首頁</i>
             </a></h4>
         </td>

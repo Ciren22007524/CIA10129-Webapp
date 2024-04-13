@@ -17,4 +17,6 @@ public interface AdministratorDAO_interface {
     // 刪除
     public void delete(Integer admNo);
 
+    public void upload(byte[] admPhoto);
+
 }

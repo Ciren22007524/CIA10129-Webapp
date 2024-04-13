@@ -12,16 +12,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.ren.product.model.ProductVO;
 import com.ren.product.service.ProductServiceImpl;
 
 @WebServlet("/product/product.do")
 public class ProductServlet extends HttpServlet {
 
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
@@ -289,6 +292,30 @@ public class ProductServlet extends HttpServlet {
 			String url = "/product/listAllProduct.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
+		}
+
+		if ("getProductDetails".equals(action)) {
+
+			Integer pNo = Integer.valueOf(req.getParameter("pNo").trim());
+
+			// 根据商品编号获取商品的详细信息
+			ProductServiceImpl productSvc = new ProductServiceImpl();
+			ProductVO productVO = productSvc.getOneProduct(pNo);
+
+			if (productVO != null) {
+				// 将商品详细信息转换为 JSON 格式
+				Gson gson = new Gson();
+				String json = gson.toJson(productVO);
+
+				// 设置响应类型为 JSON
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+
+				// 将 JSON 数据发送到客户端
+				res.getWriter().write(json);
+			} else {
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			}
 		}
 	}
 

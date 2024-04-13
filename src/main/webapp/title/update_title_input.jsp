@@ -51,7 +51,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>商品資料修改 - update_product_input.jsp</h3>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		 <h4><a href="select_title.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 

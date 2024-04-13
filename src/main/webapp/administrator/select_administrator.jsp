@@ -75,21 +75,21 @@ h4 {
 
 
 		<li>
-			<FORM METHOD="post" ACTION="product.do">
-				<b>輸入商品編號 (從1開始):</b> <input type="text" name="pNo">
+			<FORM METHOD="post" ACTION="administrator.do">
+				<b>輸入商品編號 (從1開始):</b> <input type="text" name="admNo">
 				<input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
 			</FORM>
 		</li>
 
-		<jsp:useBean id="productSvc" scope="page"
-			class="com.ren.product.service.ProductServiceImpl" />
+		<jsp:useBean id="administratorSvc" scope="page"
+			class="com.ren.administrator.service.AdministratorServiceImpl" />
 
 		<li>
-			<FORM METHOD="post" ACTION="product.do">
-				<b>選擇商品編號:</b> <select size="1" name="pNo">
-					<c:forEach var="productVO" items="${productSvc.all}">
-						<option value="${productVO.pNo}">${productVO.pNo}
+			<FORM METHOD="post" ACTION="administrator.do">
+				<b>選擇商品編號:</b> <select size="1" name="admNo">
+					<c:forEach var="adminitratorVO" items="${administratorSvc.all}">
+						<option value="${adminitratorVO.admNo}">${adminitratorVO.admNo}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
@@ -97,10 +97,10 @@ h4 {
 		</li>
 
 		<li>
-			<FORM METHOD="post" ACTION="product.do">
-				<b>選擇商品名稱:</b> <select size="1" name="pNo">
-					<c:forEach var="productVO" items="${productSvc.all}">
-						<option value="${productVO.pNo}">${productVO.pName}
+			<FORM METHOD="post" ACTION="administrator.do">
+				<b>選擇商品名稱:</b> <select size="1" name="admNo">
+					<c:forEach var="adminitratorVO" items="${administratorSvc.all}">
+						<option value="${adminitratorVO.admNo}">${adminitratorVO.admName}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">

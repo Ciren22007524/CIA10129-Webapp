@@ -19,13 +19,35 @@ public class ProductCategoryJDBCDAOImpl implements ProductCategoryDAO_interface 
     String userid = "root";
     String passwd = "SaiKou97607";
 
-    private static final String INSERT_STMT = "INSERT INTO productcategory (pCatName) VALUES (?)";
-    private static final String GET_ALL_STMT = "SELECT pCatNo,pCatName FROM productcategory";
-    private static final String GET_ONE_STMT = "SELECT pCatNo,pCatName FROM productcategory where pCatNo = ?";
-    private static final String GET_Products_BypCatNo_STMT = "SELECT pNo,pCatNo,pName,pInfo,pSize,pColor,pPrice,pStat,pSalQty,pComPeople,pComScore FROM product where pCatNo = ? order by pNo";
-    private static final String UPDATE_STMT = "UPDATE productcategory set pCatName = ? where pCatNo = ?";
-    private static final String DELETE_Products_STMT = "DELETE FROM product where pCatNo = ?";
-    private static final String DELETE_ProductCategory_STMT = "DELETE FROM productcategory where pCatNo = ?";
+    private static final String INSERT_STMT =
+            "INSERT INTO productcategory (pCatName) VALUES (?)";
+    private static final String GET_ALL_STMT =
+            "SELECT pCatNo,pCatName FROM productcategory";
+    private static final String GET_ONE_STMT =
+            "SELECT pCatNo,pCatName FROM productcategory where pCatNo = ?";
+    private static final String GET_Products_BypCatNo_STMT =
+            "SELECT pNo,pCatNo,pName,pInfo,pSize,pColor,pPrice,pStat,pSalQty,pComPeople,pComScore FROM product where pCatNo = ? order by pNo";
+    private static final String UPDATE_STMT =
+            "UPDATE productcategory set pCatName = ? where pCatNo = ?";
+    // 刪除所有參照商品的表格
+    // 刪除商品訂單明細
+    private static final String DELETE_PRODUCTORDERDETAILS_STMT =
+            "DELETE FROM ProductOrderDetail WHERE pNo = ?";
+    // 刪除商品我的最愛
+    private static final String DELETE_PRODUCTMYFAVORITE_STMT =
+            "DELETE FROM ProductMyFavorite WHERE pNo = ?";
+    // 刪除商品購物車清單
+    private static final String DELETE_CART_STMT =
+            "DELETE FROM cart WHERE pNo = ?";
+    // 刪除商品照片
+    private static final String DELETE_PRODUCTPICTURE_STMT =
+            "DELETE FROM ProductPicture WHERE pNo = ?";
+    // 刪除商品
+    private static final String DELETE_PRODUCT_STMT =
+            "DELETE FROM product WHERE pCatNo = ?";
+    // 刪完商品才可以刪商品類別
+    private static final String DELETE_ProductCategory_STMT =
+            "DELETE FROM productcategory where pCatNo = ?";
 
     @Override
     public void insert(ProductCategoryVO productCategoryVO) {
@@ -261,8 +283,8 @@ public class ProductCategoryJDBCDAOImpl implements ProductCategoryDAO_interface 
             con = DriverManager.getConnection(url, userid, passwd);
             pstmt = con.prepareStatement(UPDATE_STMT);
 
-            pstmt.setInt(1, productCategoryVO.getpCatNo());
-            pstmt.setString(2, productCategoryVO.getpCatName());
+            pstmt.setString(1, productCategoryVO.getpCatName());
+            pstmt.setInt(2, productCategoryVO.getpCatNo());
 
             pstmt.executeUpdate();
 
@@ -297,26 +319,40 @@ public class ProductCategoryJDBCDAOImpl implements ProductCategoryDAO_interface 
         int updateCount_EMPs = 0;
 
         Connection con = null;
-        PreparedStatement pstmt = null;
+        PreparedStatement ps = null;
 
         try {
-
+            // 載入Driver介面的實作類別.class檔來註冊JDBC
             Class.forName(driver);
             con = DriverManager.getConnection(url, userid, passwd);
-
-            // 1●設定於 pstm.executeUpdate()之前
+            // 設定於 pstmt.executeUpdate()之前
             con.setAutoCommit(false);
+            // 刪除商品訂單明細
+            ps = con.prepareStatement(DELETE_PRODUCTORDERDETAILS_STMT);
+            ps.setInt(1, pCatNo);
+            ps.executeUpdate();
+            // 刪除商品我的最愛
+            ps = con.prepareStatement(DELETE_PRODUCTMYFAVORITE_STMT);
+            ps.setInt(1, pCatNo);
+            ps.executeUpdate();
+            // 刪除商品購物車清單
+            ps = con.prepareStatement(DELETE_CART_STMT);
+            ps.setInt(1, pCatNo);
+            ps.executeUpdate();
+            // 刪除商品照片
+            ps = con.prepareStatement(DELETE_PRODUCTPICTURE_STMT);
+            ps.setInt(1, pCatNo);
+            ps.executeUpdate();
+            // 終於可以刪商品了
+            ps = con.prepareStatement(DELETE_PRODUCT_STMT);
+            ps.setInt(1, pCatNo);
+            ps.executeUpdate();
+            // 再刪除商品類別
+            ps = con.prepareStatement(DELETE_ProductCategory_STMT);
+            ps.setInt(1, pCatNo);
+            ps.executeUpdate();
 
-            // 先刪除員工
-            pstmt = con.prepareStatement(DELETE_Products_STMT);
-            pstmt.setInt(1, pCatNo);
-            updateCount_EMPs = pstmt.executeUpdate();
-            // 再刪除部門
-            pstmt = con.prepareStatement(DELETE_ProductCategory_STMT);
-            pstmt.setInt(1, pCatNo);
-            pstmt.executeUpdate();
-
-            // 2●設定於 pstm.executeUpdate()之後
+            // 設定於 ps.executeUpdate()之後
             con.commit();
             con.setAutoCommit(true);
             System.out.println("刪除部門編號" + pCatNo + "時,共有員工" + updateCount_EMPs + "人同時被刪除");
@@ -328,7 +364,7 @@ public class ProductCategoryJDBCDAOImpl implements ProductCategoryDAO_interface 
         } catch (SQLException se) {
             if (con != null) {
                 try {
-                    // 3●設定於當有exception發生時之catch區塊內
+                    // 設定於當有exception發生時之catch區塊內
                     con.rollback();
                 } catch (SQLException excep) {
                     throw new RuntimeException("rollback error occured. " + excep.getMessage());
@@ -336,9 +372,9 @@ public class ProductCategoryJDBCDAOImpl implements ProductCategoryDAO_interface 
             }
             throw new RuntimeException("A database error occured. " + se.getMessage());
         } finally {
-            if (pstmt != null) {
+            if (ps != null) {
                 try {
-                    pstmt.close();
+                    ps.close();
                 } catch (SQLException se) {
                     se.printStackTrace(System.err);
                 }

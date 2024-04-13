@@ -1,16 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.product.model.*"%>
-<%@ page import="com.ren.product.model.ProductVO" %>
+<%@ page import="com.ren.administrator.service.AdministratorServiceImpl"%>
+<%@ page import="com.ren.administrator.model.AdministratorVO" %>
 
-<% //見com.product.com.controller.ProductServlet.java第238行存入req的productVO物件 (此為輸入格式有錯誤時的productVO物件)
-   ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+<% //見com.administrator.com.controller.ProductServlet.java第238行存入req的adminitratorVO物件 (此為輸入格式有錯誤時的adminitratorVO物件)
+   AdministratorVO adminitratorVO = (AdministratorVO) request.getAttribute("adminitratorVO");
 %>
---<%= productVO==null %>--${productVO.pCatNo}-- <!-- line 100 -->
+--<%= adminitratorVO==null %>--${adminitratorVO.admPwd}-- <!-- line 100 -->
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addProduct.jsp</title>
+<title>員工資料新增 - addAdministrator.jsp</title>
 
 <style>
   table#table-1 {
@@ -49,7 +49,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料新增 - addProduct.jsp</h3></td><td>
+		 <h3>員工資料新增 - addAdministrator.jsp</h3></td><td>
 		 <h4><a href="select_administrator.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -66,67 +66,151 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="product.do" name="form1">
+<FORM METHOD="post" ACTION="administrator.do" name="form1">
 <table>
-	
-	
-	
-	
-<!-- 	<tr> -->
-<!-- 		<td>商品編號:</td> -->
-<%-- 		<td><input type="TEXT" name="pNo" value="<%= (productVO==null)? "10000001" : productVO.getpNo()%>" size="45"/></td> --%>
-<!-- 	</tr> -->
+
 	<tr>
 		<td>商品名稱:</td>
-		<td><input type="TEXT" name="pName" value="<%= (productVO==null)? "短襯衫" : productVO.getpName()%>" size="45"/></td>
+		<td><input type="TEXT" name="admName" value="<%= (adminitratorVO==null)? "短襯衫" : adminitratorVO.getAdmPwd()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品資訊:</td>
-		<td><input type="TEXT" name="pInfo" value="<%= (productVO==null)? "短短的襯衫" : productVO.getpInfo()%>" size="45"/></td>
+		<td><input type="TEXT" name="admPwd" value="<%= (adminitratorVO==null)? "短短的襯衫" : adminitratorVO.getAdmName()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>尺寸:</td>
-		<td><input type="TEXT" name="pSize" value="<%= (productVO==null)? "1" : productVO.getpSize()%>" size="45"/></td>
+		<td><input type="TEXT" name="admStat" value="<%= (adminitratorVO==null)? "1" : adminitratorVO.getAdmStat()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>顏色:</td>
-		<td><input type="TEXT" name="pColor" value="<%= (productVO==null)? "藍色" : productVO.getpColor()%>" size="45"/></td>
+		<td><input type="TEXT" name="admEmail" value="<%= (adminitratorVO==null)? "藍色" : adminitratorVO.getAdmEmail()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品單價:</td>
-		<td><input type="TEXT" name="pPrice" value="<%= (productVO==null)? "5000" : productVO.getpPrice()%>" size="45"/></td>
+		<td><input type="TEXT" name="titleNo" value="<%= (adminitratorVO==null)? "5000" : adminitratorVO.getTitleNo()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品狀態:</td>
-		<td><input type="TEXT" name="pStat" value="<%= (productVO==null)? "1" : productVO.getpStat()%>" size="45"/></td>
+		<td><input type="TEXT" name="admHireDate" value="<%= (adminitratorVO==null)? "1" : adminitratorVO.getAdmHireDate()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品已售出數量:</td>
-		<td><input type="TEXT" name="pSalQty" value="<%= (productVO==null)? "200" : productVO.getpSalQty()%>" size="45"/></td>
+		<td><input type="TEXT" name="admPhoto" value="<%= (adminitratorVO==null)? "200" : adminitratorVO.getAdmPhoto()%>" size="45"/></td>
 	</tr>
-	<tr>
-		<td>評價總人數:</td>
-		<td><input type="TEXT" name="pComPeople" value="<%= (productVO==null)? "50" : productVO.getpComPeople()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>評價總星數:</td>
-		<td><input type="TEXT" name="pComScore" value="<%= (productVO==null)? "3" : productVO.getpComScore()%>" size="45"/></td>
-	</tr>					
 
-	<jsp:useBean id="productCategorySvc" scope="page" class="com.ren.productcategory.service.ProductCategoryServiceImpl" />
+
+	<jsp:useBean id="administratorSvc" scope="page" class="com.ren.administrator.service.AdministratorServiceImpl" />
 	<tr>
 		<td>商品類別編號:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="pCatNo">
-			<c:forEach var="productCategoryVO" items="${productCategorySvc.all}">
-				<option value="${productCategoryVO.pCatNo}" ${(productVO.pCatNo==productCategoryVO.pCatNo)? 'selected':'' } >${productCategoryVO.pCatName}
+		<td><select size="1" name="admPwd">
+			<c:forEach var="administratorVO" items="${administratorSvc.all}">
+				<option value="${administratorVO.admPwd}" ${(adminitratorVO.admPwd==administratorVO.admPwd)? 'selected':'' } >${administratorVO.admName}
 			</c:forEach>
 		</select></td>
 	</tr>
+	<div>
+		<label>商品圖片：</label>
+		<input type="file" id="p_file">
+
+		<!-- 步驟四、使用 Drag and Drop 拖曳檔案 -->
+		<div id="drop_zone"><span class="text">圖片拖曳至此處</span></div>
+
+		<!-- 步驟五、透過 File 物件顯示預覽圖 -->
+		<div id="preview"><span class="text">預覽圖</span></div>
+	</div>
 
 </table>
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
+
+<script>
+
+	// 使用 Drag and Drop 拖曳檔案
+	drop_zone_el.addEventListener("dragover", function (e) {
+		e.preventDefault();
+		// e.target.classList.add("-on");
+	});
+
+	drop_zone_el.addEventListener("dragenter", function (e) {
+		e.target.classList.add("-on");
+	});
+
+	drop_zone_el.addEventListener("dragleave", function (e) {
+		e.target.classList.remove("-on");
+	});
+
+	drop_zone_el.addEventListener("drop", function (e) {
+		e.preventDefault();
+		e.target.classList.remove("-on");
+
+		// console.log(e.dataTransfer.files[0]);
+
+		preview_img(e.dataTransfer.files[0]);
+		p_file_el.value = ""; // 將 type="file"
+	});
+	// 透過 File 物件顯示預覽圖
+	var preview_img = function (file) {
+		// console.log(file);
+
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.addEventListener("load", function () {
+			// console.log(reader.result);
+			// let img_str = `<img src="' + reader.result + '" class"">`;
+			let img_str = `<img src="${reader.result}" class>`;
+			preview_el.innerHTML = img_str;
+		});
+	};
+	p_file_el.addEventListener("change", function (e) {
+		//console.log(this.files);
+
+		if (this.files.length > 0) {
+			preview_img(this.files[0]);
+		} else {
+			preview_el.innerHTML = '<span class="text">預覽圖</span>'
+		}
+	});
+	// 資料送出
+	btn_submit_el.addEventListener("click", function(e){
+		e.preventDefault();
+
+		var send_data = {};
+		send_data.p_name = p_name_el.value;
+		send_data.p_count = p_count_el.value;
+
+		var img_base64_el = document.querySelector(".preview_img");
+		if(img_base64_el){
+			send_data.img_base64 = img_base64_el.getAttribute("src");
+		}
+
+		if(lng_el.value != ""){
+			send_data.position = {
+				lng: lng_el.value,
+				lat: lat_el.value
+			};
+		}
+
+		sessionStorage.setItem("form_data", JSON.stringify(send_data));
+		location.href = "./confirm.html";
+	});
+	// 使用 Session Storage 儲存資料
+	var recovery_data = function(){
+
+		if(sessionStorage.getItem("form_data") != null){
+			var form_data = JSON.parse(sessionStorage.getItem("form_data"));
+			p_name_el.value = form_data.p_name;
+
+			p_count_el.value = form_data.p_count;
+			p_count_value_el.innerHTML = form_data.p_count;
+
+			lng_el.value = form_data.position.lng;
+			lat_el.value = form_data.position.lat;
+			preview_el.innerHTML = "<img class='preview_img'>"
+		}
+	}
+
+</script>
 
 </body>
 </html>

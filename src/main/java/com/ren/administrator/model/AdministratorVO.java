@@ -12,6 +12,7 @@ public class AdministratorVO {
     private String admEmail;
     private Integer titleNo;
     private Date admHireDate;
+    private byte[] admPhoto;
 
     public Integer getAdmNo() {
         return admNo;
@@ -69,4 +70,11 @@ public class AdministratorVO {
         this.admHireDate = admHireDate;
     }
 
+    public byte[] getAdmPhoto() {
+        return admPhoto;
+    }
+
+    public void setAdmPhoto(byte[] admPhoto) {
+        this.admPhoto = admPhoto;
+    }
 }

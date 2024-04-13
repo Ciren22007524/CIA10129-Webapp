@@ -16,10 +16,9 @@ public class TitleServiceImpl implements TitleService_interface {
     }
 
     @Override
-    public TitleVO addTitle(Integer titleNo, String titleName) {
+    public TitleVO addTitle(String titleName) {
         TitleVO titleVO = new TitleVO();
         // 將傳入參數放入VO
-        titleVO.setTitleNo(titleNo);
         titleVO.setTitleName(titleName);
         // 將VO放入dao定義的方法內，使其執行資料庫操作
         dao.insert(titleVO);

@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.ren.product.service.*" %>
-<%@ page import="com.ren.product.model.ProductVO" %>
+<%@ page import="com.ren.administrator.service.*" %>
+<%@ page import="com.ren.administrator.model.AdministratorVO" %>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-    ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //ProductServlet.java(Concroller), 存入req的productVO物件
+    AdministratorVO adminitratorVO = (AdministratorVO) request.getAttribute("adminitratorVO"); //ProductServlet.java(Concroller), 存入req的adminitratorVO物件
 %>
 
 <html>
@@ -93,31 +93,31 @@
             <th>刪除</th>
         </tr>
         <tr>
-            <td>${productVO.pNo}</td>
-            <td>${productVO.pCatNo}</td>
-            <td>${productVO.pName}</td>
-            <td>${productVO.pInfo}</td>
-            <td>${productVO.pSize}</td>
-            <td>${productVO.pColor}</td>
-            <td>${productVO.pPrice}</td>
-            <td>${productVO.pStat}</td>
-            <td>${productVO.pSalQty}</td>
-            <td>${productVO.pComPeople}</td>
-            <td>${productVO.pComScore}</td>
+            <td>${adminitratorVO.admNo}</td>
+            <td>${adminitratorVO.admPwd}</td>
+            <td>${adminitratorVO.admName}</td>
+            <td>${adminitratorVO.pInfo}</td>
+            <td>${adminitratorVO.admStat}</td>
+            <td>${adminitratorVO.admEmail}</td>
+            <td>${adminitratorVO.titleNo}</td>
+            <td>${adminitratorVO.admHireDate}</td>
+            <td>${adminitratorVO.admPhoto}</td>
+            <td>${adminitratorVO.pComPeople}</td>
+            <td>${adminitratorVO.pComScore}</td>
             <td>
-                <form METHOD="post" ACTION="<%=request.getContextPath()%>/product/product.do"
+                <form METHOD="post" ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
                       style="margin-bottom: 0px;">
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="hidden" name="pNo" value="${productVO.pNo}">
+                        <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
                 </form>
             </td>
             <td>
-                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/product/product.do" style="margin-bottom: 0px;">
+                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/administrator/administrator.do" style="margin-bottom: 0px;">
                     <button type="button" onclick="confirmDelete()">
                         <i class="fa-solid fa-trash-can"></i>
-                        <input type="hidden" name="pNo" value="${productVO.pNo}">
+                        <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
                         <input type="hidden" name="action" value="delete">
                     </button>
                 </form>

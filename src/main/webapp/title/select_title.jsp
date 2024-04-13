@@ -47,7 +47,7 @@ h4 {
 			<td>
 				<h3>商品管理頁面</h3>
 				<h4>
-					<a class="icon-link" href="select_page.jsp">
+					<a class="icon-link" href="select_title.jsp">
 						<i class="fa-solid fa-house">首頁</i>
 					</a>
 				</h4>

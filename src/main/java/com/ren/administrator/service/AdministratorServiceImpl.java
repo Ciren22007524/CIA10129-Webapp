@@ -10,13 +10,14 @@ import java.util.List;
 public class AdministratorServiceImpl implements AdministratorService_interface {
 
     private AdministratorDAO_interface dao;
+
     // DI
     public AdministratorServiceImpl() {
         dao = new AdministratorJDBCDAOImpl();
     }
 
     @Override
-    public AdministratorVO addAdministratorVO(String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate) {
+    public AdministratorVO addAdministrator(String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate, byte[] admPhoto) {
         AdministratorVO administratorVO = new AdministratorVO();
         // 將傳入參數放入VO
         administratorVO.setAdmPwd(admPwd);
@@ -25,6 +26,7 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
         administratorVO.setAdmEmail(admEmail);
         administratorVO.setTitleNo(titleNo);
         administratorVO.setAdmHireDate(admHireDate);
+        administratorVO.setAdmPhoto(admPhoto);
         // 將VO放入dao定義的方法內，使其執行資料庫操作
         dao.insert(administratorVO);
         // 返回值作為呈現在View上使用
@@ -32,7 +34,7 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
     }
 
     @Override
-    public AdministratorVO getOneAdministratorVO(Integer admNo) {
+    public AdministratorVO getOneAdministrator(Integer admNo) {
         return dao.findByPrimaryKey(admNo);
     }
 
@@ -42,7 +44,7 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
     }
 
     @Override
-    public AdministratorVO updateAdministratorVO(Integer admNo, String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate) {
+    public AdministratorVO updateAdministrator(Integer admNo, String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate, byte[] admPhoto) {
         AdministratorVO administratorVO = new AdministratorVO();
         // 將傳入參數放入VO
         administratorVO.setAdmNo(admNo);
@@ -59,7 +61,14 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
     }
 
     @Override
-    public void deleteAdministratorVO(Integer admNo) {
+    public void deleteAdministrator(Integer admNo) {
         dao.delete(admNo);
     }
+
+    @Override
+    public void uploadPhoto(byte[] admPhoto) {
+        dao.upload(admPhoto);
+    }
+
 }
+
