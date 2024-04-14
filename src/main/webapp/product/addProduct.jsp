@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.product.model.*"%>
 <%@ page import="com.ren.product.model.ProductVO" %>
 
 <% //見com.product.com.controller.ProductServlet.java第238行存入req的productVO物件 (此為輸入格式有錯誤時的productVO物件)

@@ -80,17 +80,14 @@
 <table id="sort-table" data-toggle="table">
     <thead>
     <tr>
-        <th data-field="admNo" data-sortable="true">商品編號</th>
-        <th data-field="admPwd" data-sortable="true">商品類別編號</th>
-        <th data-field="admName" data-sortable="true">商品名稱</th>
-        <th data-field="pInfo" data-sortable="true">商品資訊</th>
-        <th data-field="admStat" data-sortable="true">尺寸</th>
-        <th data-field="admEmail" data-sortable="true">顏色</th>
-        <th data-field="titleNo" data-sortable="true">商品單價</th>
-        <th data-field="admHireDate" data-sortable="true">商品狀態</th>
-        <th data-field="admPhoto" data-sortable="true">商品已售出數量</th>
-        <th data-field="pComPeople" data-sortable="true">評價總人數</th>
-        <th data-field="pComScore" data-sortable="true">評價總星數</th>
+        <th data-field="admNo" data-sortable="true">管理員編號</th>
+        <th data-field="admPwd" data-sortable="true">管理員密碼</th>
+        <th data-field="admName" data-sortable="true">管理員姓名</th>
+        <th data-field="admStat" data-sortable="true">管理員狀態</th>
+        <th data-field="admEmail" data-sortable="true">管理員Email</th>
+        <th data-field="titleNo" data-sortable="true">職位編號</th>
+        <th data-field="admHireDate" data-sortable="true">入職時間</th>
+        <th data-field="admPhoto" data-sortable="true">管理員大頭貼</th>
         <th data-field="Correct" data-sortable="true">修改</th>
         <th data-field="Delete" data-sortable="true">刪除</th>
     </tr>
@@ -102,14 +99,11 @@
             <td>${adminitratorVO.admNo}</td>
             <td>${adminitratorVO.admPwd}</td>
             <td>${adminitratorVO.admName}</td>
-            <td>${adminitratorVO.pInfo}</td>
             <td>${adminitratorVO.admStat}</td>
             <td>${adminitratorVO.admEmail}</td>
             <td>${adminitratorVO.titleNo}</td>
             <td>${adminitratorVO.admHireDate}</td>
             <td>${adminitratorVO.admPhoto}</td>
-            <td>${adminitratorVO.pComPeople}</td>
-            <td>${adminitratorVO.pComScore}</td>
             <td>
                 <form METHOD="post" ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
                       style="margin-bottom: 0px;">
@@ -117,6 +111,7 @@
                         <i class="fa-solid fa-pen-to-square"></i>
                         <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
+                    </button>
                 </form>
             </td>
             <td>

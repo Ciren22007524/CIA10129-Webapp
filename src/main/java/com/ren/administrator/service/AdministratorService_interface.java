@@ -16,7 +16,13 @@ public interface AdministratorService_interface {
     public AdministratorVO updateAdministrator(Integer admNo, String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate, byte[] admPhoto);
     // 刪除
     public void deleteAdministrator(Integer admNo);
-
-    public void uploadPhoto(byte[] admPhoto);
+    // 上傳圖片
+    public void uploadPhoto(Integer admNo, byte[] admPhoto);
+    // 顯示大頭貼
+    public byte[] photoSticker(Integer admNo);
+    // 修改圖片
+    public void ChangePhoto(Integer admNo, byte[] admPhoto);
+    // 註冊(含驗證)
+    public List<String> register(AdministratorVO administratorVO);
 
 }

@@ -6,7 +6,7 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-    AdministratorVO adminitratorVO = (AdministratorVO) request.getAttribute("adminitratorVO"); //ProductServlet.java(Concroller), 存入req的adminitratorVO物件
+    AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO"); //ProductServlet.java(Concroller), 存入req的adminitratorVO物件
 %>
 
 <html>
@@ -78,17 +78,14 @@
 <div style="display: flex; flex-direction: row;">
     <table>
         <tr>
-            <th>商品編號</th>
-            <th>商品類別編號</th>
-            <th>商品名稱</th>
-            <th>商品資訊</th>
-            <th>尺寸</th>
-            <th>顏色</th>
-            <th>商品單價</th>
-            <th>商品狀態</th>
-            <th>商品已售出數量</th>
-            <th>評價總人數</th>
-            <th>評價總星數</th>
+            <th>管理員編號</th>
+            <th>管理員密碼</th>
+            <th>管理員姓名</th>
+            <th>管理員狀態</th>
+            <th>管理員Email</th>
+            <th>職位編號</th>
+            <th>入職時間</th>
+            <th>管理員大頭貼</th>
             <th>修改</th>
             <th>刪除</th>
         </tr>
@@ -96,14 +93,11 @@
             <td>${adminitratorVO.admNo}</td>
             <td>${adminitratorVO.admPwd}</td>
             <td>${adminitratorVO.admName}</td>
-            <td>${adminitratorVO.pInfo}</td>
             <td>${adminitratorVO.admStat}</td>
             <td>${adminitratorVO.admEmail}</td>
             <td>${adminitratorVO.titleNo}</td>
             <td>${adminitratorVO.admHireDate}</td>
             <td>${adminitratorVO.admPhoto}</td>
-            <td>${adminitratorVO.pComPeople}</td>
-            <td>${adminitratorVO.pComScore}</td>
             <td>
                 <form METHOD="post" ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
                       style="margin-bottom: 0px;">
@@ -111,6 +105,7 @@
                         <i class="fa-solid fa-pen-to-square"></i>
                         <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
+                    </button>
                 </form>
             </td>
             <td>

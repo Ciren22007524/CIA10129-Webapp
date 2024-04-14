@@ -5,6 +5,8 @@ import com.ren.administrator.dao.AdministratorJDBCDAOImpl;
 import com.ren.administrator.model.AdministratorVO;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AdministratorServiceImpl implements AdministratorService_interface {
@@ -66,8 +68,45 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
     }
 
     @Override
-    public void uploadPhoto(byte[] admPhoto) {
-        dao.upload(admPhoto);
+    public void uploadPhoto(Integer admNo,byte[] admPhoto) {
+        dao.upload(admNo, admPhoto);
+    }
+
+    @Override
+    public byte[] photoSticker(Integer admNo) {
+        return dao.photoSticker(admNo);
+    }
+
+    @Override
+    public void ChangePhoto(Integer admNo, byte[] admPhoto) {
+        dao.ChangePhoto(admNo, admPhoto);
+    }
+
+    @Override
+    public List<String> register(AdministratorVO administratorVO) {
+        // 放驗證錯誤訊息，在controller迭代放入errorMessage
+        List<String> existData = new LinkedList<>();
+        // 輸入名字
+        String inputName = administratorVO.getAdmName();
+        // 輸入信箱
+        String inputEmail = administratorVO.getAdmEmail();
+        // 查詢使用者名稱與信箱
+        existData = dao.findExistData(inputName, inputEmail);
+        if (existData.size() >= 1) {
+            return existData;
+        }
+        Byte EMPLOYED = 1;
+        administratorVO.setAdmStat(EMPLOYED);
+        Integer NEW_MEMBER = 1;
+        administratorVO.setTitleNo(NEW_MEMBER);
+        LocalDate today = LocalDate.now();
+        // 將 LocalDate 轉換為 java.sql.Date
+        Date hireDate = Date.valueOf(today);
+        administratorVO.setAdmHireDate(hireDate);
+        // 將VO放入dao定義的方法內，使其執行資料庫操作
+        dao.insert(administratorVO);
+
+        return existData;
     }
 
 }

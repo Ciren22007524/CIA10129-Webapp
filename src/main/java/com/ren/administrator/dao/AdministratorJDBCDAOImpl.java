@@ -6,6 +6,7 @@ import com.ren.product.model.ProductVO;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
@@ -21,18 +22,29 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
     // 查詢單一品項
     private static final String GET_ONE_STMT =
             "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admNo = ?";
+    private static final String GET_NAME_STMT =
+            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admName = ?";
+    private static final String GET_EMAIL_STMT =
+            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admEmail = ?";
     // 查詢全部
     private static final String GET_ALL_STMT =
             "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator ORDER BY admNo";
-    // 修改商品資料
+    // 修改資料
     private static final String UPDATE_STMT =
             "UPDATE Administrator SET admPwd=?, admName=?, admStat=?, admEmail=?, titleNo=?, admHireDate=?, admPhoto WHERE admNo = ?";
     // 刪除會員
     private static final String DELETE_ADMINISTRATOR_STMT =
             "DELETE FROM Administrator WHERE admNo = ?";
-    // 放入圖片
+    // 上傳圖片
     private static final String UPLOAD_STMT =
-            "insert into administrator(admPwd,admName,admStat,admEmail,titleNo,admHireDate,admPhoto) value (1, '1', '1', 1, '1', '2024-04-12', ?)";
+            "insert into administrator(admPhoto) value (?) WHERE admNo = ?";
+    // 顯示大頭貼
+    private static final String PHOTO_DISPLAY_STMT =
+            "SELECT admPhoto FROM Administrator WHERE admNo = ?";
+    // 修改圖片
+    private static final String CHANGE_PHOTO_STMT =
+            "UPDATE Administrator SET admPhoto=? WHERE admNo = ?";
+
 
     @Override
     public void insert(AdministratorVO administratorVO) {
@@ -197,13 +209,14 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
     }
 
     @Override
-    public void upload(byte[] admPhoto) {
+    public void upload(Integer admNo, byte[] admPhoto) {
         try (Connection con = DriverManager.getConnection(url, userid, passwd);
              PreparedStatement ps = con.prepareStatement(UPLOAD_STMT)) {
             // 載入Driver介面的實作類別.class檔來註冊JDBC
             Class.forName(driver);
             // 從request的VO取值放入PreparedStatement
             ps.setBytes(1, admPhoto);
+            ps.setInt(2, admNo);
             // 執行SQL指令將資料庫內對應的資料修改成VO的值
             ps.executeUpdate();
             // Handle any driver errors
@@ -213,6 +226,110 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
         } catch (SQLException se) {
             throw new RuntimeException("A database error occured. " + se.getMessage());
         }
+    }
+
+    @Override
+    public byte[] photoSticker(Integer admNo) {
+        // 宣告VO並指定空值，若查詢無結果會出現空值，後續於Controller作錯誤處理
+        byte[] admPhoto = null;
+        // ResultSet在相關的Statement關閉時會自動關閉，因此不用另外寫在Auto-closable
+        try (Connection con = DriverManager.getConnection(url, userid, passwd);
+             PreparedStatement ps = con.prepareStatement(PHOTO_DISPLAY_STMT)) {
+            // 載入Driver介面的實作類別.class檔來註冊JDBC
+            Class.forName(driver);
+            // 將request的商品編號放入SQL
+            ps.setInt(1, admNo);
+            // 執行SQL查詢並得到ResultSet物件
+            ResultSet rs = ps.executeQuery();
+            // 取出ResultSet內資料放入VO
+            while (rs.next()) {
+                admPhoto = rs.getBytes("admPhoto");
+            }
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+        }
+        // 回傳VO，待後續Controller導至View呈現
+        return admPhoto;
+    }
+
+    @Override
+    public void ChangePhoto(Integer admNo, byte[] admPhoto) {
+        try (Connection con = DriverManager.getConnection(url, userid, passwd);
+             PreparedStatement ps = con.prepareStatement(CHANGE_PHOTO_STMT)) {
+            // 載入Driver介面的實作類別.class檔來註冊JDBC
+            Class.forName(driver);
+            // 從request的VO取值放入PreparedStatement
+            ps.setBytes(1, admPhoto);
+            ps.setInt(2, admNo);
+            // 執行SQL指令將資料庫內對應的資料修改成VO的值
+            ps.executeUpdate();
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+        }
+    }
+
+    @Override
+    public List findExistData(String admName, String admEmail) {
+
+        List<String> existData = new LinkedList<>();
+
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            // 載入Driver介面的實作類別.class檔來註冊JDBC
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, userid, passwd);
+            // 刪除管理員
+            ps = con.prepareStatement(GET_NAME_STMT);
+            ps.setString(1, admName);
+            ResultSet rsName = ps.executeQuery();
+
+            if (rsName.next()) {
+                existData.add("已存在用戶名:" + admName);
+            }
+
+            ps = con.prepareStatement(GET_EMAIL_STMT);
+            ps.setString(1, admEmail);
+            ResultSet rsEmail = ps.executeQuery();
+
+            if (rsEmail.next()) {
+                existData.add("已使用信箱:" + admEmail);
+            }
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. "
+                    + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+
+        }
+        return existData;
     }
 
 }

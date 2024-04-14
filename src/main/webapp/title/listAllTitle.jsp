@@ -2,19 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.ren.product.service.*" %>
-<%@ page import="com.ren.product.model.ProductVO" %>
+<%@ page import="com.ren.product.model.AdministratorVO" %>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ProductServiceImpl productSvc = new ProductServiceImpl();
-    List<ProductVO> list = productSvc.getAll();
+    AdministratorServiceImpl administratorSvc = new AdministratorServiceImpl();
+    List<AdministratorVO> list = administratorSvc.getAll();
     pageContext.setAttribute("list", list);
 %>
 
 
 <html>
 <head>
-    <title>所有員工資料 - listAllProduct.jsp</title>
+    <title>所有員工資料 - listAllAdministrator.jsp</title>
 
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -70,7 +70,7 @@
 <table id="table-1">
     <tr>
         <td>
-            <h3>所有商品資料 - listAllProduct.jsp</h3>
+            <h3>所有商品資料 - listAllAdministrator.jsp</h3>
             <h4><a href="select_title.jsp"><i class="fa-solid fa-house">回首頁</i></a></h4>
         </td>
     </tr>
@@ -93,34 +93,34 @@
         <th>刪除</th>
     </tr>
     <%@ include file="page1.file" %>
-    <c:forEach var="productVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+    <c:forEach var="administratorVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
         <tr>
-            <td>${productVO.pNo}</td>
-            <td>${productVO.pCatNo}</td>
-            <td>${productVO.pName}</td>
-            <td>${productVO.pInfo}</td>
-            <td>${productVO.pSize}</td>
-            <td>${productVO.pColor}</td>
-            <td>${productVO.pPrice}</td>
-            <td>${productVO.pStat}</td>
-            <td>${productVO.pSalQty}</td>
-            <td>${productVO.pComPeople}</td>
-            <td>${productVO.pComScore}</td>
+            <td>${administratorVO.pNo}</td>
+            <td>${administratorVO.pCatNo}</td>
+            <td>${administratorVO.pName}</td>
+            <td>${administratorVO.pInfo}</td>
+            <td>${administratorVO.pSize}</td>
+            <td>${administratorVO.pColor}</td>
+            <td>${administratorVO.pPrice}</td>
+            <td>${administratorVO.pStat}</td>
+            <td>${administratorVO.pSalQty}</td>
+            <td>${administratorVO.pComPeople}</td>
+            <td>${administratorVO.pComScore}</td>
             <td>
-                <form METHOD="post" ACTION="<%=request.getContextPath()%>/product/product.do"
+                <form METHOD="post" ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
                       style="margin-bottom: 0px;">
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="hidden" name="pNo" value="${productVO.pNo}">
+                        <input type="hidden" name="pNo" value="${administratorVO.pNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
                 </form>
             </td>
             <td>
-                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/product/product.do" style="margin-bottom: 0px;">
+                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/administrator/administrator.do" style="margin-bottom: 0px;">
                     <button type="button" onclick="confirmDelete()">
                         <i class="fa-solid fa-trash-can"></i>
-                        <input type="hidden" name="pNo" value="${productVO.pNo}">
+                        <input type="hidden" name="pNo" value="${administratorVO.pNo}">
                         <input type="hidden" name="action" value="delete">
                     </button>
                 </form>
