@@ -21,14 +21,14 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
             "INSERT INTO Administrator (admPwd,admName,admStat,admEmail,titleNo,admHireDate,admPhoto) VALUES (?, ?, ?, ?, ?, ?, ?)";
     // 查詢單一品項
     private static final String GET_ONE_STMT =
-            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admNo = ?";
+            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate, admPhoto FROM Administrator WHERE admNo = ?";
     private static final String GET_NAME_STMT =
             "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admName = ?";
     private static final String GET_EMAIL_STMT =
             "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admEmail = ?";
     // 查詢全部
     private static final String GET_ALL_STMT =
-            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator ORDER BY admNo";
+            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate,admPhoto FROM Administrator ORDER BY admNo";
     // 修改資料
     private static final String UPDATE_STMT =
             "UPDATE Administrator SET admPwd=?, admName=?, admStat=?, admEmail=?, titleNo=?, admHireDate=?, admPhoto WHERE admNo = ?";
@@ -37,7 +37,7 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
             "DELETE FROM Administrator WHERE admNo = ?";
     // 上傳圖片
     private static final String UPLOAD_STMT =
-            "insert into administrator(admPhoto) value (?) WHERE admNo = ?";
+            "UPDATE Administrator SET admPhoto=? WHERE admNo = ?";
     // 顯示大頭貼
     private static final String PHOTO_DISPLAY_STMT =
             "SELECT admPhoto FROM Administrator WHERE admNo = ?";
@@ -130,6 +130,7 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
                 administratorVO.setAdmEmail(rs.getString("AdmEmail"));
                 administratorVO.setTitleNo(rs.getInt("TitleNo"));
                 administratorVO.setAdmHireDate(rs.getDate("AdmHireDate"));
+                administratorVO.setAdmPhoto(rs.getBytes("admPhoto"));
                 list.add(administratorVO); // 將資料新增至列表內之後作為搜尋結果返回給View
             }
             // Handle any driver errors
@@ -214,10 +215,9 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
              PreparedStatement ps = con.prepareStatement(UPLOAD_STMT)) {
             // 載入Driver介面的實作類別.class檔來註冊JDBC
             Class.forName(driver);
-            // 從request的VO取值放入PreparedStatement
             ps.setBytes(1, admPhoto);
             ps.setInt(2, admNo);
-            // 執行SQL指令將資料庫內對應的資料修改成VO的值
+            // 執行SQL指令
             ps.executeUpdate();
             // Handle any driver errors
         } catch (ClassNotFoundException e) {
@@ -252,7 +252,6 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
         } catch (SQLException se) {
             throw new RuntimeException("A database error occured. " + se.getMessage());
         }
-        // 回傳VO，待後續Controller導至View呈現
         return admPhoto;
     }
 

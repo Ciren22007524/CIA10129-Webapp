@@ -6,7 +6,8 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-    AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO"); //ProductServlet.java(Concroller), 存入req的adminitratorVO物件
+    AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO"); //ProductServlet.java(Concroller), 存入req的administratorVO物件
+    String photoBase64 = (String) request.getAttribute("photoBase64");
 %>
 
 <html>
@@ -90,20 +91,20 @@
             <th>刪除</th>
         </tr>
         <tr>
-            <td>${adminitratorVO.admNo}</td>
-            <td>${adminitratorVO.admPwd}</td>
-            <td>${adminitratorVO.admName}</td>
-            <td>${adminitratorVO.admStat}</td>
-            <td>${adminitratorVO.admEmail}</td>
-            <td>${adminitratorVO.titleNo}</td>
-            <td>${adminitratorVO.admHireDate}</td>
-            <td>${adminitratorVO.admPhoto}</td>
+            <td>${administratorVO.admNo}</td>
+            <td>${administratorVO.admPwd}</td>
+            <td>${administratorVO.admName}</td>
+            <td>${administratorVO.admStat}</td>
+            <td>${administratorVO.admEmail}</td>
+            <td>${administratorVO.titleNo}</td>
+            <td>${administratorVO.admHireDate}</td>
+            <td><c:if test="${administratorVO.admPhoto != null}"><img src="data:image/jpeg;base64,${photoBase64}"></c:if></td>
             <td>
                 <form METHOD="post" ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
                       style="margin-bottom: 0px;">
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
+                        <input type="hidden" name="admNo" value="${administratorVO.admNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
                     </button>
                 </form>
@@ -112,7 +113,7 @@
                 <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/administrator/administrator.do" style="margin-bottom: 0px;">
                     <button type="button" onclick="confirmDelete()">
                         <i class="fa-solid fa-trash-can"></i>
-                        <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
+                        <input type="hidden" name="admNo" value="${administratorVO.admNo}">
                         <input type="hidden" name="action" value="delete">
                     </button>
                 </form>
@@ -130,6 +131,24 @@
         }
     }
 </script>
+
+<%--<!-- 定義一個 <img> 元素，並將其 src 屬性設置為 Base64 編碼的字串 -->--%>
+<%--<img id="photoBase64" src="" alt="Base64 Image"/>--%>
+
+<%--<script>--%>
+<%--    // 從後端獲取 Base64 編碼的圖像數據--%>
+<%--    // 假設後端返回的數據為一個 JSON 對象，其中包含 Base64 編碼的圖像--%>
+<%--    fetch('your_api_endpoint')--%>
+<%--        .then(response => response.json())--%>
+<%--        .then(data => {--%>
+<%--            // 獲取 Base64 編碼的圖像--%>
+<%--            const base64Image = data.base64Image;--%>
+
+<%--            // 設置 <img> 元素的 src 屬性為 Base64 編碼的字串--%>
+<%--            document.getElementById('base64Image').src = 'data:image/jpeg;base64,' + base64Image;--%>
+<%--        })--%>
+<%--        .catch(error => console.error('Error fetching Base64 image:', error));--%>
+<%--</script>--%>
 
 </body>
 

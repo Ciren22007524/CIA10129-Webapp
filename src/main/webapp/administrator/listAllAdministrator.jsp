@@ -11,7 +11,6 @@
     pageContext.setAttribute("list", list);
 %>
 
-
 <html>
 <head>
     <title>所有員工資料 - listAllProduct.jsp</title>

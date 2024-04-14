@@ -42,13 +42,10 @@
 
 <body bgcolor='white'>
 
-<!-- 定義一個 <img> 元素，並將其 src 屬性設置為 Base64 編碼的字串 -->
-<img id="base64Image" src="" alt="Base64 Image"/>
-
 <table id="table-1">
     <tr>
         <td>
-            <h3>商品管理頁面</h3>
+            <h3>管理員管理頁面</h3>
             <h4>
                 <a class="icon-link" href="select_administrator.jsp">
                     <i class="fa-solid fa-house">首頁</i>
@@ -78,7 +75,7 @@
 
     <li>
         <FORM METHOD="post" ACTION="administrator.do">
-            <b>輸入商品編號 (從1開始):</b> <input type="text" name="admNo">
+            <b>輸入管理員編號 (從1開始):</b> <input type="text" name="admNo">
             <input type="hidden" name="action" value="getOne_For_Display">
             <input type="submit" value="送出">
         </FORM>
@@ -89,7 +86,7 @@
 
     <li>
         <FORM METHOD="post" ACTION="administrator.do">
-            <b>選擇商品編號:</b> <select size="1" name="admNo">
+            <b>選擇管理員編號:</b> <select size="1" name="admNo">
             <c:forEach var="adminitratorVO" items="${administratorSvc.all}">
             <option value="${adminitratorVO.admNo}">${adminitratorVO.admNo}
                 </c:forEach>
@@ -100,7 +97,7 @@
 
     <li>
         <FORM METHOD="post" ACTION="administrator.do">
-            <b>選擇商品名稱:</b> <select size="1" name="admNo">
+            <b>選擇管理員名稱:</b> <select size="1" name="admNo">
             <c:forEach var="adminitratorVO" items="${administratorSvc.all}">
             <option value="${adminitratorVO.admNo}">${adminitratorVO.admName}
                 </c:forEach>
@@ -111,24 +108,14 @@
 </ul>
 
 
-<h3>商品新增</h3>
+<h3>管理員新增</h3>
 <ul>
     <li><a href='addAdministrator.jsp'>Add</a> a new Product.</li>
 </ul>
+<h3>大頭貼上傳</h3>
+<ul>
+    <li><a href='upload.jsp'>Add</a> photoSticker.</li>
+</ul>
 
-<script>
-    // 從後端獲取 Base64 編碼的圖像數據
-    // 假設後端返回的數據為一個 JSON 對象，其中包含 Base64 編碼的圖像
-    fetch('your_api_endpoint')
-        .then(response => response.json())
-        .then(data => {
-            // 獲取 Base64 編碼的圖像
-            const base64Image = data.base64Image;
-
-            // 設置 <img> 元素的 src 屬性為 Base64 編碼的字串
-            document.getElementById('base64Image').src = 'data:image/jpeg;base64,' + base64Image;
-        })
-        .catch(error => console.error('Error fetching Base64 image:', error));
-</script>
 </body>
 </html>

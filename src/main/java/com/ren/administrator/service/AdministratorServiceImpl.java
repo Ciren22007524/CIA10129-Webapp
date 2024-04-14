@@ -6,6 +6,7 @@ import com.ren.administrator.model.AdministratorVO;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,8 +74,17 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
     }
 
     @Override
-    public byte[] photoSticker(Integer admNo) {
-        return dao.photoSticker(admNo);
+    public String photoSticker(Integer admNo) {
+        // 將byte[]陣列(二進制資料)轉成Base64(字串)傳到前端的src屬性即可轉成圖片顯示
+        byte[] admPhoto = dao.photoSticker(admNo);
+        String photoBase64 = null;
+        if (admPhoto != null) {
+            Base64.Encoder encoder = Base64.getEncoder();
+            photoBase64 = encoder.encodeToString(admPhoto);
+        } else {
+            photoBase64 = ""; // 或其他預設值
+        }
+        return photoBase64;
     }
 
     @Override
@@ -90,14 +100,15 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
         String inputName = administratorVO.getAdmName();
         // 輸入信箱
         String inputEmail = administratorVO.getAdmEmail();
-        // 查詢使用者名稱與信箱
+        // 查詢使用者名稱與信箱，檢查是否有重複
         existData = dao.findExistData(inputName, inputEmail);
         if (existData.size() >= 1) {
             return existData;
         }
+        // 確認無重複，執行註冊
         Byte EMPLOYED = 1;
         administratorVO.setAdmStat(EMPLOYED);
-        Integer NEW_MEMBER = 1;
+        Integer NEW_MEMBER = 10;
         administratorVO.setTitleNo(NEW_MEMBER);
         LocalDate today = LocalDate.now();
         // 將 LocalDate 轉換為 java.sql.Date

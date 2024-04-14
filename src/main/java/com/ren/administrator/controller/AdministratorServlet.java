@@ -42,7 +42,7 @@ public class AdministratorServlet extends HttpServlet {
             /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
             String str = req.getParameter("admNo");
             if (str == null || (str.trim()).length() == 0) {
-                errorMsgs.add("請輸入員工編號");
+                errorMsgs.add("請輸入管理員編號");
             }
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
@@ -55,7 +55,7 @@ public class AdministratorServlet extends HttpServlet {
             try {
                 admNo = Integer.valueOf(str);
             } catch (Exception e) {
-                errorMsgs.add("員工編號格式不正確");
+                errorMsgs.add("管理員編號格式不正確");
             }
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
@@ -68,6 +68,7 @@ public class AdministratorServlet extends HttpServlet {
             AdministratorServiceImpl administratorSvc = new AdministratorServiceImpl();
             // 執行Service的getOnProduct，該方法執行DAO的findByPrimaryKey，將資料庫內的資料以VO的形式傳回
             AdministratorVO administratorVO = administratorSvc.getOneAdministrator(admNo);
+            String photoBase64 = administratorSvc.photoSticker(admNo);
             // 引用類型的屬性在未附值時預設為null
             if (administratorVO == null) {
                 errorMsgs.add("查無資料");
@@ -81,8 +82,9 @@ public class AdministratorServlet extends HttpServlet {
 
             /*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
             req.setAttribute("administratorVO", administratorVO); // 資料庫取出的administratorVO物件,存入req
+            req.setAttribute("photoBase64", photoBase64);
             String url = "/administrator/listOneAdministrator.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneProduct.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneAdministrator.jsp
             successView.forward(req, res);
         }
 
@@ -309,35 +311,39 @@ public class AdministratorServlet extends HttpServlet {
 
             byte[] admPhoto = null;
             try {
-
-                Part photoPart = req.getPart("admPhoto");
+                // 取得Part物件
+                Part photoPart = req.getPart("uploadImg");
                 if (photoPart != null) {
 
                     InputStream inputStream = photoPart.getInputStream();
                     admPhoto = inputStream.readAllBytes();
 
                 } else {
-                    errorMsgs.add("未找到 照片 部分。");
+                    errorMsgs.add("未找到照片部分。");
                 }
             } catch (IOException e) {
-                errorMsgs.add("讀取 admPhoto 時發生錯誤: " + e.getMessage());
+                errorMsgs.add("讀取admPhoto時發生錯誤: " + e.getMessage());
             }
-            AdministratorVO administratorVO = new AdministratorVO();
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                req.setAttribute("administratorVO", administratorVO); // 含有輸入格式錯誤的administratorVO物件,也存入req
-                RequestDispatcher failureView = req.getRequestDispatcher("/administrator/addAdministrator.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/administrator/upload.jsp");
                 failureView.forward(req, res);
                 return;
             }
 
             /*************************** 2.開始新增資料 ***************************************/
+            // 取得Service物件執行上傳方法
             AdministratorServiceImpl administratorSvc = new AdministratorServiceImpl();
             administratorSvc.uploadPhoto(admNo, admPhoto);
+            // 根據傳入編號取得VO，後續傳入req給forward後的頁面使用
+            AdministratorVO administratorVO = administratorSvc.getOneAdministrator(admNo);
+            String photoBase64 = administratorSvc.photoSticker(admNo);
 
-            /*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-            String url = "/administrator/listAllAdministrator.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllProduct.jsp
+            /*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+            req.setAttribute("administratorVO", administratorVO); // 資料庫取出的administratorVO物件,存入req
+            req.setAttribute("photoBase64", photoBase64);
+            String url = "/administrator/listOneAdministrator.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneAdministrator.jsp
             successView.forward(req, res);
         }
 

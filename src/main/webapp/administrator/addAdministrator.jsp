@@ -3,10 +3,11 @@
 <%@ page import="com.ren.administrator.service.AdministratorServiceImpl"%>
 <%@ page import="com.ren.administrator.model.AdministratorVO" %>
 
-<% //見com.administrator.com.controller.ProductServlet.java第238行存入req的adminitratorVO物件 (此為輸入格式有錯誤時的adminitratorVO物件)
-   AdministratorVO adminitratorVO = (AdministratorVO) request.getAttribute("adminitratorVO");
+<% //見com.administrator.com.controller.ProductServlet.java第238行存入req的administratorVO物件 (此為輸入格式有錯誤時的administratorVO物件)
+   AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO");
 %>
---<%= adminitratorVO==null %>--${adminitratorVO.admPwd}-- <!-- line 100 -->
+--<%= administratorVO==null %>--${administratorVO.admPwd}-- <!-- line 100 -->
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -70,32 +71,32 @@
 <table>
 
 	<tr>
-		<td>商品名稱:</td>
-		<td><input type="TEXT" name="admName" value="<%= (adminitratorVO==null)? "短襯衫" : adminitratorVO.getAdmPwd()%>" size="45"/></td>
+		<td>密碼:</td>
+		<td><input type="TEXT" name="admPwd" value="<%= (administratorVO==null)? "短短的襯衫" : administratorVO.getAdmName()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>商品資訊:</td>
-		<td><input type="TEXT" name="admPwd" value="<%= (adminitratorVO==null)? "短短的襯衫" : adminitratorVO.getAdmName()%>" size="45"/></td>
+		<td>名稱:</td>
+		<td><input type="TEXT" name="admName" value="<%= (administratorVO==null)? "短襯衫" : administratorVO.getAdmPwd()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>尺寸:</td>
-		<td><input type="TEXT" name="admStat" value="<%= (adminitratorVO==null)? "1" : adminitratorVO.getAdmStat()%>" size="45"/></td>
+		<td>狀態:</td>
+		<td><input type="TEXT" name="admStat" value="<%= (administratorVO==null)? "1" : administratorVO.getAdmStat()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>顏色:</td>
-		<td><input type="TEXT" name="admEmail" value="<%= (adminitratorVO==null)? "藍色" : adminitratorVO.getAdmEmail()%>" size="45"/></td>
+		<td>信箱:</td>
+		<td><input type="TEXT" name="admEmail" value="<%= (administratorVO==null)? "藍色" : administratorVO.getAdmEmail()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>商品單價:</td>
-		<td><input type="TEXT" name="titleNo" value="<%= (adminitratorVO==null)? "5000" : adminitratorVO.getTitleNo()%>" size="45"/></td>
+		<td>職位:</td>
+		<td><input type="TEXT" name="titleNo" value="<%= (administratorVO==null)? "5000" : administratorVO.getTitleNo()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>商品狀態:</td>
-		<td><input type="TEXT" name="admHireDate" value="<%= (adminitratorVO==null)? "1" : adminitratorVO.getAdmHireDate()%>" size="45"/></td>
+		<td>入職時間:</td>
+		<td><input type="TEXT" name="admHireDate" value="<%= (administratorVO==null)? "1" : administratorVO.getAdmHireDate()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>商品已售出數量:</td>
-		<td><input type="TEXT" name="admPhoto" value="<%= (adminitratorVO==null)? "200" : adminitratorVO.getAdmPhoto()%>" size="45"/></td>
+		<td>大頭貼:</td>
+		<td><input type="TEXT" name="admPhoto" value="<%= (administratorVO==null)? "200" : administratorVO.getAdmPhoto()%>" size="45"/></td>
 	</tr>
 
 
@@ -104,113 +105,114 @@
 		<td>商品類別編號:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="admPwd">
 			<c:forEach var="administratorVO" items="${administratorSvc.all}">
-				<option value="${administratorVO.admPwd}" ${(adminitratorVO.admPwd==administratorVO.admPwd)? 'selected':'' } >${administratorVO.admName}
+				<option value="${administratorVO.admPwd}" ${(administratorVO.admPwd==administratorVO.admPwd)? 'selected':'' } >${administratorVO.admName}
 			</c:forEach>
 		</select></td>
 	</tr>
-	<div>
-		<label>商品圖片：</label>
-		<input type="file" id="p_file">
-
-		<!-- 步驟四、使用 Drag and Drop 拖曳檔案 -->
-		<div id="drop_zone"><span class="text">圖片拖曳至此處</span></div>
-
-		<!-- 步驟五、透過 File 物件顯示預覽圖 -->
-		<div id="preview"><span class="text">預覽圖</span></div>
-	</div>
 
 </table>
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
 
-<script>
+<%--<div>--%>
+<%--	<label>商品圖片：</label>--%>
+<%--	<input type="file" id="p_file">--%>
 
-	// 使用 Drag and Drop 拖曳檔案
-	drop_zone_el.addEventListener("dragover", function (e) {
-		e.preventDefault();
-		// e.target.classList.add("-on");
-	});
+<%--	<!-- 步驟四、使用 Drag and Drop 拖曳檔案 -->--%>
+<%--	<div id="drop_zone"><span class="text">圖片拖曳至此處</span></div>--%>
 
-	drop_zone_el.addEventListener("dragenter", function (e) {
-		e.target.classList.add("-on");
-	});
+<%--	<!-- 步驟五、透過 File 物件顯示預覽圖 -->--%>
+<%--	<div id="preview"><span class="text">預覽圖</span></div>--%>
+<%--</div>--%>
 
-	drop_zone_el.addEventListener("dragleave", function (e) {
-		e.target.classList.remove("-on");
-	});
+<%--<script>--%>
 
-	drop_zone_el.addEventListener("drop", function (e) {
-		e.preventDefault();
-		e.target.classList.remove("-on");
+<%--	// 使用 Drag and Drop 拖曳檔案--%>
+<%--	drop_zone_el.addEventListener("dragover", function (e) {--%>
+<%--		e.preventDefault();--%>
+<%--		// e.target.classList.add("-on");--%>
+<%--	});--%>
 
-		// console.log(e.dataTransfer.files[0]);
+<%--	drop_zone_el.addEventListener("dragenter", function (e) {--%>
+<%--		e.target.classList.add("-on");--%>
+<%--	});--%>
 
-		preview_img(e.dataTransfer.files[0]);
-		p_file_el.value = ""; // 將 type="file"
-	});
-	// 透過 File 物件顯示預覽圖
-	var preview_img = function (file) {
-		// console.log(file);
+<%--	drop_zone_el.addEventListener("dragleave", function (e) {--%>
+<%--		e.target.classList.remove("-on");--%>
+<%--	});--%>
 
-		var reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.addEventListener("load", function () {
-			// console.log(reader.result);
-			// let img_str = `<img src="' + reader.result + '" class"">`;
-			let img_str = `<img src="${reader.result}" class>`;
-			preview_el.innerHTML = img_str;
-		});
-	};
-	p_file_el.addEventListener("change", function (e) {
-		//console.log(this.files);
+<%--	drop_zone_el.addEventListener("drop", function (e) {--%>
+<%--		e.preventDefault();--%>
+<%--		e.target.classList.remove("-on");--%>
 
-		if (this.files.length > 0) {
-			preview_img(this.files[0]);
-		} else {
-			preview_el.innerHTML = '<span class="text">預覽圖</span>'
-		}
-	});
-	// 資料送出
-	btn_submit_el.addEventListener("click", function(e){
-		e.preventDefault();
+<%--		// console.log(e.dataTransfer.files[0]);--%>
 
-		var send_data = {};
-		send_data.p_name = p_name_el.value;
-		send_data.p_count = p_count_el.value;
+<%--		preview_img(e.dataTransfer.files[0]);--%>
+<%--		p_file_el.value = ""; // 將 type="file"--%>
+<%--	});--%>
+<%--	// 透過 File 物件顯示預覽圖--%>
+<%--	var preview_img = function (file) {--%>
+<%--		// console.log(file);--%>
 
-		var img_base64_el = document.querySelector(".preview_img");
-		if(img_base64_el){
-			send_data.img_base64 = img_base64_el.getAttribute("src");
-		}
+<%--		var reader = new FileReader();--%>
+<%--		reader.readAsDataURL(file);--%>
+<%--		reader.addEventListener("load", function () {--%>
+<%--			// console.log(reader.result);--%>
+<%--			// let img_str = `<img src="' + reader.result + '" class"">`;--%>
+<%--			let img_str = `<img src="${reader.result}" class>`;--%>
+<%--			preview_el.innerHTML = img_str;--%>
+<%--		});--%>
+<%--	};--%>
+<%--	p_file_el.addEventListener("change", function (e) {--%>
+<%--		//console.log(this.files);--%>
 
-		if(lng_el.value != ""){
-			send_data.position = {
-				lng: lng_el.value,
-				lat: lat_el.value
-			};
-		}
+<%--		if (this.files.length > 0) {--%>
+<%--			preview_img(this.files[0]);--%>
+<%--		} else {--%>
+<%--			preview_el.innerHTML = '<span class="text">預覽圖</span>'--%>
+<%--		}--%>
+<%--	});--%>
+<%--	// 資料送出--%>
+<%--	btn_submit_el.addEventListener("click", function(e){--%>
+<%--		e.preventDefault();--%>
 
-		sessionStorage.setItem("form_data", JSON.stringify(send_data));
-		location.href = "./confirm.html";
-	});
-	// 使用 Session Storage 儲存資料
-	var recovery_data = function(){
+<%--		var send_data = {};--%>
+<%--		send_data.p_name = p_name_el.value;--%>
+<%--		send_data.p_count = p_count_el.value;--%>
 
-		if(sessionStorage.getItem("form_data") != null){
-			var form_data = JSON.parse(sessionStorage.getItem("form_data"));
-			p_name_el.value = form_data.p_name;
+<%--		var img_base64_el = document.querySelector(".preview_img");--%>
+<%--		if(img_base64_el){--%>
+<%--			send_data.img_base64 = img_base64_el.getAttribute("src");--%>
+<%--		}--%>
 
-			p_count_el.value = form_data.p_count;
-			p_count_value_el.innerHTML = form_data.p_count;
+<%--		if(lng_el.value != ""){--%>
+<%--			send_data.position = {--%>
+<%--				lng: lng_el.value,--%>
+<%--				lat: lat_el.value--%>
+<%--			};--%>
+<%--		}--%>
 
-			lng_el.value = form_data.position.lng;
-			lat_el.value = form_data.position.lat;
-			preview_el.innerHTML = "<img class='preview_img'>"
-		}
-	}
+<%--		sessionStorage.setItem("form_data", JSON.stringify(send_data));--%>
+<%--		location.href = "./confirm.html";--%>
+<%--	});--%>
+<%--	// 使用 Session Storage 儲存資料--%>
+<%--	var recovery_data = function(){--%>
 
-</script>
+<%--		if(sessionStorage.getItem("form_data") != null){--%>
+<%--			var form_data = JSON.parse(sessionStorage.getItem("form_data"));--%>
+<%--			p_name_el.value = form_data.p_name;--%>
+
+<%--			p_count_el.value = form_data.p_count;--%>
+<%--			p_count_value_el.innerHTML = form_data.p_count;--%>
+
+<%--			lng_el.value = form_data.position.lng;--%>
+<%--			lat_el.value = form_data.position.lat;--%>
+<%--			preview_el.innerHTML = "<img class='preview_img'>"--%>
+<%--		}--%>
+<%--	}--%>
+
+<%--</script>--%>
 
 </body>
 </html>

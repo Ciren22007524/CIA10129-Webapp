@@ -19,7 +19,7 @@ public interface AdministratorService_interface {
     // 上傳圖片
     public void uploadPhoto(Integer admNo, byte[] admPhoto);
     // 顯示大頭貼
-    public byte[] photoSticker(Integer admNo);
+    public String photoSticker(Integer admNo);
     // 修改圖片
     public void ChangePhoto(Integer admNo, byte[] admPhoto);
     // 註冊(含驗證)
