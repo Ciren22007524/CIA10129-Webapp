@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>fallElove Product Manage</title>
+<title>fallElove admAuthority Manage</title>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -45,9 +45,9 @@ h4 {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>商品管理頁面</h3>
+				<h3>職位權限管理頁面</h3>
 				<h4>
-					<a class="icon-link" href="select_page.jsp">
+					<a class="icon-link" href="select_admAuthority.jsp">
 						<i class="fa-solid fa-house">首頁</i>
 					</a>
 				</h4>
@@ -55,7 +55,7 @@ h4 {
 		</tr>
 	</table>
 
-	<p>This is the Home page for FallELove Product Management</p>
+	<p>This is the Home page for FallELove administrator Authority Management</p>
 
 	<h3>資料查詢:</h3>
 
@@ -75,21 +75,21 @@ h4 {
 
 
 		<li>
-			<FORM METHOD="post" ACTION="product.do">
-				<b>輸入商品編號 (從1開始):</b> <input type="text" name="pNo">
+			<FORM METHOD="post" ACTION="admAuthority.do">
+				<b>輸入職位編號 (從1開始):</b> <input type="text" name="titleNo">
 				<input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
 			</FORM>
 		</li>
 
-		<jsp:useBean id="productSvc" scope="page"
-			class="com.ren.product.service.ProductServiceImpl" />
+		<jsp:useBean id="admAuthoritySvc" scope="page"
+			class="com.ren.admauthority.service.AdmAuthorityServiceImpl" />
 
 		<li>
-			<FORM METHOD="post" ACTION="product.do">
-				<b>選擇商品編號:</b> <select size="1" name="pNo">
-					<c:forEach var="productVO" items="${productSvc.all}">
-						<option value="${productVO.pNo}">${productVO.pNo}
+			<FORM METHOD="post" ACTION="admAuthority.do">
+				<b>選擇職位編號:</b> <select size="1" name="titleNo">
+					<c:forEach var="admAuthorityVO" items="${admAuthoritySvc.all}">
+						<option value="${admAuthorityVO.titleNo}">${admAuthorityVO.titleNo}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
@@ -97,10 +97,10 @@ h4 {
 		</li>
 
 		<li>
-			<FORM METHOD="post" ACTION="product.do">
-				<b>選擇商品名稱:</b> <select size="1" name="pNo">
-					<c:forEach var="productVO" items="${productSvc.all}">
-						<option value="${productVO.pNo}">${productVO.pName}
+			<FORM METHOD="post" ACTION="admAuthority.do">
+				<b>選擇職位編號:</b> <select size="1" name="titleNo">
+					<c:forEach var="admAuthorityVO" items="${admAuthoritySvc.all}">
+						<option value="${admAuthorityVO.titleNo}">${admAuthorityVO.titleNo}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
@@ -109,7 +109,7 @@ h4 {
 	</ul>
 
 
-	<h3>商品新增</h3>
+	<h3>職位權限新增</h3>
 	<ul>
 		<li><a href='addAdmAuthority.jsp'>Add</a> a new Product.</li>
 	</ul>

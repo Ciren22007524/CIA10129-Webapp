@@ -16,9 +16,9 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
     String userid = "root";
     String passwd = "SaiKou97607";
 
-    // 新增商品
+    // 新增管理員(不包括圖片)
     private static final String INSERT_STMT =
-            "INSERT INTO Administrator (admPwd,admName,admStat,admEmail,titleNo,admHireDate,admPhoto) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            "INSERT INTO Administrator (admPwd,admName,admStat,admEmail,titleNo,admHireDate) VALUES (?, ?, ?, ?, ?, ?)";
     // 查詢單一品項
     private static final String GET_ONE_STMT =
             "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate, admPhoto FROM Administrator WHERE admNo = ?";
@@ -60,7 +60,6 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
             ps.setString(4, administratorVO.getAdmEmail());
             ps.setInt(5, administratorVO.getTitleNo());
             ps.setDate(6, administratorVO.getAdmHireDate());
-            ps.setBytes(7, administratorVO.getAdmPhoto());
             // 執行SQL指令將VO資料新增進資料庫
             ps.executeUpdate();
             // Handle any driver errors

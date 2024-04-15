@@ -62,7 +62,6 @@ public class ProductCategoryServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			ProductCategoryServiceImpl productCategorySvc = new ProductCategoryServiceImpl();
-
 			ProductCategoryVO productCategoryVO = productCategorySvc.getOneProductCatagory(pCatNo);
 			// 引用類型的屬性在未附值時預設為null
 			if (productCategoryVO == null) {
@@ -90,7 +89,7 @@ public class ProductCategoryServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ****************************************/
-			Integer pCatNo = Integer.valueOf(req.getParameter("pCatNo"));
+			Integer pCatNo = Integer.valueOf(req.getParameter("pCatNo").trim());
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			ProductCategoryServiceImpl productCategorySvc = new ProductCategoryServiceImpl();

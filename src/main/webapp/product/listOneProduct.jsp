@@ -131,7 +131,7 @@
         if (confirm("確定要刪除嗎？")) {
             document.getElementById("deleteForm").submit(); // 提交表?
             alert("刪除成功！"); // 彈出成功訊息!
-            window.location.href = "select_product.jsp"; // 重定向到首?
+            // window.location.href = "select_product.jsp"; // 重定向到首?
         }
     }
 </script>

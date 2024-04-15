@@ -60,7 +60,7 @@ public class TitleServiceImpl implements TitleService_interface {
         // 將VO放入dao定義的方法內，使其執行資料庫操作
         dao.update(titleVO);
         // 返回值作為呈現在View上使用
-        return titleVO;
+        return dao.findByPrimaryKey(titleNo);
     }
 
     @Override

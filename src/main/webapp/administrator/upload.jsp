@@ -140,7 +140,7 @@
             html += "<p>檔案大小約 " + Math.round(filesize / 1000) + "k</p>";
             $("#newImgInfo").html(html);
         }
-        
+
         $("#crop_img").on("click", function () {
             myCrop.croppie("result", {
                 type: "canvas",

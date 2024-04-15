@@ -19,16 +19,18 @@ import java.util.List;
 @WebServlet("/title/title.do")
 public class TitleServlet extends HttpServlet {
 
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOne_For_Display".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<>();
 			// Store this set in the request scope, in case we need to
@@ -38,7 +40,7 @@ public class TitleServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String str = req.getParameter("titleNo");
 			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入員工編號");
+				errorMsgs.add("請輸入職位編號");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -51,7 +53,7 @@ public class TitleServlet extends HttpServlet {
 			try {
 				titleNo = Integer.valueOf(str);
 			} catch (Exception e) {
-				errorMsgs.add("員工編號格式不正確");
+				errorMsgs.add("編號格式不正確");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -62,7 +64,6 @@ public class TitleServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			TitleServiceImpl titleSvc = new TitleServiceImpl();
-			// 執行Service的getOnProduct，該方法執行DAO的findByPrimaryKey，將資料庫內的資料以VO的形式傳回
 			TitleVO titleVO = titleSvc.getOneTitle(titleNo);
 			// 引用類型的屬性在未附值時預設為null
 			if (titleVO == null) {
@@ -76,13 +77,13 @@ public class TitleServlet extends HttpServlet {
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("titleVO", titleVO); // 資料庫取出的titleVO物件,存入req
+			req.setAttribute("titleVO", titleVO);
 			String url = "/title/listOneTitle.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneTitle.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
-		if ("getOne_For_Update".equals(action)) { // 來自listAllTitle.jsp的請求
+		if ("getOne_For_Update".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<>();
 			// Store this set in the request scope, in case we need to
@@ -97,13 +98,13 @@ public class TitleServlet extends HttpServlet {
 			TitleVO titleVO = titleSvc.getOneTitle(titleNo);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("titleVO", titleVO); // 資料庫取出的titleVO物件,存入req
+			req.setAttribute("titleVO", titleVO);
 			String url = "/title/update_title_input.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_title_input.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
-		if ("update".equals(action)) { // 來自update_title_input.jsp的請求
+		if ("update".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<>();
 			// Store this set in the request scope, in case we need to
@@ -116,9 +117,9 @@ public class TitleServlet extends HttpServlet {
 			String titleName = req.getParameter("titleName");
 			String titleNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (titleName == null || titleName.trim().length() == 0) {
-				errorMsgs.add("商品名稱: 請勿空白");
+				errorMsgs.add("職位名稱: 請勿空白");
 			} else if (!titleName.trim().matches(titleNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("商品名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.add("職位名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 			}
 
 			TitleVO titleVO = new TitleVO();
@@ -127,7 +128,7 @@ public class TitleServlet extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("titleVO", titleVO); // 含有輸入格式錯誤的titleVO物件,也存入req
+				req.setAttribute("titleVO", titleVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/title/update_title_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
@@ -135,16 +136,17 @@ public class TitleServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			TitleServiceImpl titleSvc = new TitleServiceImpl();
+			// 執行update後返回以titleNo查詢更新後的VO
 			titleVO = titleSvc.updateTitle(titleNo, titleName);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("titleVO", titleVO); // 資料庫update成功後,正確的的titleVO物件,存入req
+			req.setAttribute("titleVO", titleVO);
 			String url = "/title/listOneTitle.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneTitle.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
-		if ("insert".equals(action)) { // 來自addTitle.jsp的請求
+		if ("insert".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<>();
 			// Store this set in the request scope, in case we need to
@@ -165,7 +167,7 @@ public class TitleServlet extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("titleVO", titleVO); // 含有輸入格式錯誤的titleVO物件,也存入req
+				req.setAttribute("titleVO", titleVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/title/addTitle.jsp");
 				failureView.forward(req, res);
 				return;
@@ -173,15 +175,15 @@ public class TitleServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			TitleServiceImpl titleSvc = new TitleServiceImpl();
-			titleVO = titleSvc.addTitle(titleName);
+			titleSvc.addTitle(titleName);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/title/listAllTitle.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllTitle.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
-		if ("delete".equals(action)) { // 來自listAllTitle.jsp
+		if ("delete".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<>();
 			// Store this set in the request scope, in case we need to

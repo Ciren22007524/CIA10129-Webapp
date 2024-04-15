@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface AdministratorService_interface {
     // 新增(將前端request值放入VO由DAO執行SQL語法，並返回VO由Controller轉給View)
-    public AdministratorVO addAdministrator(String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate, byte[] admPhoto);
+    // 不包括圖片
+    public AdministratorVO addAdministrator(String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate);
     // 查詢單筆資料
     public AdministratorVO getOneAdministrator(Integer admNo);
     // 查詢所有資料
