@@ -84,8 +84,9 @@ public class ProductServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
+		// 作轉傳資料使用
 		if ("getOne_For_Update".equals(action)) { // 來自listAllProduct.jsp的請求
-
+			// 當點擊修改時，透過Service呼叫dao的查詢單項方法來獲得該資料的VO，傳到修改頁面
 			List<String> errorMsgs = new LinkedList<>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -158,21 +159,8 @@ public class ProductServlet extends HttpServlet {
 
 			Integer pComScore = Integer.valueOf(req.getParameter("pComScore").trim());
 
-			ProductVO productVO = new ProductVO();
-			productVO.setpCatNo(pNo);
-			productVO.setpName(pName);
-			productVO.setpInfo(pInfo);
-			productVO.setpSize(pSize);
-			productVO.setpColor(pColor);
-			productVO.setpPrice(pPrice);
-			productVO.setpStat(pStat);
-			productVO.setpSalQty(pSalQty);
-			productVO.setpComPeople(pComPeople);
-			productVO.setpComScore(pComScore);
-
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("productVO", productVO); // 含有輸入格式錯誤的productVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("/product/update_product_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
@@ -180,7 +168,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ProductServiceImpl productSvc = new ProductServiceImpl();
-			productVO = productSvc.updateProduct(pNo, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty,
+			ProductVO productVO = productSvc.updateProduct(pNo, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty,
 					pComPeople, pComScore);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
@@ -243,21 +231,8 @@ public class ProductServlet extends HttpServlet {
 
 			Integer pComScore = Integer.valueOf(req.getParameter("pComScore").trim());
 
-			ProductVO productVO = new ProductVO();
-			productVO.setpCatNo(pCatNo);
-			productVO.setpName(pName);
-			productVO.setpInfo(pInfo);
-			productVO.setpSize(pSize);
-			productVO.setpColor(pColor);
-			productVO.setpPrice(pPrice);
-			productVO.setpStat(pStat);
-			productVO.setpSalQty(pSalQty);
-			productVO.setpComPeople(pComPeople);
-			productVO.setpComScore(pComScore);
-
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("productVO", productVO); // 含有輸入格式錯誤的productVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("/product/addProduct.jsp");
 				failureView.forward(req, res);
 				return;
@@ -265,8 +240,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ProductServiceImpl productSvc = new ProductServiceImpl();
-			productVO = productSvc.addProduct(pCatNo, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty, pComPeople,
-					pComScore);
+			productSvc.addProduct(pCatNo, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty, pComPeople, pComScore);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/product/listAllProduct.jsp";
@@ -274,13 +248,13 @@ public class ProductServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("delete".equals(action)) { // 來自listAllProduct.jsp
+		if ("delete".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			System.out.println("沒事");
 			/*************************** 1.接收請求參數 ***************************************/
 			Integer pNo = Integer.valueOf(req.getParameter("pNo"));
 

@@ -1,17 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.*" %>
-<%@ page import="com.ren.product.service.*" %>
-<%@ page import="com.ren.product.model.ProductVO" %>
+<%@ page import="com.ren.admauthority.model.AdmAuthorityVO" %>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-    ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //ProductServlet.java(Concroller), 存入req的productVO物件
+    AdmAuthorityVO admAuthorityVO = (AdmAuthorityVO) request.getAttribute("admAuthorityVO"); //ProductServlet.java(Concroller), 存入req的admAuthorityVO物件
 %>
 
 <html>
 <head>
-    <title>商品資料 - listOneProduct.jsp</title>
+    <title>管理員權限資料 - listOneAdmAuthority.jsp</title>
 
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -67,8 +65,8 @@
 <table id="table-1">
     <tr>
         <td>
-            <h3>單筆商品資料</h3>
-            <h4><a class="icon-link" href="select_page.jsp">
+            <h3>單筆權限資料</h3>
+            <h4><a class="icon-link" href="select_admAuthority.jsp">
                 <i class="fa-solid fa-house">首頁</i>
             </a></h4>
         </td>
@@ -78,46 +76,29 @@
 <div style="display: flex; flex-direction: row;">
     <table>
         <tr>
-            <th>商品編號</th>
-            <th>商品類別編號</th>
-            <th>商品名稱</th>
-            <th>商品資訊</th>
-            <th>尺寸</th>
-            <th>顏色</th>
-            <th>商品單價</th>
-            <th>商品狀態</th>
-            <th>商品已售出數量</th>
-            <th>評價總人數</th>
-            <th>評價總星數</th>
+            <th>職位編號</th>
+            <th>權限編號</th>
             <th>修改</th>
             <th>刪除</th>
         </tr>
         <tr>
-            <td>${productVO.pNo}</td>
-            <td>${productVO.pCatNo}</td>
-            <td>${productVO.pName}</td>
-            <td>${productVO.pInfo}</td>
-            <td>${productVO.pSize}</td>
-            <td>${productVO.pColor}</td>
-            <td>${productVO.pPrice}</td>
-            <td>${productVO.pStat}</td>
-            <td>${productVO.pSalQty}</td>
-            <td>${productVO.pComPeople}</td>
-            <td>${productVO.pComScore}</td>
+            <td>${admAuthorityVO.titleNo}</td>
+            <td>${admAuthorityVO.authFuncNo}</td>
             <td>
-                <form METHOD="post" ACTION="<%=request.getContextPath()%>/product/product.do"
+                <form METHOD="post" ACTION="<%=request.getContextPath()%>/admauthority/admAuthority.do"
                       style="margin-bottom: 0px;">
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="hidden" name="pNo" value="${productVO.pNo}">
+                        <input type="hidden" name="titleNo" value="${admAuthorityVO.titleNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
+                    </button>
                 </form>
             </td>
             <td>
-                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/product/product.do" style="margin-bottom: 0px;">
+                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/admauthority/admAuthority.do" style="margin-bottom: 0px;">
                     <button type="button" onclick="confirmDelete()">
                         <i class="fa-solid fa-trash-can"></i>
-                        <input type="hidden" name="pNo" value="${productVO.pNo}">
+                        <input type="hidden" name="titleNo" value="${admAuthorityVO.titleNo}">
                         <input type="hidden" name="action" value="delete">
                     </button>
                 </form>
@@ -129,9 +110,9 @@
 <script>
     function confirmDelete() {
         if (confirm("確定要刪除嗎？")) {
-            document.getElementById("deleteForm").submit(); // 提交表?
+            document.getElementById("deleteForm").submit(); // 送出表格
             alert("刪除成功！"); // 彈出成功訊息!
-            window.location.href = "select_administrator.jsp"; // 重定向到首?
+            // window.location.href = "select_administrator.jsp"; // 導引至首頁
         }
     }
 </script>

@@ -170,22 +170,24 @@ public class ProductJNDIDAOImpl implements ProductDAO_interface {
 			con = ds.getConnection();
 			// 設定於 pstmt.executeUpdate()之前
 			con.setAutoCommit(false);
+/******************************資料庫換成級聯版的話註解掉以下內容************************************/
 			// 刪除商品訂單明細
-			ps = con.prepareStatement(DELETE_PRODUCTORDERDETAILS_STMT);
-			ps.setInt(1, pNo);
-			ps.executeUpdate();
-			// 刪除商品我的最愛
-			ps = con.prepareStatement(DELETE_PRODUCTMYFAVORITE_STMT);
-			ps.setInt(1, pNo);
-			ps.executeUpdate();
-			// 刪除商品購物車清單
-			ps = con.prepareStatement(DELETE_CART_STMT);
-			ps.setInt(1, pNo);
-			ps.executeUpdate();
-			// 刪除商品照片
-			ps = con.prepareStatement(DELETE_PRODUCTPICTURE_STMT);
-			ps.setInt(1, pNo);
-			ps.executeUpdate();
+//			ps = con.prepareStatement(DELETE_PRODUCTORDERDETAILS_STMT);
+//			ps.setInt(1, pNo);
+//			ps.executeUpdate();
+//			// 刪除商品我的最愛
+//			ps = con.prepareStatement(DELETE_PRODUCTMYFAVORITE_STMT);
+//			ps.setInt(1, pNo);
+//			ps.executeUpdate();
+//			// 刪除商品購物車清單
+//			ps = con.prepareStatement(DELETE_CART_STMT);
+//			ps.setInt(1, pNo);
+//			ps.executeUpdate();
+//			// 刪除商品照片
+//			ps = con.prepareStatement(DELETE_PRODUCTPICTURE_STMT);
+//			ps.setInt(1, pNo);
+//			ps.executeUpdate();
+/********************************************************************************************/
 			// 終於可以刪商品了
 			ps = con.prepareStatement(DELETE_PRODUCT_STMT);
 			ps.setInt(1, pNo);

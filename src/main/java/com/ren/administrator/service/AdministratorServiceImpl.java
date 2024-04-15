@@ -20,7 +20,7 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
     }
 
     @Override
-    public AdministratorVO addAdministrator(String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate, byte[] admPhoto) {
+    public AdministratorVO addAdministrator(String admPwd, String admName, Byte admStat, String admEmail, Integer titleNo, Date admHireDate) {
         AdministratorVO administratorVO = new AdministratorVO();
         // 將傳入參數放入VO
         administratorVO.setAdmPwd(admPwd);
@@ -29,7 +29,6 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
         administratorVO.setAdmEmail(admEmail);
         administratorVO.setTitleNo(titleNo);
         administratorVO.setAdmHireDate(admHireDate);
-        administratorVO.setAdmPhoto(admPhoto);
         // 將VO放入dao定義的方法內，使其執行資料庫操作
         dao.insert(administratorVO);
         // 返回值作為呈現在View上使用
@@ -105,17 +104,6 @@ public class AdministratorServiceImpl implements AdministratorService_interface 
         if (existData.size() >= 1) {
             return existData;
         }
-        // 確認無重複，執行註冊
-        Byte EMPLOYED = 1;
-        administratorVO.setAdmStat(EMPLOYED);
-        Integer NEW_MEMBER = 10;
-        administratorVO.setTitleNo(NEW_MEMBER);
-        LocalDate today = LocalDate.now();
-        // 將 LocalDate 轉換為 java.sql.Date
-        Date hireDate = Date.valueOf(today);
-        administratorVO.setAdmHireDate(hireDate);
-        // 將VO放入dao定義的方法內，使其執行資料庫操作
-        dao.insert(administratorVO);
 
         return existData;
     }

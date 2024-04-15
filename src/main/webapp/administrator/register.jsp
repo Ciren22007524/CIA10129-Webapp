@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td>¶l¥ó¦ì§}¡G</td>
-            <td><input type='text' name='email' size='25' maxlength='100'></td>
+            <td><input type='email' name='email' size='25' maxlength='100'></td>
             <td><button></button></td>
         </tr>
         <tr>

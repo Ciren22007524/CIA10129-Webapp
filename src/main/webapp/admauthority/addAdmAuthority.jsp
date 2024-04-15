@@ -1,16 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.product.model.*"%>
-<%@ page import="com.ren.product.model.ProductVO" %>
+<%@ page import="com.ren.product.model.AdmAuthorityVO" %>
 
-<% //見com.product.com.controller.ProductServlet.java第238行存入req的productVO物件 (此為輸入格式有錯誤時的productVO物件)
-   ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+<% //見com.product.com.controller.ProductServlet.java第238行存入req的admAuthorityVO物件 (此為輸入格式有錯誤時的admAuthorityVO物件)
+   AdmAuthorityVO admAuthorityVO = (AdmAuthorityVO) request.getAttribute("admAuthorityVO");
 %>
---<%= productVO==null %>--${productVO.pCatNo}-- <!-- line 100 -->
+--<%= admAuthorityVO==null %>--${admAuthorityVO.pCatNo}-- <!-- line 100 -->
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addProduct.jsp</title>
+<title>員工資料新增 - addAdmAuthority.jsp</title>
 
 <style>
   table#table-1 {
@@ -49,7 +49,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料新增 - addProduct.jsp</h3></td><td>
+		 <h3>員工資料新增 - addAdmAuthority.jsp</h3></td><td>
 		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -66,7 +66,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="product.do" name="form1">
+<FORM METHOD="post" ACTION="admAuthority.do" name="form1">
 <table>
 	
 	
@@ -74,43 +74,43 @@
 	
 <!-- 	<tr> -->
 <!-- 		<td>商品編號:</td> -->
-<%-- 		<td><input type="TEXT" name="pNo" value="<%= (productVO==null)? "10000001" : productVO.getpNo()%>" size="45"/></td> --%>
+<%-- 		<td><input type="TEXT" name="pNo" value="<%= (admAuthorityVO==null)? "10000001" : admAuthorityVO.getpNo()%>" size="45"/></td> --%>
 <!-- 	</tr> -->
 	<tr>
 		<td>商品名稱:</td>
-		<td><input type="TEXT" name="pName" value="<%= (productVO==null)? "短襯衫" : productVO.getpName()%>" size="45"/></td>
+		<td><input type="TEXT" name="pName" value="<%= (admAuthorityVO==null)? "短襯衫" : admAuthorityVO.getpName()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品資訊:</td>
-		<td><input type="TEXT" name="pInfo" value="<%= (productVO==null)? "短短的襯衫" : productVO.getpInfo()%>" size="45"/></td>
+		<td><input type="TEXT" name="pInfo" value="<%= (admAuthorityVO==null)? "短短的襯衫" : admAuthorityVO.getpInfo()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>尺寸:</td>
-		<td><input type="TEXT" name="pSize" value="<%= (productVO==null)? "1" : productVO.getpSize()%>" size="45"/></td>
+		<td><input type="TEXT" name="pSize" value="<%= (admAuthorityVO==null)? "1" : admAuthorityVO.getpSize()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>顏色:</td>
-		<td><input type="TEXT" name="pColor" value="<%= (productVO==null)? "藍色" : productVO.getpColor()%>" size="45"/></td>
+		<td><input type="TEXT" name="pColor" value="<%= (admAuthorityVO==null)? "藍色" : admAuthorityVO.getpColor()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品單價:</td>
-		<td><input type="TEXT" name="pPrice" value="<%= (productVO==null)? "5000" : productVO.getpPrice()%>" size="45"/></td>
+		<td><input type="TEXT" name="pPrice" value="<%= (admAuthorityVO==null)? "5000" : admAuthorityVO.getpPrice()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品狀態:</td>
-		<td><input type="TEXT" name="pStat" value="<%= (productVO==null)? "1" : productVO.getpStat()%>" size="45"/></td>
+		<td><input type="TEXT" name="pStat" value="<%= (admAuthorityVO==null)? "1" : admAuthorityVO.getpStat()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品已售出數量:</td>
-		<td><input type="TEXT" name="pSalQty" value="<%= (productVO==null)? "200" : productVO.getpSalQty()%>" size="45"/></td>
+		<td><input type="TEXT" name="pSalQty" value="<%= (admAuthorityVO==null)? "200" : admAuthorityVO.getpSalQty()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>評價總人數:</td>
-		<td><input type="TEXT" name="pComPeople" value="<%= (productVO==null)? "50" : productVO.getpComPeople()%>" size="45"/></td>
+		<td><input type="TEXT" name="pComPeople" value="<%= (admAuthorityVO==null)? "50" : admAuthorityVO.getpComPeople()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>評價總星數:</td>
-		<td><input type="TEXT" name="pComScore" value="<%= (productVO==null)? "3" : productVO.getpComScore()%>" size="45"/></td>
+		<td><input type="TEXT" name="pComScore" value="<%= (admAuthorityVO==null)? "3" : admAuthorityVO.getpComScore()%>" size="45"/></td>
 	</tr>					
 
 	<jsp:useBean id="productCategorySvc" scope="page" class="com.ren.productcategory.service.ProductCategoryServiceImpl" />
@@ -118,7 +118,7 @@
 		<td>商品類別編號:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="pCatNo">
 			<c:forEach var="productCategoryVO" items="${productCategorySvc.all}">
-				<option value="${productCategoryVO.pCatNo}" ${(productVO.pCatNo==productCategoryVO.pCatNo)? 'selected':'' } >${productCategoryVO.pCatName}
+				<option value="${productCategoryVO.pCatNo}" ${(admAuthorityVO.pCatNo==productCategoryVO.pCatNo)? 'selected':'' } >${productCategoryVO.pCatName}
 			</c:forEach>
 		</select></td>
 	</tr>

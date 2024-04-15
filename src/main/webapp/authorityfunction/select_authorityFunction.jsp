@@ -47,7 +47,7 @@ h4 {
 			<td>
 				<h3>商品管理頁面</h3>
 				<h4>
-					<a class="icon-link" href="select_page.jsp">
+					<a class="icon-link" href="select_authorityFunction.jsp">
 						<i class="fa-solid fa-house">首頁</i>
 					</a>
 				</h4>
@@ -70,7 +70,7 @@ h4 {
 	</c:if>
 
 	<ul>
-		<li><a href='listAllProduct.jsp'>List</a> all Products. <br> <br></li>
+		<li><a href='listAllAuthorityFunction.jsp'>List</a> all Products. <br> <br></li>
 
 
 
@@ -82,14 +82,14 @@ h4 {
 			</FORM>
 		</li>
 
-		<jsp:useBean id="productSvc" scope="page"
-			class="com.ren.product.service.ProductServiceImpl" />
+		<jsp:useBean id="authorityFunctionSvc" scope="page"
+			class="com.ren.product.service.AuthorityFunctionServiceImpl" />
 
 		<li>
 			<FORM METHOD="post" ACTION="product.do">
 				<b>選擇商品編號:</b> <select size="1" name="pNo">
-					<c:forEach var="productVO" items="${productSvc.all}">
-						<option value="${productVO.pNo}">${productVO.pNo}
+					<c:forEach var="authorityFunctionVO" items="${authorityFunctionSvc.all}">
+						<option value="${authorityFunctionVO.pNo}">${authorityFunctionVO.pNo}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
@@ -99,8 +99,8 @@ h4 {
 		<li>
 			<FORM METHOD="post" ACTION="product.do">
 				<b>選擇商品名稱:</b> <select size="1" name="pNo">
-					<c:forEach var="productVO" items="${productSvc.all}">
-						<option value="${productVO.pNo}">${productVO.pName}
+					<c:forEach var="authorityFunctionVO" items="${authorityFunctionSvc.all}">
+						<option value="${authorityFunctionVO.pNo}">${authorityFunctionVO.pName}
 					</c:forEach>
 				</select> <input type="hidden" name="action" value="getOne_For_Display">
 				<input type="submit" value="送出">
@@ -111,7 +111,7 @@ h4 {
 
 	<h3>商品新增</h3>
 	<ul>
-		<li><a href='addProduct.jsp'>Add</a> a new Product.</li>
+		<li><a href='addAuthorityFunction.jsp'>Add</a> a new Product.</li>
 	</ul>
 
 </body>

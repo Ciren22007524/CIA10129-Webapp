@@ -1,7 +1,7 @@
-package com.ren.admauthority.controller;
+package com.ren.authorityfunction.controller;
 
-import com.ren.productcategory.model.ProductCategoryVO;
-import com.ren.productcategory.service.ProductCategoryServiceImpl;
+import com.ren.authorityfunction.model.AuthorityFunctionVO;
+import com.ren.authorityfunction.service.AuthorityFunctionServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-@WebServlet("/admauthority/admAuthority.do")
-public class AdmAuthorityServlet extends HttpServlet {
+@WebServlet("/authorityfunction/authorityFunction.do")
+public class AuthorityFunctionServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -35,48 +35,47 @@ public class AdmAuthorityServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-            String str = req.getParameter("pCatNo");
+            String str = req.getParameter("authorityFunctionNo");
             if (str == null || (str.trim()).length() == 0) {
-                errorMsgs.add("請輸入商品類別編號");
+                errorMsgs.add("請輸入職位編號");
             }
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                RequestDispatcher failureView = req.getRequestDispatcher("/admAuthoritycategory/select_admAuthorityCategory.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/select_authorityFunction.jsp");
                 failureView.forward(req, res);
                 return;// 程式中斷
             }
 
-            Integer pCatNo = null;
+            Integer authorityFunctionNo = null;
             try {
-                pCatNo = Integer.valueOf(str);
+                authorityFunctionNo = Integer.valueOf(str);
             } catch (Exception e) {
-                errorMsgs.add("商品類別編號格式不正確");
+                errorMsgs.add("編號格式不正確");
             }
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                RequestDispatcher failureView = req.getRequestDispatcher("/admAuthoritycategory/select_admAuthorityCategory.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/select_authorityFunction.jsp");
                 failureView.forward(req, res);
                 return;// 程式中斷
             }
 
             /*************************** 2.開始查詢資料 *****************************************/
-            ProductCategoryServiceImpl productCategorySvc = new ProductCategoryServiceImpl();
-
-            ProductCategoryVO productCategoryVO = productCategorySvc.getOneProductCatagory(pCatNo);
+            AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
+            AuthorityFunctionVO authorityFunctionVO = authorityFunctionSvc.getOneAuthorityFunction(authorityFunctionNo);
             // 引用類型的屬性在未附值時預設為null
-            if (productCategoryVO == null) {
+            if (authorityFunctionVO == null) {
                 errorMsgs.add("查無資料");
             }
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                RequestDispatcher failureView = req.getRequestDispatcher("/admAuthoritycategory/select_admAuthorityCategory.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/select_authorityFunction.jsp");
                 failureView.forward(req, res);
                 return;// 程式中斷
             }
 
             /*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-            req.setAttribute("productCategoryVO", productCategoryVO);
-            String url = "/admAuthoritycategory/listOneAdmAuthorityCategory.jsp";
+            req.setAttribute("authorityFunctionVO", authorityFunctionVO);
+            String url = "/authorityFunction/listOneAuthorityFunction.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
@@ -89,15 +88,15 @@ public class AdmAuthorityServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 ****************************************/
-            Integer pCatNo = Integer.valueOf(req.getParameter("pCatNo"));
+            Integer authorityFunctionNo = Integer.valueOf(req.getParameter("authorityFunctionNo"));
 
             /*************************** 2.開始查詢資料 ****************************************/
-            ProductCategoryServiceImpl productCategorySvc = new ProductCategoryServiceImpl();
-            ProductCategoryVO productCategoryVO = productCategorySvc.getOneProductCatagory(pCatNo);
+            AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
+            AuthorityFunctionVO authorityFunctionVO = authorityFunctionSvc.getOneAuthorityFunction(authorityFunctionNo);
 
             /*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-            req.setAttribute("productCategoryVO", productCategoryVO);
-            String url = "/admAuthoritycategory/update_productCategory_input.jsp";
+            req.setAttribute("authorityFunctionVO", authorityFunctionVO);
+            String url = "/authorityFunction/update_authorityFunction_input.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
@@ -110,35 +109,36 @@ public class AdmAuthorityServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-            Integer pCatNo = Integer.valueOf(req.getParameter("pCatNo").trim());
+            Integer authorityFunctionNo = Integer.valueOf(req.getParameter("authorityFunctionNo").trim());
 
-            String pCatName = req.getParameter("pCatName");
-            String pCatNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-            if (pCatName == null || pCatName.trim().length() == 0) {
-                errorMsgs.add("商品名稱: 請勿空白");
-            } else if (!pCatName.trim().matches(pCatNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-                errorMsgs.add("商品名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+            String authorityFunctionName = req.getParameter("authorityFunctionName");
+            String authorityFunctionNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+            if (authorityFunctionName == null || authorityFunctionName.trim().length() == 0) {
+                errorMsgs.add("職位名稱: 請勿空白");
+            } else if (!authorityFunctionName.trim().matches(authorityFunctionNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+                errorMsgs.add("職位名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
             }
 
-            ProductCategoryVO productCategoryVO = new ProductCategoryVO();
-            productCategoryVO.setpCatNo(pCatNo);
-            productCategoryVO.setpCatName(pCatName);
+            AuthorityFunctionVO authorityFunctionVO = new AuthorityFunctionVO();
+            authorityFunctionVO.setTitleNo(authorityFunctionNo);
+            authorityFunctionVO.setTitleName(authorityFunctionName);
 
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                req.setAttribute("productCategoryVO", productCategoryVO);
-                RequestDispatcher failureView = req.getRequestDispatcher("/admAuthoritycategory/update_productCategory_input.jsp");
+                req.setAttribute("authorityFunctionVO", authorityFunctionVO);
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/update_authorityFunction_input.jsp");
                 failureView.forward(req, res);
                 return; // 程式中斷
             }
 
             /*************************** 2.開始修改資料 *****************************************/
-            ProductCategoryServiceImpl productCategorySvc = new ProductCategoryServiceImpl();
-            productCategoryVO = productCategorySvc.updateProductCategory(pCatNo, pCatName);
+            AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
+            // 執行update後返回以authorityFunctionNo查詢更新後的VO
+            authorityFunctionVO = authorityFunctionSvc.updateAuthorityFunction(authorityFunctionNo, authorityFunctionName);
 
             /*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-            req.setAttribute("productCategoryVO", productCategoryVO);
-            String url = "/admAuthoritycategory/listOneAdmAuthorityCategory.jsp";
+            req.setAttribute("authorityFunctionVO", authorityFunctionVO);
+            String url = "/authorityFunction/listOneTitle.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
@@ -151,38 +151,36 @@ public class AdmAuthorityServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-            Integer pCatNo = Integer.valueOf(req.getParameter("pCatNo").trim());
-
-            String pCatName = req.getParameter("pCatName");
-            String pCatNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-            if (pCatName == null || pCatName.trim().length() == 0) {
+            String authorityFunctionName = req.getParameter("authorityFunctionName");
+            String authorityFunctionNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+            if (authorityFunctionName == null || authorityFunctionName.trim().length() == 0) {
                 errorMsgs.add("商品名稱: 請勿空白");
-            } else if (!pCatName.trim().matches(pCatNameReg)) {
+            } else if (!authorityFunctionName.trim().matches(authorityFunctionNameReg)) { // 以下練習正則(規)表示式(regular-expression)
                 errorMsgs.add("商品名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
             }
 
-            ProductCategoryVO productCategoryVO = new ProductCategoryVO();
-            productCategoryVO.setpCatName(pCatName);
+            AuthorityFunctionVO authorityFunctionVO = new AuthorityFunctionVO();
+            authorityFunctionVO.setTitleName(authorityFunctionName);
 
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                req.setAttribute("productCategoryVO", productCategoryVO);
-                RequestDispatcher failureView = req.getRequestDispatcher("/admAuthoritycategory/addAdmAuthorityCategory.jsp");
+                req.setAttribute("authorityFunctionVO", authorityFunctionVO);
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/addAuthorityFunction.jsp");
                 failureView.forward(req, res);
                 return;
             }
 
             /*************************** 2.開始新增資料 ***************************************/
-            ProductCategoryServiceImpl productCategorySvc = new ProductCategoryServiceImpl();
-            productCategoryVO = productCategorySvc.addAdmAuthorityCategory(pCatName);
+            AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
+            authorityFunctionSvc.addAuthorityFunction(authorityFunctionName);
 
             /*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-            String url = "/admAuthoritycategory/listAllAdmAuthorityCategory.jsp";
+            String url = "/authorityFunction/listAllAuthorityFunction.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
-        if ("delete".equals(action)) { // 來自listAllAdmAuthorityCategory.jsp
+        if ("delete".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<>();
             // Store this set in the request scope, in case we need to
@@ -190,14 +188,14 @@ public class AdmAuthorityServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 ***************************************/
-            Integer pCatNo = Integer.valueOf(req.getParameter("pCatNo"));
+            Integer authorityFunctionNo = Integer.valueOf(req.getParameter("authorityFunctionNo"));
 
             /*************************** 2.開始刪除資料 ***************************************/
-            ProductCategoryServiceImpl productCategorySvc = new ProductCategoryServiceImpl();
-            productCategorySvc.deleteProductCategory(pCatNo);
+            AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
+            authorityFunctionSvc.deleteAuthorityFunction(authorityFunctionNo);
 
             /*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-            String url = "/admAuthoritycategory/listAllAdmAuthorityCategory.jsp";
+            String url = "/authorityFunction/listAllAuthorityFunction.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
             successView.forward(req, res);
         }

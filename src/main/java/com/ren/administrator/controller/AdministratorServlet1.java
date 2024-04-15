@@ -7,19 +7,18 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 
-@MultipartConfig
-@WebServlet("/administrator/administrator.do")
-public class AdministratorServlet extends HttpServlet {
+public class AdministratorServlet1 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -40,10 +39,8 @@ public class AdministratorServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-            // 展示Optional寫法
-            String str = Optional.ofNullable(req.getParameter("admNo"))
-                    .orElse("");
-            if (str.isEmpty()) {
+            String str = req.getParameter("admNo");
+            if (str == null || (str.trim()).length() == 0) {
                 errorMsgs.add("請輸入管理員編號");
             }
             // Send the use back to the form, if there were errors
@@ -149,9 +146,9 @@ public class AdministratorServlet extends HttpServlet {
 
             Integer titleNo = Integer.valueOf(req.getParameter("titleNo").trim());
 
-            java.sql.Date admHireDate = null;
+            Date admHireDate = null;
             try {
-                admHireDate = java.sql.Date.valueOf(req.getParameter("admHireDate").trim());
+                admHireDate = Date.valueOf(req.getParameter("admHireDate").trim());
             } catch (IllegalArgumentException e) {
                 errorMsgs.add("請輸入日期");
             }
@@ -234,9 +231,9 @@ public class AdministratorServlet extends HttpServlet {
 
             Integer titleNo = Integer.valueOf(req.getParameter("titleNo").trim());
 
-            java.sql.Date admHireDate = null;
+            Date admHireDate = null;
             try {
-                admHireDate = java.sql.Date.valueOf(req.getParameter("admHireDate").trim());
+                admHireDate = Date.valueOf(req.getParameter("admHireDate").trim());
             } catch (IllegalArgumentException e) {
                 errorMsgs.add("請輸入日期");
             }
@@ -384,9 +381,6 @@ public class AdministratorServlet extends HttpServlet {
             } else if (!admEmail.matches(admEmailRegex)) {
                 errorMsgs.add("電子郵件地址格式不正確");
             }
-            // 密碼加密及產生鹽值
-            var salt = ThreadLocalRandom.current().nextInt();
-            var encrypt = String.valueOf(salt + password.hashCode());
 
             AdministratorVO administratorVO = new AdministratorVO();
             administratorVO.setAdmPwd(admName);
@@ -411,7 +405,7 @@ public class AdministratorServlet extends HttpServlet {
             // 將 LocalDate 轉換為 java.sql.Date
             Date admHireDate = Date.valueOf(today);
             // 將VO放入dao定義的方法內，使其執行資料庫操作
-            administratorSvc.addAdministrator(admPwd, admName, admStat, admEmail, titleNo, admHireDate);
+            administratorSvc.addAdministrator(admPwd,admName,admStat,admEmail,titleNo,admHireDate);
 
             /*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
             String url = "/administrator/listAllAdministrator.jsp";
