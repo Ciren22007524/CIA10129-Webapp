@@ -13,7 +13,7 @@
 
 <html>
 <head>
-    <title>所有員工資料 - listAllProduct.jsp</title>
+    <title>所有員工資料 - listAllAdministrators.jsp</title>
 
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -69,7 +69,7 @@
 <table id="table-1">
     <tr>
         <td>
-            <h3>所有商品資料 - listAllProduct.jsp</h3>
+            <h3>所有商品資料 - listAllAdministrators.jsp</h3>
             <h4><a href="select_administrator.jsp"><i class="fa-solid fa-house">回首頁</i></a></h4>
         </td>
     </tr>
@@ -80,7 +80,6 @@
     <thead>
     <tr>
         <th data-field="admNo" data-sortable="true">管理員編號</th>
-        <th data-field="admPwd" data-sortable="true">管理員密碼</th>
         <th data-field="admName" data-sortable="true">管理員姓名</th>
         <th data-field="admStat" data-sortable="true">管理員狀態</th>
         <th data-field="admEmail" data-sortable="true">管理員Email</th>
@@ -92,23 +91,22 @@
     </tr>
     </thead>
     <%@ include file="page1.file" %>
-    <c:forEach var="adminitratorVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+    <c:forEach var="administratorVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
         <tr>
-            <td>${adminitratorVO.admNo}</td>
-            <td>${adminitratorVO.admPwd}</td>
-            <td>${adminitratorVO.admName}</td>
-            <td>${adminitratorVO.admStat}</td>
-            <td>${adminitratorVO.admEmail}</td>
-            <td>${adminitratorVO.titleNo}</td>
-            <td>${adminitratorVO.admHireDate}</td>
-            <td>${adminitratorVO.admPhoto}</td>
+            <td>${administratorVO.admNo}</td>
+            <td>${administratorVO.admName}</td>
+            <td>${administratorVO.admStat}</td>
+            <td>${administratorVO.admEmail}</td>
+            <td>${administratorVO.titleNo}</td>
+            <td>${administratorVO.admHireDate}</td>
+            <td>${administratorVO.admPhoto}</td>
             <td>
                 <form METHOD="post" ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
                       style="margin-bottom: 0px;">
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
+                        <input type="hidden" name="admNo" value="${administratorVO.admNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
                     </button>
                 </form>
@@ -117,7 +115,7 @@
                 <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/administrator/administrator.do" style="margin-bottom: 0px;">
                     <button type="button" onclick="confirmDelete()">
                         <i class="fa-solid fa-trash-can"></i>
-                        <input type="hidden" name="admNo" value="${adminitratorVO.admNo}">
+                        <input type="hidden" name="admNo" value="${administratorVO.admNo}">
                         <input type="hidden" name="action" value="delete">
                     </button>
                 </form>

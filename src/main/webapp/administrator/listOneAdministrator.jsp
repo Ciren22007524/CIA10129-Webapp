@@ -12,7 +12,7 @@
 
 <html>
 <head>
-    <title>商品資料 - listOneProduct.jsp</title>
+    <title>商品資料 - listOneAdministrator.jsp</title>
 
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -80,7 +80,6 @@
     <table>
         <tr>
             <th>管理員編號</th>
-            <th>管理員密碼</th>
             <th>管理員姓名</th>
             <th>管理員狀態</th>
             <th>管理員Email</th>
@@ -92,7 +91,6 @@
         </tr>
         <tr>
             <td>${administratorVO.admNo}</td>
-            <td>${administratorVO.admPwd}</td>
             <td>${administratorVO.admName}</td>
             <td>${administratorVO.admStat}</td>
             <td>${administratorVO.admEmail}</td>

@@ -34,7 +34,7 @@ public class AdmLogin extends HttpServlet {
             return;
         }
 
-        req.setAttribute("messages", messages(getUsername(req)));
+//        req.setAttribute("messages", messages(getUsername(req)));
 
     }
 
@@ -42,20 +42,20 @@ public class AdmLogin extends HttpServlet {
         return (String) req.getSession().getAttribute("login");
     }
 
-    private Map<Long, String> messages(String username) throws IOException {
-        var userhome = Paths.get(USERS, username);
-        var messages = new TreeMap<Long, String>(Comparator.reverseOrder());
-        try (var txts = Files.newDirectoryStream(userhome, "*.txt") ) {
-            for (var txt : txts) {
-                var millis = txt.getFileName().toString().replace();
-                var blabla = Files.readAllLines(txt).stream()
-                        .collect(
-                                Collectors.joining(System.lineSeparator())
-                        );
-                messages.put(Long.parseLong(millis), blabla);
-            }
-        }
-        return messages;
-    }
+//    private Map<Long, String> messages(String username) throws IOException {
+//        var userhome = Paths.get(USERS, username);
+//        var messages = new TreeMap<Long, String>(Comparator.reverseOrder());
+//        try (var txts = Files.newDirectoryStream(userhome, "*.txt") ) {
+//            for (var txt : txts) {
+//                var millis = txt.getFileName().toString().replace();
+//                var blabla = Files.readAllLines(txt).stream()
+//                        .collect(
+//                                Collectors.joining(System.lineSeparator())
+//                        );
+//                messages.put(Long.parseLong(millis), blabla);
+//            }
+//        }
+//        return messages;
+//    }
 
 }

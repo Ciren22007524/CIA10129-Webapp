@@ -1,17 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.ren.productcategory.service.*"%>
-<%@ page import="com.ren.productcategory.model.*"%>
-<%@ page import="com.ren.product.model.*" %>
+<%@ page import="com.ren.title.model.TitleVO" %>
 
-<% //見com.product.com.controller.ProductServlet.java第163行存入req的administratorVO物件 (此為從資料庫取出的administratorVO, 也可以是輸入格式有錯誤時的administratorVO物件)
-   AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO");
+<%
+   TitleVO titleVO = (TitleVO) request.getAttribute("titleVO");
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>商品資料修改 - update_administrator_input.jsp</title>
+<title>職位資料修改 - update_title_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -50,7 +48,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>商品資料修改 - update_administrator_input.jsp</h3>
+		 <h3>職位資料修改 - update_title_input.jsp</h3>
 		 <h4><a href="select_title.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -67,62 +65,30 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="product.do" name="form1">
+<FORM METHOD="post" ACTION="title.do" name="form1">
 <table>
 	<tr>
-		<td>商品編號:</td>
-		<td><input type="TEXT" name="pNo" value="<%= (administratorVO==null)? "10000001" : administratorVO.getpNo()%>" size="45"/></td>
+		<td>職位編號:</td>
+		<td><input type="TEXT" name="titleNo" value="<%= (titleVO==null)? "10" : titleVO.getTitleNo()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>商品名稱:</td>
-		<td><input type="TEXT" name="pName" value="<%= (administratorVO==null)? "短襯衫" : administratorVO.getpName()%>" size="45"/></td>
+		<td>職位名稱:</td>
+		<td><input type="TEXT" name="titleName" value="<%= (titleVO==null)? "打工仔" : titleVO.getTitleName()%>" size="45"/></td>
 	</tr>
-	<tr>
-		<td>商品資訊:</td>
-		<td><input type="TEXT" name="pInfo" value="<%= (administratorVO==null)? "短短的襯衫" : administratorVO.getpInfo()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>尺寸:</td>
-		<td><input type="TEXT" name="pSize" value="<%= (administratorVO==null)? "1" : administratorVO.getpSize()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>顏色:</td>
-		<td><input type="TEXT" name="pColor" value="<%= (administratorVO==null)? "藍色" : administratorVO.getpColor()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>商品單價:</td>
-		<td><input type="TEXT" name="pPrice" value="<%= (administratorVO==null)? "5000" : administratorVO.getpPrice()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>商品狀態:</td>
-		<td><input type="TEXT" name="pStat" value="<%= (administratorVO==null)? "1" : administratorVO.getpStat()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>商品已售出數量:</td>
-		<td><input type="TEXT" name="pSalQty" value="<%= (administratorVO==null)? "200" : administratorVO.getpSalQty()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>評價總人數:</td>
-		<td><input type="TEXT" name="pComPeople" value="<%= (administratorVO==null)? "50" : administratorVO.getpComPeople()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>評價總星數:</td>
-		<td><input type="TEXT" name="pComScore" value="<%= (administratorVO==null)? "3" : administratorVO.getpComScore()%>" size="45"/></td>
-	</tr>					
 
-	<jsp:useBean id="productCategorySvc" scope="page" class="com.ren.productcategory.service.ProductCategoryServiceImpl" />
+	<jsp:useBean id="titleSvc" scope="page" class="com.ren.title.service.TitleServiceImpl" />
 	<tr>
-		<td>商品類別編號:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="pCatNo">
-			<c:forEach var="productCategoryVO" items="${productCategorySvc.all}">
-				<option value="${productCategoryVO.pCatNo}" ${(administratorVO.pCatNo==productCategoryVO.pCatNo)? 'selected':'' } >${productCategoryVO.pCatName}
+		<td>職位編號:<font color=red><b>*</b></font></td>
+		<td><select size="1" name="titleNo">
+			<c:forEach var="titleVO" items="${titleSvc.all}">
+				<option value="${titleVO.titleNo}" ${(titleVO.titleNo==titleVO.titleNo)? 'selected':'' } >${titleVO.titleName}
 			</c:forEach>
 		</select></td>
 	</tr>
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="pNo" value="<%=administratorVO.getpNo()%>">
+<input type="hidden" name="titleNo" value="<%=titleVO.getTitleNo()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 </html>

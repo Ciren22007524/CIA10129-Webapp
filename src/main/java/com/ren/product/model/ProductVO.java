@@ -1,20 +1,50 @@
 package com.ren.product.model;
 
-import java.math.BigDecimal;
+import com.ren.productcategory.model.ProductCategoryVO;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Set;
+
+@Entity
+@Table(name = "Product")
 public class ProductVO {
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pNo")
     private Integer pNo;
-    private Integer pCatNo;
+    // JDBC、JNDI使用(Hibernate換成ManyToOne)
+//    @Column(name = "pCatNo")
+//    private Integer pCatNo;
+    @ManyToOne
+    @JoinColumn(name = "pCatNo", referencedColumnName = "pCatNo")
+    private ProductCategoryVO productCategory;
+    @Column(name = "pName")
     private String pName;
+    @Column(name = "pInfo")
     private String pInfo;
+    @Column(name = "pSize")
     private Integer pSize;
+    @Column(name = "pColor")
     private String pColor;
+    @Column(name = "pPrice")
     private BigDecimal pPrice;
+    @Column(name = "pStat")
     private Byte pStat;
+    @Column(name = "pSalQty")
     private Integer pSalQty;
+    @Column(name = "pComPeople")
     private Integer pComPeople;
+    @Column(name = "pComScore")
     private Integer pComScore;
+    @OneToMany(mappedBy = "ProductOrderDetail", cascade = CascadeType.ALL)
+    private Set<ProductVO> productOrderDetails;
+    @OneToMany(mappedBy = "ProductMyFavorite",cascade = CascadeType.ALL)
+    private Set<ProductVO> productMyFavorites;
+    @OneToMany(mappedBy = "Cart", cascade = CascadeType.ALL)
+    private Set<ProductVO> carts;
+    @OneToMany(mappedBy = "ProductPicture", cascade = CascadeType.ALL)
+    private Set<ProductVO> productPictures;
 
     public Integer getpNo() {
         return pNo;
@@ -24,12 +54,12 @@ public class ProductVO {
         this.pNo = pNo;
     }
 
-    public Integer getpCatNo() {
-        return pCatNo;
+    public ProductCategoryVO getProductCategory() {
+        return productCategory;
     }
 
-    public void setpCatNo(Integer pCatNo) {
-        this.pCatNo = pCatNo;
+    public void setProductCategory(ProductCategoryVO productCategory) {
+        this.productCategory = productCategory;
     }
 
     public String getpName() {
@@ -104,4 +134,35 @@ public class ProductVO {
         this.pComScore = pComScore;
     }
 
+    public Set<ProductVO> getProductOrderDetails() {
+        return productOrderDetails;
+    }
+
+    public void setProductOrderDetails(Set<ProductVO> productOrderDetails) {
+        this.productOrderDetails = productOrderDetails;
+    }
+
+    public Set<ProductVO> getProductMyFavorites() {
+        return productMyFavorites;
+    }
+
+    public void setProductMyFavorites(Set<ProductVO> productMyFavorites) {
+        this.productMyFavorites = productMyFavorites;
+    }
+
+    public Set<ProductVO> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<ProductVO> carts) {
+        this.carts = carts;
+    }
+
+    public Set<ProductVO> getProductPictures() {
+        return productPictures;
+    }
+
+    public void setProductPictures(Set<ProductVO> productPictures) {
+        this.productPictures = productPictures;
+    }
 }

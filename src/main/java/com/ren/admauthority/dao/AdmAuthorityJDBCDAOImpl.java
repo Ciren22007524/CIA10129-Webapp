@@ -22,7 +22,7 @@ public class AdmAuthorityJDBCDAOImpl implements AdmAuthorityDAO_interface {
             "SELECT titleNo,authFuncNo FROM AdmAuthority WHERE titleNo = ?";
     // 查詢全部
     private static final String GET_ALL_STMT =
-            "SELECT titleNo,authFuncNo FROM AdmAuthority ORDER BY admNo";
+            "SELECT titleNo,authFuncNo FROM AdmAuthority ORDER BY titleNo";
     // 修改商品資料
     private static final String UPDATE_STMT =
             "UPDATE AdmAuthority SET authFuncNo=? WHERE titleNo = ?";

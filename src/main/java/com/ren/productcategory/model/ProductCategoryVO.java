@@ -1,9 +1,22 @@
 package com.ren.productcategory.model;
 
-public class ProductCategoryVO {
+import com.ren.product.model.ProductVO;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "ProductCategory")
+public class ProductCategoryVO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pCatNo")
     private Integer pCatNo;
+    @Column(name = "pCatName")
     private String pCatName;
+    @OneToMany(mappedBy = "Product", cascade = CascadeType.ALL)
+    @OrderBy("pCatNo asc")
+    private Set<ProductVO> products;
 
     public Integer getpCatNo() {
         return pCatNo;
@@ -20,5 +33,12 @@ public class ProductCategoryVO {
     public void setpCatName(String pCatName) {
         this.pCatName = pCatName;
     }
-    
+
+    public Set<ProductVO> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<ProductVO> products) {
+        this.products = products;
+    }
 }

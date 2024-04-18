@@ -18,10 +18,13 @@
             rel="stylesheet"
             integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
             crossorigin="anonymous"/>
+
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/components/hamburger.css"/>
 
     <style>
         table#table-1 {
@@ -62,6 +65,23 @@
 
 </head>
 <body bgcolor='white'>
+
+<!-- 導覽列 -->
+<nav>
+    <div>FallElove</div>
+    <input id="hamburger" type="checkbox">
+    <label class="hamburger-icon" for="hamburger">
+        <div class="bar"></div>
+    </label>
+    <ul class="menu">
+        <li><a href="<%=request.getContextPath()%>/administrator/select_administrator.jsp">管理員</a></li>
+        <li><a href="<%=request.getContextPath()%>/admauthority/select_admAuthority.jsp">管理員權限</a></li>
+        <li><a href="<%=request.getContextPath()%>/authorityfunction/select_authorityFunction.jsp">功能權限</a></li>
+        <li><a href="<%=request.getContextPath()%>/title/select_title.jsp">職位</a></li>
+        <li><a href="<%=request.getContextPath()%>/product/select_product.jsp">商品</a></li>
+        <li><a href="<%=request.getContextPath()%>/productcategory/select_productCategory.jsp">商品種類</a></li>
+    </ul>
+</nav>
 
 <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">

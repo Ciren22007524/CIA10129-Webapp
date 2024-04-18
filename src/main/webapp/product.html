@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/components/hamburger.css" />
+    <link rel="stylesheet" href="./css/components/animate.css" />
+
+</head>
+
+<body>
+    <!-- 頁首 -->
+    <header>
+        <h1 id="title1"></h1>
+    </header>
+
+    <!-- 導覽列 -->
+    <nav>
+        <div>FallElove</div>
+        <input id="hamburger" type="checkbox">
+        <label class="hamburger-icon" for="hamburger">
+            <div class="bar"></div>
+        </label>
+        <ul class="menu">
+            <li><a href="./administrator/select_administrator.jsp">管理員</a></li>
+            <li><a href="./admauthority/select_admAuthority.jsp">管理員權限</a></li>
+            <li><a href="./authorityfunction/select_authorityFunction.jsp">功能權限</a></li>
+            <li><a href="./title/select_title.jsp">職位</a></li>
+            <li><a href="./product/select_product.jsp">商品</a></li>
+            <li><a href="./productcategory/select_productCategory.jsp">商品種類</a></li>
+        </ul>
+    </nav>
+
+    <!-- 測試 -->
+    <!-- 添加class="image-thumbnail"以便使用JS和CSS -->
+    <div class="image-thumbnail" id="image1">
+        <img src="./1.jpg" alt="Image 1">
+    </div>
+    <div class="image-thumbnail" id="image2">
+        <img src="./2.jpg" alt="Image 2">
+    </div>
+    <!-- 其他圖片 -->
+    </div>
+
+    <!-- 浮動層 -->
+    <div id="overlay" style="display: none;">
+        <div id="overlay-content">
+            <span id="close-btn">X</span>
+            <img id="enlarged-image" src="" alt="Enlarged Image">
+        </div>
+        <!-- 跑馬燈區域 -->
+        <div id="carousel" style="display: flex; justify-content: center; align-items: center;">
+            <button id="prev-btn">＜</button>
+            <div id="carousel-content" style="overflow: hidden; white-space: nowrap;">
+                <!-- 縮略圖 -->
+                <img src="./1.jpg" class="carousel-thumbnail" alt="Thumbnail 1">
+                <img src="./2.jpg" class="carousel-thumbnail" alt="Thumbnail 2">
+                <img src="./3.jpg" class="carousel-thumbnail" alt="Thumbnail 3">
+                <!-- 更多縮略圖 -->
+            </div>
+            <button id="next-btn">＞</button>
+        </div>
+    </div>
+
+    <div class="slider">
+        <div><img src="./1.jpg"></div>
+        <div><img src="./2.jpg"></div>
+        <div><img src="./3.jpg" class="carousel-thumbnail" alt="Thumbnail 3"></div>
+
+    </div>
+
+    <!-- 主要內容 -->
+    <main>
+        <h2 id="title2"></h2>
+        <div id="gridcontainer">
+            <!-- 第一張圖片 -->
+            <div id="overlay">
+                <img src="./1.jpg">
+                <h3></h3>
+                <p><a class="a-detail" href=""></a></p>
+            </div>
+            <!-- 第二張圖片 -->
+            <div>
+                <img src="./2.jpg">
+                <h3></h3>
+                <p><a class="a-detail" href=""></a></p>
+            </div>
+            <!-- 第三張圖片 -->
+            <div>
+                <img src="./3.jpg">
+                <h3></h3>
+                <p><a class="a-detail" href=""></a></p>
+            </div>
+            <!-- 第四張圖片 -->
+            <div>
+                <img src="./4.jpg">
+                <h3></h3>
+                <p><a class="a-detail" href=""></a></p>
+            </div>
+            <!-- 第五張圖片 -->
+            <div>
+                <img src="">
+                <h3></h3>
+                <p><a class="a-detail" href=""></a></p>
+            </div>
+            <!-- 第六張圖片 -->
+            <div>
+                <img src="">
+                <h3></h3>
+                <p><a class="a-detail" href=""></a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <hr>
+        <a class="a-about" href=""></a>
+        <a class="a-about" href=""></a>
+        <a class="a-about" href=""></a>
+        <a class="a-about" href=""></a>
+    </footer>
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
+
+    <script src="./js/components/animate.js"></script>
+
+</body>
+
+</html>

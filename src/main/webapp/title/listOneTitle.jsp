@@ -1,17 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.ren.product.service.*" %>
-<%@ page import="com.ren.product.model.AdministratorVO" %>
+<%@ page import="com.ren.title.model.TitleVO" %>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-    AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO"); //ProductServlet.java(Concroller), 存入req的administratorVO物件
+    TitleVO titleVO = (TitleVO) request.getAttribute("titleVO");
 %>
 
 <html>
 <head>
-    <title>商品資料 - listOneAdministrator.jsp</title>
+    <title>職位資料 - listOneTitle.jsp</title>
 
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -67,7 +66,7 @@
 <table id="table-1">
     <tr>
         <td>
-            <h3>單筆商品資料</h3>
+            <h3>單筆職位資料</h3>
             <h4><a class="icon-link" href="select_title.jsp">
                 <i class="fa-solid fa-house">首頁</i>
             </a></h4>
@@ -78,46 +77,28 @@
 <div style="display: flex; flex-direction: row;">
     <table>
         <tr>
-            <th>商品編號</th>
-            <th>商品類別編號</th>
-            <th>商品名稱</th>
-            <th>商品資訊</th>
-            <th>尺寸</th>
-            <th>顏色</th>
-            <th>商品單價</th>
-            <th>商品狀態</th>
-            <th>商品已售出數量</th>
-            <th>評價總人數</th>
-            <th>評價總星數</th>
+            <th>職位編號</th>
+            <th>職位名稱</th>
             <th>修改</th>
             <th>刪除</th>
         </tr>
         <tr>
-            <td>${administratorVO.pNo}</td>
-            <td>${administratorVO.pCatNo}</td>
-            <td>${administratorVO.pName}</td>
-            <td>${administratorVO.pInfo}</td>
-            <td>${administratorVO.pSize}</td>
-            <td>${administratorVO.pColor}</td>
-            <td>${administratorVO.pPrice}</td>
-            <td>${administratorVO.pStat}</td>
-            <td>${administratorVO.pSalQty}</td>
-            <td>${administratorVO.pComPeople}</td>
-            <td>${administratorVO.pComScore}</td>
+            <td>${titleVO.titleNo}</td>
+            <td>${titleVO.titleName}</td>
             <td>
-                <form METHOD="post" ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
+                <form METHOD="post" ACTION="<%=request.getContextPath()%>/title/title.do"
                       style="margin-bottom: 0px;">
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="hidden" name="pNo" value="${administratorVO.pNo}">
+                        <input type="hidden" name="titleNo" value="${titleVO.titleNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
                 </form>
             </td>
             <td>
-                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/administrator/administrator.do" style="margin-bottom: 0px;">
+                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/title/title.do" style="margin-bottom: 0px;">
                     <button type="button" onclick="confirmDelete()">
                         <i class="fa-solid fa-trash-can"></i>
-                        <input type="hidden" name="pNo" value="${administratorVO.pNo}">
+                        <input type="hidden" name="pNo" value="${titleVO.titleNo}">
                         <input type="hidden" name="action" value="delete">
                     </button>
                 </form>

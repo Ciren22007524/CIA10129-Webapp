@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface AuthorityFunctionService_interface {
     // 新增(將前端request值放入VO由DAO執行SQL語法，並返回VO由Controller轉給View)
-    public AuthorityFunctionVO addAuthorityFunction(Integer authFuncNo, String authFuncInfo);
+    // Auto-increment
+    public AuthorityFunctionVO addAuthorityFunction(String authFuncInfo);
     // 查詢單筆資料
     public AuthorityFunctionVO getOneAuthorityFunction(Integer authFuncNo);
     // 查詢所有資料
