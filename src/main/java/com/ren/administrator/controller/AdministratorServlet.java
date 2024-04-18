@@ -90,7 +90,7 @@ public class AdministratorServlet extends HttpServlet {
             successView.forward(req, res);
         }
 
-        if ("getOne_For_Update".equals(action)) { // 來自listAllProduct.jsp的請求
+        if ("getOne_For_Update".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<>();
             // Store this set in the request scope, in case we need to
@@ -193,7 +193,7 @@ public class AdministratorServlet extends HttpServlet {
             /*************************** 3.修改完成,準備轉交(Send the Success view) *************/
             req.setAttribute("administratorVO", administratorVO); // 資料庫update成功後,正確的的administratorVO物件,存入req
             String url = "/administrator/listOneAdministrator.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneProduct.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
@@ -280,7 +280,7 @@ public class AdministratorServlet extends HttpServlet {
             successView.forward(req, res);
         }
 
-        if ("delete".equals(action)) { // 來自listAllProduct.jsp
+        if ("delete".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<>();
             // Store this set in the request scope, in case we need to
@@ -348,76 +348,76 @@ public class AdministratorServlet extends HttpServlet {
             successView.forward(req, res);
         }
 
-        if ("register".equals(action)) {
-
-            List<String> errorMsgs = new LinkedList<>();
-            // Store this set in the request scope, in case we need to
-            // send the ErrorPage view.
-            req.setAttribute("errorMsgs", errorMsgs);
-
-            /*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-            String admName = req.getParameter("admName").trim();
-            if (admName == null || admName.trim().length() == 0) {
-                errorMsgs.add("管理員名稱請勿空白");
-            }
-
-            String admPwd = req.getParameter("admPwd");
-            String admPwdReg = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{6,12}$";
-            if (admPwd == null || admPwd.trim().length() == 0) {
-                errorMsgs.add("管理員密碼: 請勿空白!");
-            } else if (!admPwd.trim().matches(admPwdReg)) { // 以下練習正則(規)表示式(regular-expression)
-                errorMsgs.add("管理員密碼: 只能是中、英文字母、數字和_ , 且長度必需在6到12之間");
-            }
-
-            String admPwd2 = req.getParameter("admPwd2");
-            if (admPwd2 == null || admPwd2.trim().length() == 0) {
-                errorMsgs.add("確認密碼請勿空白!");
-            } else if (!admPwd2.trim().matches(admPwd)) { // 以下練習正則(規)表示式(regular-expression)
-                errorMsgs.add("˙啊呦!這就玄了哦!密碼與確認密碼不相同!");
-            }
-
-            String admEmail = req.getParameter("admEmail");
-            String admEmailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-
-            if (admEmail == null || admEmail.trim().length() == 0) {
-                errorMsgs.add("請輸入電子郵件地址");
-            } else if (!admEmail.matches(admEmailRegex)) {
-                errorMsgs.add("電子郵件地址格式不正確");
-            }
-            // 密碼加密及產生鹽值
-            var salt = ThreadLocalRandom.current().nextInt();
-            var encrypt = String.valueOf(salt + password.hashCode());
-
-            AdministratorVO administratorVO = new AdministratorVO();
-            administratorVO.setAdmPwd(admName);
-            administratorVO.setAdmPwd(admPwd);
-            administratorVO.setAdmPwd(admEmail);
-            AdministratorServiceImpl administratorSvc = new AdministratorServiceImpl();
-            // 執行Service的register()方法，並返回驗證後的字串集合，加入errorMsgs
-            errorMsgs.addAll(administratorSvc.register(administratorVO));
-            // Send the use back to the form, if there were errors
-            if (!errorMsgs.isEmpty()) {
-                req.setAttribute("administratorVO", administratorVO); // 含有輸入格式錯誤的administratorVO物件,也存入req
-                RequestDispatcher failureView = req.getRequestDispatcher("/administrator/register.jsp");
-                failureView.forward(req, res);
-                return;
-            }
-
-            /*************************** 2.開始新增資料 ***************************************/
-            // 確認無重複，執行註冊
-            Byte admStat = 1;
-            Integer titleNo = 10;
-            LocalDate today = LocalDate.now();
-            // 將 LocalDate 轉換為 java.sql.Date
-            Date admHireDate = Date.valueOf(today);
-            // 將VO放入dao定義的方法內，使其執行資料庫操作
-            administratorSvc.addAdministrator(admPwd, admName, admStat, admEmail, titleNo, admHireDate);
-
-            /*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-            String url = "/administrator/listAllAdministrator.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url);
-            successView.forward(req, res);
-        }
+//        if ("register".equals(action)) {
+//
+//            List<String> errorMsgs = new LinkedList<>();
+//            // Store this set in the request scope, in case we need to
+//            // send the ErrorPage view.
+//            req.setAttribute("errorMsgs", errorMsgs);
+//
+//            /*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+//            String admName = req.getParameter("admName").trim();
+//            if (admName == null || admName.trim().length() == 0) {
+//                errorMsgs.add("管理員名稱請勿空白");
+//            }
+//
+//            String admPwd = req.getParameter("admPwd");
+//            String admPwdReg = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{6,12}$";
+//            if (admPwd == null || admPwd.trim().length() == 0) {
+//                errorMsgs.add("管理員密碼: 請勿空白!");
+//            } else if (!admPwd.trim().matches(admPwdReg)) { // 以下練習正則(規)表示式(regular-expression)
+//                errorMsgs.add("管理員密碼: 只能是中、英文字母、數字和_ , 且長度必需在6到12之間");
+//            }
+//
+//            String admPwd2 = req.getParameter("admPwd2");
+//            if (admPwd2 == null || admPwd2.trim().length() == 0) {
+//                errorMsgs.add("確認密碼請勿空白!");
+//            } else if (!admPwd2.trim().matches(admPwd)) { // 以下練習正則(規)表示式(regular-expression)
+//                errorMsgs.add("˙啊呦!這就玄了哦!密碼與確認密碼不相同!");
+//            }
+//
+//            String admEmail = req.getParameter("admEmail");
+//            String admEmailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+//
+//            if (admEmail == null || admEmail.trim().length() == 0) {
+//                errorMsgs.add("請輸入電子郵件地址");
+//            } else if (!admEmail.matches(admEmailRegex)) {
+//                errorMsgs.add("電子郵件地址格式不正確");
+//            }
+//             密碼加密及產生鹽值
+//            var salt = ThreadLocalRandom.current().nextInt();
+//            var encrypt = String.valueOf(salt + password.hashCode());
+//
+//            AdministratorVO administratorVO = new AdministratorVO();
+//            administratorVO.setAdmPwd(admName);
+//            administratorVO.setAdmPwd(admPwd);
+//            administratorVO.setAdmPwd(admEmail);
+//            AdministratorServiceImpl administratorSvc = new AdministratorServiceImpl();
+//            // 執行Service的register()方法，並返回驗證後的字串集合，加入errorMsgs
+//            errorMsgs.addAll(administratorSvc.register(administratorVO));
+//            // Send the use back to the form, if there were errors
+//            if (!errorMsgs.isEmpty()) {
+//                req.setAttribute("administratorVO", administratorVO); // 含有輸入格式錯誤的administratorVO物件,也存入req
+//                RequestDispatcher failureView = req.getRequestDispatcher("/administrator/register.jsp");
+//                failureView.forward(req, res);
+//                return;
+//            }
+//
+//            /*************************** 2.開始新增資料 ***************************************/
+//            // 確認無重複，執行註冊
+//            Byte admStat = 1;
+//            Integer titleNo = 10;
+//            LocalDate today = LocalDate.now();
+//            // 將 LocalDate 轉換為 java.sql.Date
+//            Date admHireDate = Date.valueOf(today);
+//            // 將VO放入dao定義的方法內，使其執行資料庫操作
+//            administratorSvc.addAdministrator(admPwd, admName, admStat, admEmail, titleNo, admHireDate);
+//
+//            /*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+//            String url = "/administrator/listAllAdministrator.jsp";
+//            RequestDispatcher successView = req.getRequestDispatcher(url);
+//            successView.forward(req, res);
+//        }
     }
 
 }

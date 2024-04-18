@@ -16,10 +16,9 @@ public class AuthorityFunctionServiceImpl implements AuthorityFunctionService_in
     }
 
     @Override
-    public AuthorityFunctionVO addAuthorityFunction(Integer authFuncNo, String authFuncInfo) {
+    public AuthorityFunctionVO addAuthorityFunction(String authFuncInfo) {
         AuthorityFunctionVO authorityFunctionVO = new AuthorityFunctionVO();
         // 將傳入參數放入VO
-        authorityFunctionVO.setAuthFuncNo(authFuncNo);
         authorityFunctionVO.setAuthFuncInfo(authFuncInfo);
         // 將VO放入dao定義的方法內，使其執行資料庫操作
         dao.insert(authorityFunctionVO);

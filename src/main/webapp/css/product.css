@@ -90,10 +90,14 @@ hr {
 
 /* 平板樣式(501px - 768px) */
 @media screen and (min-width: 501px) {
-    
+    .gridcontainer {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
-/* PC版樣式 */
+/* PC版樣式 (>= 769px) */
 @media screen and (min-width: 769px) {
-    
+    .gridcontainer {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }

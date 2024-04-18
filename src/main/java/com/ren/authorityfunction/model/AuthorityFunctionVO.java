@@ -1,8 +1,15 @@
 package com.ren.authorityfunction.model;
 
-public class AuthorityFunctionVO {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "AuthorityFunction")
+public class AuthorityFunctionVO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "authFuncNo")
     private Integer authFuncNo;
+    @Column(name = "authFuncInfo")
     private String authFuncInfo;
 
     public Integer getAuthFuncNo() {

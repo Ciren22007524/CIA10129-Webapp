@@ -4,7 +4,7 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-    AdmAuthorityVO admAuthorityVO = (AdmAuthorityVO) request.getAttribute("admAuthorityVO"); //ProductServlet.java(Concroller), 存入req的admAuthorityVO物件
+    AdmAuthorityVO admAuthorityVO = (AdmAuthorityVO) request.getAttribute("admAuthorityVO");
 %>
 
 <html>

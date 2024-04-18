@@ -15,6 +15,8 @@
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/components/hamburger.css"/>
+
     <style>
         table#table-1 {
             width: 450px;
@@ -42,10 +44,27 @@
 
 <body bgcolor='white'>
 
+<!-- 導覽列 -->
+<nav>
+    <div>FallElove</div>
+    <input id="hamburger" type="checkbox">
+    <label class="hamburger-icon" for="hamburger">
+        <div class="bar"></div>
+    </label>
+    <ul class="menu">
+        <li><a href="<%=request.getContextPath()%>/administrator/select_administrator.jsp">管理員</a></li>
+        <li><a href="<%=request.getContextPath()%>/admauthority/select_admAuthority.jsp">管理員權限</a></li>
+        <li><a href="<%=request.getContextPath()%>/authorityfunction/select_authorityFunction.jsp">功能權限</a></li>
+        <li><a href="<%=request.getContextPath()%>/title/select_title.jsp">職位</a></li>
+        <li><a href="<%=request.getContextPath()%>/product/select_product.jsp">商品</a></li>
+        <li><a href="<%=request.getContextPath()%>/productcategory/select_productCategory.jsp">商品種類</a></li>
+    </ul>
+</nav>
+
 <table id="table-1">
     <tr>
         <td>
-            <h3>商品管理頁面</h3>
+            <h3>商品類別管理頁面</h3>
             <h4>
                 <a class="icon-link" href="select_productCategory.jsp">
                     <i class="fa-solid fa-house">首頁</i>

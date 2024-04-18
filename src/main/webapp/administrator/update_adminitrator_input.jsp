@@ -3,14 +3,14 @@
 <%@ page import="com.ren.administrator.service.*"%>
 <%@ page import="com.ren.administrator.model.*"%>
 
-<% //見com.administrator.com.controller.ProductServlet.java第163行存入req的administratorVO物件 (此為從資料庫取出的administratorVO, 也可以是輸入格式有錯誤時的administratorVO物件)
+<%
    AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO");
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>商品資料修改 - update_administrator_input.jsp</title>
+<title>管理員資料修改 - update_administrator_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -49,7 +49,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>商品資料修改 - update_administrator_input.jsp</h3>
+		 <h3>管理員資料修改 - update_administrator_input.jsp</h3>
 		 <h4><a href="select_administrator.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -69,15 +69,15 @@
 <FORM METHOD="post" ACTION="administrator.do" name="form1">
 <table>
 	<tr>
-		<td>商品編號:</td>
+		<td>管理員編號:</td>
 		<td><input type="TEXT" name="admNo" value="<%= (administratorVO==null)? "10000001" : administratorVO.getAdmNo()%>" size="45"/></td>
 	</tr>
 	<tr>
-		<td>商品名稱:</td>
-		<td><input type="TEXT" name="admPwd" value="<%= (administratorVO==null)? "短襯衫" : administratorVO.getAdmPwd()%>" size="45"/></td>
+		<td>管理員密碼:</td>
+		<td><input type="password" name="admPwd" size="45"/></td>
 	</tr>
 	<tr>
-		<td>商品資訊:</td>
+		<td>管理員名稱:</td>
 		<td><input type="TEXT" name="admName" value="<%= (administratorVO==null)? "短短的襯衫" : administratorVO.getAdmName()%>" size="45"/></td>
 	</tr>
 	<tr>
@@ -101,12 +101,12 @@
 		<td><input type="TEXT" name="admPhoto" value="<%= (administratorVO==null)? "200" : administratorVO.getAdmPhoto()%>" size="45"/></td>
 	</tr>
 
-	<jsp:useBean id="administratorCategorySvc" scope="page" class="com.ren.administrator.service.AdministratorServiceImpl" />
+	<jsp:useBean id="administratorSvc" scope="page" class="com.ren.administrator.service.AdministratorServiceImpl" />
 	<tr>
 		<td>商品類別編號:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="admPwd">
-			<c:forEach var="administratorCategoryVO" items="${administratorCategorySvc.all}">
-				<option value="${administratorCategoryVO.admPwd}" ${(administratorVO.admPwd==administratorCategoryVO.admPwd)? 'selected':'' } >${administratorCategoryVO.pCatName}
+			<c:forEach var="administratorVO" items="${administratorSvc.all}">
+				<option value="${administratorVO.admNo}" ${(administratorVO.admNo==administratorVO.admNo)? 'selected':'' } >${administratorVO.admName}
 			</c:forEach>
 		</select></td>
 	</tr>

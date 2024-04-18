@@ -87,22 +87,22 @@
     <c:forEach var="admAuthorityVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
         <tr>
-            <td>${admAuthorityVO.pNo}</td>
-            <td>${admAuthorityVO.pCatNo}</td>
+            <td>${admAuthorityVO.titleNo}</td>
+            <td>${admAuthorityVO.authFuncNo}</td>
             <td>
-                <form METHOD="post" ACTION="<%=request.getContextPath()%>/admAuthority/admAuthority.do"
+                <form METHOD="post" ACTION="<%=request.getContextPath()%>/admauthority/admAuthority.do"
                       style="margin-bottom: 0px;">
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        <input type="hidden" name="pNo" value="${admAuthorityVO.pNo}">
+                        <input type="hidden" name="titleNo" value="${admAuthorityVO.titleNo}">
                         <input type="hidden" name="action" value="getOne_For_Update">
                 </form>
             </td>
             <td>
-                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/admAuthority/admAuthority.do" style="margin-bottom: 0px;">
+                <form id="deleteForm" method="post" action="<%=request.getContextPath()%>/admauthority/admAuthority.do" style="margin-bottom: 0px;">
                     <button type="button" onclick="confirmDelete()">
                         <i class="fa-solid fa-trash-can"></i>
-                        <input type="hidden" name="pNo" value="${admAuthorityVO.pNo}">
+                        <input type="hidden" name="pNo" value="${admAuthorityVO.titleNo}">
                         <input type="hidden" name="action" value="delete">
                     </button>
                 </form>

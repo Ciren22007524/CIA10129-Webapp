@@ -1,17 +1,28 @@
 package com.ren.administrator.model;
 
-
+import javax.persistence.*;
 import java.sql.Date;
 
+@Entity
+@Table(name = "Administrator")
 public class AdministratorVO {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "admNo")
     private Integer admNo;
+    @Column(name = "admPwd")
     private String admPwd;
+    @Column(name = "admName")
     private String admName;
+    @Column(name = "admStat")
     private Byte admStat;
+    @Column(name = "admEmail")
     private String admEmail;
+    @Column(name = "titleNo")
     private Integer titleNo;
+    @Column(name = "admHireDate")
     private Date admHireDate;
+    @Column(name = "admPhoto")
     private byte[] admPhoto;
 
     public Integer getAdmNo() {

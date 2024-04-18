@@ -16,7 +16,7 @@ public class AuthorityFunctionJDBCDAOImpl implements AuthorityFunctionDAO_interf
 
     // 新增商品
     private static final String INSERT_STMT =
-            "INSERT INTO AuthorityFunction (authFuncNo,authFuncInfo) VALUES (?, ?)";
+            "INSERT INTO AuthorityFunction (authFuncInfo) VALUES (?)";
     // 查詢單一品項
     private static final String GET_ONE_STMT =
             "SELECT authFuncNo,authFuncInfo FROM AuthorityFunction WHERE authFuncNo = ?";
@@ -38,8 +38,7 @@ public class AuthorityFunctionJDBCDAOImpl implements AuthorityFunctionDAO_interf
             // 載入Driver介面的實作類別.class檔來註冊JDBC
             Class.forName(driver);
             // 從request的VO取值放入PreparedStatement
-            ps.setInt(1, authorityFunctionVO.getAuthFuncNo());
-            ps.setString(2, authorityFunctionVO.getAuthFuncInfo());
+            ps.setString(1, authorityFunctionVO.getAuthFuncInfo());
             // 執行SQL指令將VO資料新增進資料庫
             ps.executeUpdate();
             // Handle any driver errors

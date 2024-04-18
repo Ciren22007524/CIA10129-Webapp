@@ -19,16 +19,18 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
     // 新增管理員(不包括圖片)
     private static final String INSERT_STMT =
             "INSERT INTO Administrator (admPwd,admName,admStat,admEmail,titleNo,admHireDate) VALUES (?, ?, ?, ?, ?, ?)";
-    // 查詢單一品項
+    // 查詢單一管理員
+    // 因密碼不應顯示於前端，查詢功能不提供密碼查詢
     private static final String GET_ONE_STMT =
-            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate, admPhoto FROM Administrator WHERE admNo = ?";
+            "SELECT admNo,admName,admStat,admEmail,titleNo,admHireDate, admPhoto FROM Administrator WHERE admNo = ?";
     private static final String GET_NAME_STMT =
-            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admName = ?";
+            "SELECT admNo,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admName = ?";
     private static final String GET_EMAIL_STMT =
-            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admEmail = ?";
+            "SELECT admNo,admName,admStat,admEmail,titleNo,admHireDate FROM Administrator WHERE admEmail = ?";
     // 查詢全部
+    // 因密碼不應顯示於前端，查詢功能不提供密碼查詢
     private static final String GET_ALL_STMT =
-            "SELECT admNo,admPwd,admName,admStat,admEmail,titleNo,admHireDate,admPhoto FROM Administrator ORDER BY admNo";
+            "SELECT admNo,admName,admStat,admEmail,titleNo,admHireDate,admPhoto FROM Administrator ORDER BY admNo";
     // 修改資料
     private static final String UPDATE_STMT =
             "UPDATE Administrator SET admPwd=?, admName=?, admStat=?, admEmail=?, titleNo=?, admHireDate=?, admPhoto WHERE admNo = ?";
@@ -88,7 +90,6 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
             while (rs.next()) {
                 administratorVO = new AdministratorVO();
                 administratorVO.setAdmNo(rs.getInt("AdmNo"));
-                administratorVO.setAdmPwd(rs.getString("AdmPwd"));
                 administratorVO.setAdmName(rs.getString("AdmName"));
                 administratorVO.setAdmStat(rs.getByte("AdmStat"));
                 administratorVO.setAdmEmail(rs.getString("AdmEmail"));
@@ -123,7 +124,6 @@ public class AdministratorJDBCDAOImpl implements AdministratorDAO_interface {
             while (rs.next()) {
                 administratorVO = new AdministratorVO();
                 administratorVO.setAdmNo(rs.getInt("AdmNo"));
-                administratorVO.setAdmPwd(rs.getString("AdmPwd"));
                 administratorVO.setAdmName(rs.getString("AdmName"));
                 administratorVO.setAdmStat(rs.getByte("AdmStat"));
                 administratorVO.setAdmEmail(rs.getString("AdmEmail"));

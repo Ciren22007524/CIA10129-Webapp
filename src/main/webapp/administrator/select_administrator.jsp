@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>fallElove Product Manage</title>
+    <title>fallElove Administrator Manage</title>
 
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
@@ -14,6 +14,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/components/hamburger.css"/>
 
     <style>
         table#table-1 {
@@ -42,6 +44,23 @@
 
 <body bgcolor='white'>
 
+<!-- 導覽列 -->
+<nav>
+    <div>FallElove</div>
+    <input id="hamburger" type="checkbox">
+    <label class="hamburger-icon" for="hamburger">
+        <div class="bar"></div>
+    </label>
+    <ul class="menu">
+        <li><a href="<%=request.getContextPath()%>/administrator/select_administrator.jsp">管理員</a></li>
+        <li><a href="<%=request.getContextPath()%>/admauthority/select_admAuthority.jsp">管理員權限</a></li>
+        <li><a href="<%=request.getContextPath()%>/authorityfunction/select_authorityFunction.jsp">功能權限</a></li>
+        <li><a href="<%=request.getContextPath()%>/title/select_title.jsp">職位</a></li>
+        <li><a href="<%=request.getContextPath()%>/product/select_product.jsp">商品</a></li>
+        <li><a href="<%=request.getContextPath()%>/productcategory/select_productCategory.jsp">商品種類</a></li>
+    </ul>
+</nav>
+
 <table id="table-1">
     <tr>
         <td>
@@ -55,7 +74,7 @@
     </tr>
 </table>
 
-<p>This is the Home page for FallELove Product Management</p>
+<p>This is the Home page for FallELove Administrator Management</p>
 
 <h3>資料查詢:</h3>
 
@@ -70,7 +89,7 @@
 </c:if>
 
 <ul>
-    <li><a href='listAllAdministrator.jsp'>List</a> all Products. <br> <br></li>
+    <li><a href='listAllAdministrator.jsp'>List</a> all Administrators. <br> <br></li>
 
 
     <li>

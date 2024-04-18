@@ -3,7 +3,7 @@
 <%@ page import="com.ren.administrator.service.AdministratorServiceImpl"%>
 <%@ page import="com.ren.administrator.model.AdministratorVO" %>
 
-<% //見com.administrator.com.controller.ProductServlet.java第238行存入req的administratorVO物件 (此為輸入格式有錯誤時的administratorVO物件)
+<%
    AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO");
 %>
 --<%= administratorVO==null %>--${administratorVO.admPwd}-- <!-- line 100 -->
@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addAdministrator.jsp</title>
+<title>管理員資料新增 - addAdministrator.jsp</title>
 
 <style>
   table#table-1 {

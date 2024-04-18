@@ -1,17 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.ren.productcategory.service.*"%>
-<%@ page import="com.ren.productcategory.model.*"%>
-<%@ page import="com.ren.product.model.*" %>
+<%@ page import="com.ren.authorityfunction.model.*"%>
 
-<% //見com.product.com.controller.ProductServlet.java第163行存入req的authorityFunctionVO物件 (此為從資料庫取出的authorityFunctionVO, 也可以是輸入格式有錯誤時的authorityFunctionVO物件)
+<%
    AuthorityFunctionVO authorityFunctionVO = (AuthorityFunctionVO) request.getAttribute("authorityFunctionVO");
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>商品資料修改 - update_authorityFunction_input.jsp</title>
+<title>功能權限資料修改 - update_authorityFunction_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -50,7 +48,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>商品資料修改 - update_authorityFunction_input.jsp</h3>
+		 <h3>功能權限修改 - update_authorityFunction_input.jsp</h3>
 		 <h4><a href="select_authorityFunction.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -67,62 +65,30 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="product.do" name="form1">
+<FORM METHOD="post" ACTION="authorityFunction.do" name="form1">
 <table>
 	<tr>
 		<td>商品編號:</td>
-		<td><input type="TEXT" name="pNo" value="<%= (authorityFunctionVO==null)? "10000001" : authorityFunctionVO.getpNo()%>" size="45"/></td>
+		<td><input type="TEXT" name="authFuncNo" value="<%= (authorityFunctionVO==null)? "1" : authorityFunctionVO.getAuthFuncNo()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>商品名稱:</td>
-		<td><input type="TEXT" name="pName" value="<%= (authorityFunctionVO==null)? "短襯衫" : authorityFunctionVO.getpName()%>" size="45"/></td>
+		<td><input type="TEXT" name="authFuncInfo" value="<%= (authorityFunctionVO==null)? "1" : authorityFunctionVO.getAuthFuncInfo()%>" size="45"/></td>
 	</tr>
-	<tr>
-		<td>商品資訊:</td>
-		<td><input type="TEXT" name="pInfo" value="<%= (authorityFunctionVO==null)? "短短的襯衫" : authorityFunctionVO.getpInfo()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>尺寸:</td>
-		<td><input type="TEXT" name="pSize" value="<%= (authorityFunctionVO==null)? "1" : authorityFunctionVO.getpSize()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>顏色:</td>
-		<td><input type="TEXT" name="pColor" value="<%= (authorityFunctionVO==null)? "藍色" : authorityFunctionVO.getpColor()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>商品單價:</td>
-		<td><input type="TEXT" name="pPrice" value="<%= (authorityFunctionVO==null)? "5000" : authorityFunctionVO.getpPrice()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>商品狀態:</td>
-		<td><input type="TEXT" name="pStat" value="<%= (authorityFunctionVO==null)? "1" : authorityFunctionVO.getpStat()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>商品已售出數量:</td>
-		<td><input type="TEXT" name="pSalQty" value="<%= (authorityFunctionVO==null)? "200" : authorityFunctionVO.getpSalQty()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>評價總人數:</td>
-		<td><input type="TEXT" name="pComPeople" value="<%= (authorityFunctionVO==null)? "50" : authorityFunctionVO.getpComPeople()%>" size="45"/></td>
-	</tr>
-	<tr>
-		<td>評價總星數:</td>
-		<td><input type="TEXT" name="pComScore" value="<%= (authorityFunctionVO==null)? "3" : authorityFunctionVO.getpComScore()%>" size="45"/></td>
-	</tr>					
 
-	<jsp:useBean id="productCategorySvc" scope="page" class="com.ren.productcategory.service.ProductCategoryServiceImpl" />
+	<jsp:useBean id="authorityFunctionSvc" scope="page" class="com.ren.authorityfunction.service.AuthorityFunctionServiceImpl" />
 	<tr>
 		<td>商品類別編號:<font color=red><b>*</b></font></td>
-		<td><select size="1" name="pCatNo">
-			<c:forEach var="productCategoryVO" items="${productCategorySvc.all}">
-				<option value="${productCategoryVO.pCatNo}" ${(authorityFunctionVO.pCatNo==productCategoryVO.pCatNo)? 'selected':'' } >${productCategoryVO.pCatName}
+		<td><select size="1" name="authFuncNo">
+			<c:forEach var="authorityFunctionVO" items="${authorityFunctionSvc.all}">
+				<option value="${authorityFunctionVO.authFuncNo}" ${(authorityFunctionVO.authFuncNo==authorityFunctionVO.authFuncNo)? 'selected':'' } >${authorityFunctionVO.authFuncNo}
 			</c:forEach>
 		</select></td>
 	</tr>
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="pNo" value="<%=authorityFunctionVO.getpNo()%>">
+<input type="hidden" name="authFuncNo" value="<%=authorityFunctionVO.getAuthFuncNo()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 </html>

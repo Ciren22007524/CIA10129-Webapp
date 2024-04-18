@@ -1,8 +1,17 @@
 package com.ren.title.model;
 
-public class TitleVO {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Title")
+public class TitleVO {
+    @Id
+    @Column(name = "titleNo")
     private Integer titleNo;
+    @Column(name = "titleName")
     private String titleName;
 
     public Integer getTitleNo() {

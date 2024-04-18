@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.ren.admauthority.model.AdmAuthorityVO" %>
 
-<% //見com.product.com.controller.ProductServlet.java第163行存入req的admAuthorityVO物件 (此為從資料庫取出的admAuthorityVO, 也可以是輸入格式有錯誤時的admAuthorityVO物件)
+<%
    AdmAuthorityVO admAuthorityVO = (AdmAuthorityVO) request.getAttribute("admAuthorityVO");
 %>
 

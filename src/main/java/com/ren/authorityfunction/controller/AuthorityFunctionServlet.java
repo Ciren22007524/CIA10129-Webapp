@@ -35,47 +35,47 @@ public class AuthorityFunctionServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-            String str = req.getParameter("authorityFunctionNo");
+            String str = req.getParameter("authFuncNo");
             if (str == null || (str.trim()).length() == 0) {
                 errorMsgs.add("請輸入職位編號");
             }
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/select_authorityFunction.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityfunction/select_authorityFunction.jsp");
                 failureView.forward(req, res);
                 return;// 程式中斷
             }
 
-            Integer authorityFunctionNo = null;
+            Integer authFuncNo = null;
             try {
-                authorityFunctionNo = Integer.valueOf(str);
+                authFuncNo = Integer.valueOf(str);
             } catch (Exception e) {
                 errorMsgs.add("編號格式不正確");
             }
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/select_authorityFunction.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityfunction/select_authorityFunction.jsp");
                 failureView.forward(req, res);
                 return;// 程式中斷
             }
 
             /*************************** 2.開始查詢資料 *****************************************/
             AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
-            AuthorityFunctionVO authorityFunctionVO = authorityFunctionSvc.getOneAuthorityFunction(authorityFunctionNo);
+            AuthorityFunctionVO authorityFunctionVO = authorityFunctionSvc.getOneAuthorityFunction(authFuncNo);
             // 引用類型的屬性在未附值時預設為null
             if (authorityFunctionVO == null) {
                 errorMsgs.add("查無資料");
             }
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/select_authorityFunction.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityfunction/select_authorityFunction.jsp");
                 failureView.forward(req, res);
                 return;// 程式中斷
             }
 
             /*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
             req.setAttribute("authorityFunctionVO", authorityFunctionVO);
-            String url = "/authorityFunction/listOneAuthorityFunction.jsp";
+            String url = "/authorityfunction/listOneAuthorityFunction.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
@@ -88,15 +88,15 @@ public class AuthorityFunctionServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 ****************************************/
-            Integer authorityFunctionNo = Integer.valueOf(req.getParameter("authorityFunctionNo"));
+            Integer authFuncNo = Integer.valueOf(req.getParameter("authFuncNo"));
 
             /*************************** 2.開始查詢資料 ****************************************/
             AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
-            AuthorityFunctionVO authorityFunctionVO = authorityFunctionSvc.getOneAuthorityFunction(authorityFunctionNo);
+            AuthorityFunctionVO authorityFunctionVO = authorityFunctionSvc.getOneAuthorityFunction(authFuncNo);
 
             /*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
             req.setAttribute("authorityFunctionVO", authorityFunctionVO);
-            String url = "/authorityFunction/update_authorityFunction_input.jsp";
+            String url = "/authorityfunction/update_authorityFunction_input.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
@@ -109,24 +109,24 @@ public class AuthorityFunctionServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-            Integer authorityFunctionNo = Integer.valueOf(req.getParameter("authorityFunctionNo").trim());
+            Integer authFuncNo = Integer.valueOf(req.getParameter("authFuncNo").trim());
 
-            String authorityFunctionName = req.getParameter("authorityFunctionName");
-            String authorityFunctionNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-            if (authorityFunctionName == null || authorityFunctionName.trim().length() == 0) {
+            String authFuncInfo = req.getParameter("authFuncInfo");
+            String authFuncInfoReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+            if (authFuncInfo == null || authFuncInfo.trim().length() == 0) {
                 errorMsgs.add("職位名稱: 請勿空白");
-            } else if (!authorityFunctionName.trim().matches(authorityFunctionNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+            } else if (!authFuncInfo.trim().matches(authFuncInfoReg)) { // 以下練習正則(規)表示式(regular-expression)
                 errorMsgs.add("職位名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
             }
 
             AuthorityFunctionVO authorityFunctionVO = new AuthorityFunctionVO();
-            authorityFunctionVO.setTitleNo(authorityFunctionNo);
-            authorityFunctionVO.setTitleName(authorityFunctionName);
+            authorityFunctionVO.setAuthFuncNo(authFuncNo);
+            authorityFunctionVO.setAuthFuncInfo(authFuncInfo);
 
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
                 req.setAttribute("authorityFunctionVO", authorityFunctionVO);
-                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/update_authorityFunction_input.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityfunction/update_authorityFunction_input.jsp");
                 failureView.forward(req, res);
                 return; // 程式中斷
             }
@@ -134,11 +134,11 @@ public class AuthorityFunctionServlet extends HttpServlet {
             /*************************** 2.開始修改資料 *****************************************/
             AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
             // 執行update後返回以authorityFunctionNo查詢更新後的VO
-            authorityFunctionVO = authorityFunctionSvc.updateAuthorityFunction(authorityFunctionNo, authorityFunctionName);
+            authorityFunctionVO = authorityFunctionSvc.updateAuthorityFunction(authFuncNo, authFuncInfo);
 
             /*************************** 3.修改完成,準備轉交(Send the Success view) *************/
             req.setAttribute("authorityFunctionVO", authorityFunctionVO);
-            String url = "/authorityFunction/listOneTitle.jsp";
+            String url = "/authorityfunction/listOneAuthorityFunction.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
@@ -151,31 +151,31 @@ public class AuthorityFunctionServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-            String authorityFunctionName = req.getParameter("authorityFunctionName");
-            String authorityFunctionNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-            if (authorityFunctionName == null || authorityFunctionName.trim().length() == 0) {
+            String authFuncInfo = req.getParameter("authFuncInfo");
+            String authFuncInfoReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+            if (authFuncInfo == null || authFuncInfo.trim().length() == 0) {
                 errorMsgs.add("商品名稱: 請勿空白");
-            } else if (!authorityFunctionName.trim().matches(authorityFunctionNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+            } else if (!authFuncInfo.trim().matches(authFuncInfoReg)) { // 以下練習正則(規)表示式(regular-expression)
                 errorMsgs.add("商品名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
             }
 
             AuthorityFunctionVO authorityFunctionVO = new AuthorityFunctionVO();
-            authorityFunctionVO.setTitleName(authorityFunctionName);
+            authorityFunctionVO.setAuthFuncInfo(authFuncInfo);
 
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
                 req.setAttribute("authorityFunctionVO", authorityFunctionVO);
-                RequestDispatcher failureView = req.getRequestDispatcher("/authorityFunction/addAuthorityFunction.jsp");
+                RequestDispatcher failureView = req.getRequestDispatcher("/authorityfunction/addAuthorityFunction.jsp");
                 failureView.forward(req, res);
                 return;
             }
 
             /*************************** 2.開始新增資料 ***************************************/
             AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
-            authorityFunctionSvc.addAuthorityFunction(authorityFunctionName);
+            authorityFunctionSvc.addAuthorityFunction(authFuncInfo);
 
             /*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-            String url = "/authorityFunction/listAllAuthorityFunction.jsp";
+            String url = "/authorityfunction/listAllAuthorityFunction.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
@@ -188,14 +188,14 @@ public class AuthorityFunctionServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /*************************** 1.接收請求參數 ***************************************/
-            Integer authorityFunctionNo = Integer.valueOf(req.getParameter("authorityFunctionNo"));
+            Integer authFuncNo = Integer.valueOf(req.getParameter("authFuncNo"));
 
             /*************************** 2.開始刪除資料 ***************************************/
             AuthorityFunctionServiceImpl authorityFunctionSvc = new AuthorityFunctionServiceImpl();
-            authorityFunctionSvc.deleteAuthorityFunction(authorityFunctionNo);
+            authorityFunctionSvc.deleteAuthorityFunction(authFuncNo);
 
             /*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-            String url = "/authorityFunction/listAllAuthorityFunction.jsp";
+            String url = "/authorityfunction/listAllAuthorityFunction.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
             successView.forward(req, res);
         }
