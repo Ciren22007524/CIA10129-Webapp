@@ -16,59 +16,131 @@
         crossorigin="anonymous"></script>
 
     <style>
-        .nav-fix {
-            position: fixed;
+        /* 調整navbar-brand */
+        .navbar-brand {
+            /* 使用 scale 放大，這個值可以調整為您想要的放大程度 */
+            transform: scale(1.2);
+            /* 添加平滑的過渡效果 */
+            transition: transform 0.3s ease-in-out;
+            /* 調整左右邊距 */
+            margin-left: 18px;
+            margin-right: 18px;
         }
 
-        .fixedNav li.logo {
-            max-width: 300px;
+        /* 當前選中的導航欄按鈕放大效果 */
+        .navbar-nav .nav-item .nav-link.active {
+            /* 使用 scale 放大 */
+            transform: scale(1.5);
+            /* 添加平滑的過渡效果 */
+            transition: transform 0.3s ease-in-out;
         }
 
-        .fixedNav .site-wrap {
-            transform: scale(1);
+        /* 為 .navbar-nav 下的 <li> 添加間距 */
+        .navbar-nav .nav-item {
+            /* 調整左右邊距 */
+            margin-left: 18px;
+            margin-right: 18px;
         }
+
+        /* 將輪播圖高度固定為 500px */
+        .carousel-inner .img-fluid {
+            height: 500px;
+            width: auto;
+            object-fit: cover;
+            /* 依長寬比調整 */
+        }
+
+        /* 將文章圖片高度固定為 300px */
+        .row .img-fluid {
+            height: 300px;
+            width: auto;
+            object-fit: cover;
+            /* 依長寬比調整 */
+        }
+
     </style>
 
 </head>
 
-<body style="padding-top: 150px;">
+<body style="padding-top: 100px;">
     <div class="container">
         <!-- 頁首 -->
-        <header class="py-2 fixed-top bg-body-tertiary">
+        <header class="fixed-top bg-body-tertiary border-bottom">
             <div class="container-fluid">
-                <nav class="navbar navbar-expand-md bg-body-tertiary">
+                <!-- 第一個導覽列 -->
+                <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom">
+                    <!-- 首頁icon -->
                     <a class="navbar-brand" href="#">FallElove</a>
-                    <button class="navbar-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1">
-                        <sapn class="navbar-toggle-icon"></sapn></button>
+                    <!-- 漢堡選單，響應式當畫面 < 768px 時出現 -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1">
+                        <span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbar1">
                         <ul class="navbar-nav me-auto">
-                            <li class="nav-item active"><a class="nav-link" href="#">機票</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">訂房</a></li>
+                            <!-- 下拉式選單 -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">團體</a>
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">商品</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item">國內旅遊</a>
-                                    <a class="dropdown-item">國外旅遊</a>
+                                    <a class="dropdown-item">禮服</a>
+                                    <a class="dropdown-item">上衣</a>
+                                    <a class="dropdown-item">下著</a>
+                                    <a class="dropdown-item">裝飾品</a>
+                                </div>
+                            </li>
+                            <!-- 下拉式選單 -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">租借品</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item">禮服</a>
+                                    <a class="dropdown-item">上衣</a>
+                                    <a class="dropdown-item">下著</a>
+                                    <a class="dropdown-item">裝飾品</a>
+                                </div>
+                            </li>
+                            <!-- 下拉式選單 -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">場地租借</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item">我要預約</a>
+                                    <a class="dropdown-item">時段查詢</a>
+                                    <a class="dropdown-item">注意事項</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">專欄</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item">禮服</a>
+                                    <a class="dropdown-item">上衣</a>
+                                    <a class="dropdown-item">下著</a>
+                                    <a class="dropdown-item">裝飾品</a>
                                 </div>
                             </li>
                         </ul>
+                        <ul class="navbar-nav ms-auto" id="login_former">
+                            <li class="nav-item login">
+                                <a class="nav-link" href="#">我要登入
+                                    <i class="bi bi-person-fill"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="館內查詢...">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
                     </div>
                 </nav>
 
-                <!-- 第二部分：包含导航栏项目 -->
-                <div class="row py-1 mb-3 border-bottom">
-                    <!-- 导航栏项目 -->
+                <!-- 第二部分：該項次導覽項目 -->
+                <div class="row px-5">
+                    <!-- 導覽項目 -->
                     <nav class="nav nav-underline justify-content-between bg-body-tertiary">
-                        <a href="#" class="nav-item nav-link link-body-emphasis">美食</a>
-                        <a href="#" class="nav-item nav-link link-body-emphasis">影視</a>
-                        <a href="#" class="nav-item nav-link link-body-emphasis">旅遊</a>
+                        <a href="#" class="nav-item nav-link link-body-emphasis">生活</a>
+                        <a href="#" class="nav-item nav-link link-body-emphasis">瑣事</a>
+                        <a href="#" class="nav-item nav-link link-body-emphasis">娛樂</a>
                         <a href="#" class="nav-item nav-link link-body-emphasis">健康</a>
                         <a href="#" class="nav-item nav-link link-body-emphasis">藝文</a>
                         <a href="#" class="nav-item nav-link link-body-emphasis">親子</a>
                         <a href="#" class="nav-item nav-link link-body-emphasis">家居</a>
                         <a href="#" class="nav-item nav-link link-body-emphasis">美妝</a>
-                        <a href="#" class="nav-item nav-link link-body-emphasis">寵物</a>
-                        <a href="#" class="nav-item nav-link link-body-emphasis">3C</a>
                     </nav>
                 </div>
             </div>
@@ -117,7 +189,7 @@
     </div>
 
     <!-- 內容區 -->
-    <div class="container">
+    <div class="container" style="padding-top: 15px;">
         <h3>熱門話題精選</h3>
         <div class="row">
             <div class="col-md-8">
@@ -133,7 +205,6 @@
                 <hr>
                 <!-- 頁簽 -->
                 <ul class="pagination justify-content-center">
-                    <!-- 看要用哪一個 -->
                     <li class="page-item">
                         <a class="page-link" href="#"><span>&laquo;</span></a>
                     </li>
@@ -150,7 +221,7 @@
             <div class="col-md-3 offset-md-1">
                 <!-- 第一個卡片 -->
                 <div class="card text-dark bg-light mb-4">
-                    <div class="card-header">卡片一: 其他人評論</div>
+                    <div class="card-header">卡片一: 官方粉絲團</div>
                     <div class="card-body">
                         <p class="card-text"></p>
                     </div>
@@ -194,6 +265,35 @@
         </p>
         <p class="mb-0"><a href="#">Back to top</a></p>
     </footer>
+
+    <script>
+        // 檢查視窗大小
+        const mediaQuery = window.matchMedia('(max-width: 767.98px)');
+        // 登入按鈕
+        var login = document.getElementById("login");
+        // 登入表單
+        var login_former = document.getElementById("login_former");
+
+        // 初始化時檢查視窗大小
+        if (mediaQuery.matches) {
+            // 當視窗大小小於等於 767.98px 時，將登入表單移到導航欄下
+            login.parentNode.insertBefore(login_former, login.nextSibling);
+        }
+
+        // 監聽視窗大小的變化
+        mediaQuery.addListener((mq) => {
+            if (mq.matches) {
+                // 當視窗大小小於等於 767.98px 時，將登入表單移到導航欄下
+                login.parentNode.insertBefore(login_former, login.nextSibling);
+            } else {
+                // 當視窗大小大於 767.98px 時，將登入表單移到導航欄右邊
+                login.appendChild(login_former);
+            }
+        });
+    </script>
+
+
+
 
 </body>
 
