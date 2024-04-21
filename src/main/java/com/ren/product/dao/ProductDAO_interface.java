@@ -6,19 +6,21 @@ import java.util.*;
 
 public interface ProductDAO_interface {
 
-    // 新增商品
-    public void insert(ProductVO productVO);
-    // 修改商品資料
-    public void update(ProductVO productVO);
-    // 刪除商品資料
-    public void delete(Integer pNo);
-    // 透過商品編號查詢商品
-    public ProductVO findByPrimaryKey(Integer pNo);
-    // 查詢所有商品
-    public List<ProductVO> getAll();
-    //萬用複合查詢(傳入參數型態Map)(回傳 List)
-//  public List<ProductVO> getAll(Map<String, String[]> map);
-    // 商品照片新增
+    int insert(ProductVO entity);
+
+    int update(ProductVO entity);
+
+    int delete(Integer id);
+
+    ProductVO getById(Integer id);
+
+    List<ProductVO> getAll();
+
+    List<ProductVO> getByCompositeQuery(Map<String, String> map);
+
+    List<ProductVO> getAll(int currentPage);
+
+    long getTotal();
 
 }
 

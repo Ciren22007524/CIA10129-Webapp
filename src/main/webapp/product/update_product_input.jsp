@@ -176,19 +176,19 @@
 
 <script>
     function updateProductDetails() {
-        // ?取??的商品??
+        // 獲取選擇的商品編號
         var selectedProductNo = document.getElementById('productSelect').value;
 
-        // 使用 AJAX ?求?取商品的??信息
+        // 使用AJAX 請求獲取商品的詳細信息
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'product.do?action=getProductDetails', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function () {
             if (xhr.status === 200) {
-                // ???中解析商品的??信息
+                // 從響應中解析商品的詳細資料
                 var productDetails = JSON.parse(xhr.responseText);
 
-                // 更新?面中的?入框值
+                // 更新頁面中的輸入框值
                 document.getElementById('pCatNo').textContent = productDetails.pCatNo;
                 document.getElementById('pName').value = productDetails.pName;
                 document.getElementById('pInfo').value = productDetails.pInfo;
@@ -204,7 +204,7 @@
             }
         };
 
-        // ?商品??作??求体?送
+        // 將商品編號作為請求發送
         var requestData = 'pNo=' + encodeURIComponent(selectedProductNo);
         xhr.send(requestData);
     }

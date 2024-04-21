@@ -31,13 +31,13 @@ public class AdmAutoLogin extends HttpServlet {
 //                errorMsgs.add("管理員名稱請勿空白");
 //            }
 //
-//            String admPwd = req.getParameter("admPwd");
-//            String admPwdReg = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{6,12}$";
-//            if (admPwd == null || admPwd.trim().length() == 0) {
-//                errorMsgs.add("管理員密碼: 請勿空白!");
-//            } else if (!admPwd.trim().matches(admPwdReg)) { // 以下練習正則(規)表示式(regular-expression)
-//                errorMsgs.add("管理員密碼: 只能是中、英文字母、數字和_ , 且長度必需在6到12之間");
-//            }
+            String admPwd = req.getParameter("admPwd");
+            String admPwdReg = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{6,12}$";
+            if (admPwd == null || admPwd.trim().length() == 0) {
+                errorMsgs.add("管理員密碼: 請勿空白!");
+            } else if (!admPwd.trim().matches(admPwdReg)) { // 以下練習正則(規)表示式(regular-expression)
+                errorMsgs.add("管理員密碼: 只能是中、英文字母、數字和_ , 且長度必需在6到12之間");
+            }
 //
 //            var encrypt = Integer.parseInt(data[1]);
 //            var salt = Integer.parseInt(data[2]);

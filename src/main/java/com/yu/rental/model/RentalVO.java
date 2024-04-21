@@ -1,10 +1,10 @@
 package com.yu.rental.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.ren.product.model.ProductVO;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "Rental")
@@ -26,5 +26,11 @@ public class RentalVO {
     private String rInfo;
     @Column(name = "rStat")
     private Byte rStat;
+    @OneToMany(mappedBy = "RentalPic", cascade = CascadeType.ALL)
+    private Set<ProductVO> rentalPictures;
+    @OneToMany(mappedBy = "RentalOrderDetails", cascade = CascadeType.ALL)
+    private Set<ProductVO> rentalOrderDetals;
+    @OneToMany(mappedBy = "ProductPicture", cascade = CascadeType.ALL)
+    private Set<ProductVO> productPictures;
 
 }
