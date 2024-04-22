@@ -60,7 +60,7 @@ public class StudioOrderVO {
     private String sReturnMark;
     @Column(name = "sCompensation")
     private BigDecimal sCompensation;
-    @OneToMany(mappedBy = "StudioTimeBooking", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "studioTimeBooking", cascade = CascadeType.ALL)
     private Set<StudioOrderVO> studioTimeBookings;
 
     public Integer getsOrdNo() {

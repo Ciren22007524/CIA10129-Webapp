@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ServicePicture")
 public class ServicePictureVO {
-
     @Id
     private Integer servicePicNo;
 

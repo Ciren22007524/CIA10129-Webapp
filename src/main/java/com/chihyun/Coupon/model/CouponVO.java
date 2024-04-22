@@ -11,13 +11,21 @@ import java.util.Set;
 public class CouponVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "coupNo")
     private Integer coupNo;
+    @Column(name = "coupName")
     private String coupName;
+    @Column(name = "coupCond")
     private String coupCond;
+    @Column(name = "coupDisc")
     private Double coupDisc;
+    @Column(name = "coupAddDate")
     private Date coupAddDate;
+    @Column(name = "coupExpDate")
     private Date coupExpDate;
+    @Column(name = "coupRelDate")
     private Date coupRelDate;
+    @Column(name = "coupRealStat")
     private Integer coupRealStat;
 
     @OneToMany(mappedBy = "couponVO", cascade = CascadeType.ALL)

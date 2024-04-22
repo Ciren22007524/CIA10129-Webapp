@@ -1,7 +1,7 @@
 package com.howard.rentalorderdetails.model;
 
 import com.howard.rentalorder.model.RentalOrderVO;
-import com.yu.rental.model.Rental;
+import com.yu.rental.model.RentalVO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,7 +38,7 @@ public class RentalOrderDetailsVO implements Serializable{
     @Id
     @ManyToOne
     @JoinColumn(name = "rNo", referencedColumnName = "rNo")
-    private Rental rental;
+    private RentalVO rentalVO;
 
     @Column(name = "rPrice")
     private BigDecimal rPrice;
@@ -55,12 +55,12 @@ public class RentalOrderDetailsVO implements Serializable{
         this.rentalOrderVoOrm = rentalOrderVoOrm;
     }
 
-    public Rental getRental() {
-        return rental;
+    public RentalVO getRentalVO() {
+        return rentalVO;
     }
 
-    public void setRental(Rental rental) {
-        this.rental = rental;
+    public void setRentalVO(RentalVO rentalVO) {
+        this.rentalVO = rentalVO;
     }
 /*-------------------------------getter、setter--------------------------------------*/
     public BigDecimal getrPrice() {
@@ -82,12 +82,12 @@ public class RentalOrderDetailsVO implements Serializable{
 /*-------------------------------內部類別的 getter、setter--------------------------------------*/
 
     public CompositeDetail getCompositeDetail() {
-        return new CompositeDetail(rentalOrderVoOrm, rental);
+        return new CompositeDetail(rentalOrderVoOrm, rentalVO);
     }
 
     public void setCompositeDetail(CompositeDetail key) {
         key.setRentalOrderVoOrm(this.rentalOrderVoOrm);
-        key.setRental(this.rental);
+        key.setRentalVO(this.rentalVO);
     }
 
 /*-------------------------------因為複合主鍵所以加上的內部類別--------------------------------------*/
@@ -95,15 +95,15 @@ public class RentalOrderDetailsVO implements Serializable{
     static class CompositeDetail implements Serializable {
 
         private RentalOrderVO rentalOrderVoOrm;
-        private Rental rental;
+        private RentalVO rentalVO;
 
         public CompositeDetail() {
 
         }
 
-        public CompositeDetail(RentalOrderVO rentalOrderVoOrm, Rental rental) {
+        public CompositeDetail(RentalOrderVO rentalOrderVoOrm, RentalVO rentalVO) {
             this.rentalOrderVoOrm = rentalOrderVoOrm;
-            this.rental = rental;
+            this.rentalVO = rentalVO;
         }
 
         public RentalOrderVO getRentalOrderVoOrm() {
@@ -114,24 +114,24 @@ public class RentalOrderDetailsVO implements Serializable{
             this.rentalOrderVoOrm = rentalOrderVoOrm;
         }
 
-        public Rental getRental() {
-            return rental;
+        public RentalVO getRentalVO() {
+            return rentalVO;
         }
 
-        public void setRental(Rental rental) {
-            this.rental = rental;
+        public void setRentalVO(RentalVO rentalVO) {
+            this.rentalVO = rentalVO;
         }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (!(o instanceof CompositeDetail that)) return false;
-            return Objects.equals(getRentalOrderVoOrm(), that.getRentalOrderVoOrm()) && Objects.equals(getRental(), that.getRental());
+            return Objects.equals(getRentalOrderVoOrm(), that.getRentalOrderVoOrm()) && Objects.equals(getRentalVO(), that.getRentalVO());
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(getRentalOrderVoOrm(), getRental());
+            return Objects.hash(getRentalOrderVoOrm(), getRentalVO());
         }
 
     } // 內部類別結束
@@ -140,13 +140,11 @@ public class RentalOrderDetailsVO implements Serializable{
     public String toString() {
         return "RentalOrderDetails_ORM{" +
                 "rentalOrderVoOrm=" + rentalOrderVoOrm +
-                ", rental=" + rental +
+                ", rental=" + rentalVO +
                 ", rPrice=" + rPrice +
                 ", rDesPrice=" + rDesPrice +
                 '}';
     }
-
-
 
 }
 

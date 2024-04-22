@@ -14,12 +14,15 @@ public class ProductCategoryVO {
     private Integer pCatNo;
     @Column(name = "pCatName")
     private String pCatName;
-    @OneToMany(mappedBy = "Product", cascade = CascadeType.ALL)
-    @OrderBy("pCatNo asc")
+    @OneToMany(mappedBy = "productCategory", cascade = CascadeType.ALL)
     private Set<ProductVO> products;
 
     public ProductCategoryVO() {
 
+    }
+
+    public ProductCategoryVO(Integer pCatNo) {
+        this.pCatNo = pCatNo;
     }
 
     public ProductCategoryVO(Integer pCatNo, String pCatName, Set<ProductVO> products) {

@@ -9,13 +9,13 @@ import java.sql.Date;
 @Table(name = "News")
 public class NewsVO {
     @Id
+    @Column(name = "newsNo")
     private Integer newsNo;
-
+    @Column(name = "newsTitle")
     private String newsTitle;
-
-    @Column(columnDefinition = "longtext")
+    @Column(name = "newsContent")
     private String newsContent;
-
+    @Column(name = "postTime")
     private Date postTime;
 
     public Integer getNewsNo() {

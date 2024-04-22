@@ -1,5 +1,6 @@
 package com.chihyun.ServiceRobot.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,8 +9,11 @@ import javax.persistence.Table;
 @Table(name = "ServiceRobot")
 public class ServiceRobotVO {
 	@Id
+    @Column(name = "keywordNo")
 	private Integer keywordNo;
+    @Column(name = "keywordName")
     private String keywordName;
+    @Column(name = "responseContent")
     private String responseContent;
 
     public Integer getKeywordNo() {

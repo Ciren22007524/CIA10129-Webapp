@@ -26,8 +26,6 @@ public class NoticeVO implements java.io.Serializable {
     @Column(name = "notContent")
     private String notContent;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "notTime")
     private Timestamp notTime;
 

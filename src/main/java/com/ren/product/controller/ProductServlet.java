@@ -184,28 +184,16 @@ public class ProductServlet extends HttpServlet {
         if (!errorMsgs.isEmpty()) {
             return UPDATE; // 程式中斷
         }
-        // 預計新增建構子放入
-        ProductVO product = new ProductVO();
-        product.setpNo(pNo);
-        ProductCategoryVO productCategory = new ProductCategoryVO();
-        productCategory.setpCatNo(pCatNo);
-        product.setProductCategory(productCategory);
-        product.setpName(pName);
-        product.setpInfo(pInfo);
-        product.setpSize(pSize);
-        product.setpColor(pColor);
-        product.setpPrice(pPrice);
-        product.setpStat(pStat);
-        product.setpSalQty(pSalQty);
-        product.setpComPeople(pComPeople);
-        product.setpComScore(pComScore);
+
+        ProductCategoryVO productCategory = new ProductCategoryVO(pCatNo);
+        ProductVO product = new ProductVO(pNo, productCategory, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty, pComPeople, pComScore);
 
         /*************************** 2.開始修改資料 *****************************************/
         ProductServiceImpl productSvc = new ProductServiceImpl();
-        ProductVO updateProduct = productSvc.updateProduct(product);
+        ProductVO updatedProduct = productSvc.updateProduct(product);
 
         /*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-        req.setAttribute("productVO", updateProduct); // 資料庫update成功後,正確的的productVO物件,存入req
+        req.setAttribute("productVO", updatedProduct); // 資料庫update成功後,正確的的productVO物件,存入req
         return LIST_ONE;
     }
 
@@ -232,10 +220,11 @@ public class ProductServlet extends HttpServlet {
         if (!errorMsgs.isEmpty()) {
             return SELECT;
         }
-
+        ProductCategoryVO productCategory = new ProductCategoryVO(pCatNo);
+        ProductVO product = new ProductVO(productCategory, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty, pComPeople, pComScore);
         /*************************** 2.開始新增資料 ***************************************/
         ProductServiceImpl productSvc = new ProductServiceImpl();
-        productSvc.addProduct(pCatNo, pName, pInfo, pSize, pColor, pPrice, pStat, pSalQty, pComPeople, pComScore);
+        productSvc.addProduct(product);
 
         /*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
         return LIST_ALL;
