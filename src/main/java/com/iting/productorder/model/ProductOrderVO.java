@@ -1,6 +1,6 @@
 package com.iting.productorder.model;
 
-import ProductOrderDetail.model.ProductOrderDetailVO;
+import com.chihyun.Coupon.model.CouponVO;
 import com.iting.productorderdetail.model.ProductOrderDetailVO;
 import com.roger.member.model.MemberVO;
 
@@ -16,8 +16,9 @@ public class ProductOrderVO {
     @Id
     @Column(name = "pOrdNo", updatable = false)
     private Integer pOrdNo;
-    @Column(name = "memNo")
-    private Integer memNo;
+    @ManyToOne
+    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
+    private MemberVO memberVO;
     @Column(name = "pByrName")
     private String pByrName;
     @Column(name = "pByrPhone")
@@ -36,8 +37,9 @@ public class ProductOrderVO {
     private Byte pPayMethod;
     @Column(name = "pAllPrice")
     private BigDecimal pAllPrice;
-    @Column(name = "coupNo")
-    private Integer coupNo;
+    @ManyToOne
+    @JoinColumn(name = "coupNo", referencedColumnName = "coupNo")
+    private CouponVO couponVO;
     @Column(name = "pDisc")
     private BigDecimal pDisc;
     @Column(name = "pRealPrice")
@@ -49,16 +51,8 @@ public class ProductOrderVO {
     @Column(name = "pStat")
     private Byte pStat;
     @OneToMany(mappedBy = "productorder", cascade = CascadeType.ALL)
-    @OrderBy("pOrdNo asc")
+    @PrimaryKeyJoinColumn
     private Set<ProductOrderDetailVO> productOrderDetail;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-        private MemberVO memberVO;
-    // fetch 預設為 EAGER
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "coupNo", referencedColumnName = "coupNo")
-    private CoupNoVO coupNoVO;
-
 
     public Integer getpOrdNo() {
         return pOrdNo;
@@ -68,12 +62,12 @@ public class ProductOrderVO {
         this.pOrdNo = pOrdNo;
     }
 
-    public Integer getmemNo() {
-        return memNo;
+    public MemberVO getMemberVO() {
+        return memberVO;
     }
 
-    public void setmemNo(Integer memNo) {
-        this.memNo = memNo;
+    public void setMemberVO(MemberVO memberVO) {
+        this.memberVO = memberVO;
     }
 
     public String getpByrName() {
@@ -148,14 +142,13 @@ public class ProductOrderVO {
         this.pAllPrice = pAllPrice;
     }
 
-    public Integer getcoupNo() {
-        return coupNo;
+    public CouponVO getCouponVO() {
+        return couponVO;
     }
 
-    public void setcoupNo(Integer coupNo) {
-        this.coupNo = coupNo;
+    public void setCouponVO(CouponVO couponVO) {
+        this.couponVO = couponVO;
     }
-
 
     public BigDecimal getpDisc() {
         return pDisc;
@@ -197,27 +190,12 @@ public class ProductOrderVO {
         this.pStat = pStat;
     }
 
-    public Set<ProductOrderDetailVO> getproductOrderDetail() {
+    public Set<ProductOrderDetailVO> getProductOrderDetail() {
         return productOrderDetail;
     }
 
-    public void setproductOrderDetail(Set<ProductOrderDetailVO> productOrderDetail) {
+    public void setProductOrderDetail(Set<ProductOrderDetailVO> productOrderDetail) {
         this.productOrderDetail = productOrderDetail;
     }
 
-    public MemberVO getmemberVO() {
-        return memberVO;
-    }
-
-    public void setmemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
-    }
-
-    public CoupNoVO getcoupNoVO() {
-        return coupNoVO;
-    }
-
-    public void setcoupNoVO(CoupNoVO coupNoVO) {
-        this.coupNoVO = coupNoVO;
-    }
 }

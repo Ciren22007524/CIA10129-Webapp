@@ -8,10 +8,6 @@ public interface ProductDAO_interface {
 
     int insert(ProductVO entity);
 
-    int update(ProductVO entity);
-
-    int delete(Integer id);
-
     ProductVO getById(Integer id);
 
     List<ProductVO> getAll();
@@ -19,6 +15,10 @@ public interface ProductDAO_interface {
     List<ProductVO> getByCompositeQuery(Map<String, String> map);
 
     List<ProductVO> getAll(int currentPage);
+
+    int update(ProductVO entity);
+
+    int delete(Integer id);
 
     long getTotal();
 

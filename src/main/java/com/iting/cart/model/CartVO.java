@@ -1,6 +1,5 @@
 package com.iting.cart.model;
 
-
 import com.ren.product.model.ProductVO;
 import com.roger.member.model.MemberVO;
 
@@ -14,7 +13,7 @@ public class CartVO {
     @EmbeddedId
     private CompositeDetail2 compositeKey2;
     @Column(name = "pBuyQty")
-    private Integer pBuyQty;
+        private Integer pBuyQty;
 
     public CompositeDetail2 getcompositeKey2() {
         return compositeKey2;
@@ -22,14 +21,12 @@ public class CartVO {
 
     public void setcompositeKey2(CompositeDetail2 compositeKey) {
         this.compositeKey2 = compositeKey2;}
-    public Integer getpBuyQty() {
-        return pBuyQty;
-    }
-    public void setpBuyQty(Integer pBuyQty) {
-        this.pBuyQty = pBuyQty;
-    }
-
-
+        public Integer getpBuyQty() {
+            return pBuyQty;
+        }
+        public void setpBuyQty(Integer pBuyQty) {
+            this.pBuyQty = pBuyQty;
+        }
 
     @Embeddable
     public static class CompositeDetail2 implements Serializable {
@@ -76,7 +73,7 @@ public class CartVO {
                 return true;
 
             if (obj != null && getClass() == obj.getClass()) {
-                CompositeDetail2 compositeKey2 = (CompositeDetail2) obj;
+               CompositeDetail2 compositeKey2 = (CompositeDetail2) obj;
                 if (pNo.equals(compositeKey2.pNo) && memNo.equals(compositeKey2.memNo)) {
                     return true;
                 }
@@ -85,15 +82,15 @@ public class CartVO {
             return false;
         }
     }
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
     private MemberVO  memberVO;
     //優惠券一對多未設
     // fetch 預設為 EAGER
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pNo", referencedColumnName = "pNo")
     private ProductVO productVO;
-        public MemberVO getmemberVO() {
+    public MemberVO getmemberVO() {
         return memberVO;
     }
     public void setmemberVO(MemberVO memberVO) {
@@ -106,3 +103,5 @@ public class CartVO {
         this.productVO = productVO;
     }
 }
+
+

@@ -19,12 +19,37 @@ public class AdmAuthorityVO {
     @JoinColumn(name = "authFuncNo", referencedColumnName = "authFuncNo")
     private AuthorityFunctionVO authorityFunction;
 
+    public AdmAuthorityVO() {
+    }
+
+    public AdmAuthorityVO(CompositeAdmAuthority compositeAdmAuthority, TitleVO title, AuthorityFunctionVO authorityFunction) {
+        this.compositeAdmAuthority = compositeAdmAuthority;
+        this.title = title;
+        this.authorityFunction = authorityFunction;
+    }
+
     public CompositeAdmAuthority getCompositeAdmAuthority() {
         return compositeAdmAuthority;
     }
 
     public void setCompositeAdmAuthority(CompositeAdmAuthority compositeAdmAuthority) {
         this.compositeAdmAuthority = compositeAdmAuthority;
+    }
+
+    public TitleVO getTitle() {
+        return title;
+    }
+
+    public void setTitle(TitleVO title) {
+        this.title = title;
+    }
+
+    public AuthorityFunctionVO getAuthorityFunction() {
+        return authorityFunction;
+    }
+
+    public void setAuthorityFunction(AuthorityFunctionVO authorityFunction) {
+        this.authorityFunction = authorityFunction;
     }
 
     @Embeddable

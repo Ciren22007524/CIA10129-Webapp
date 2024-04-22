@@ -1,19 +1,20 @@
 package com.iting.productorderdetail.model;
 
+import com.iting.productorder.model.ProductOrderVO;
 import com.ren.product.model.ProductVO;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+
 @Entity
-@Table(name = "ProductOrderDetail")
+@Table(name = "productorderdetail")
 public class ProductOrderDetailVO {
+
     @EmbeddedId
-    private CompositepOrdNopNo compositepOrdNopNo;
-    @ManyToOne
-    @JoinColumn(name = "pNo", referencedColumnName = "pNo", insertable = false, updatable = false)
-    private ProductVO product;
+    private CompositeDetail compositeKey;
+
     @Column(name = "pPrice")
     private BigDecimal pPrice;
     @Column(name = "pOrdQty")
@@ -24,76 +25,27 @@ public class ProductOrderDetailVO {
     private String pComContent;
     @Column(name = "pScore")
     private Integer pScore;
+    @ManyToOne
+    @JoinColumn(name = "pNo", referencedColumnName = "pNo")
+    private ProductVO productVO;
+    @ManyToOne
+    @JoinColumn(name = "pOrdNo", referencedColumnName = "pOrdNo")
+    private ProductOrderVO productOrderVO ;
 
-    public CompositepOrdNopNo getCompositepOrdNopNo() {
-        return compositepOrdNopNo;
-    }
-
-    public void setCompositepOrdNopNo(CompositepOrdNopNo compositepOrdNopNo) {
-        this.compositepOrdNopNo = compositepOrdNopNo;
-    }
-
-    public ProductVO getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductVO product) {
-        this.product = product;
-    }
-
-    public BigDecimal getpPrice() {
-        return pPrice;
-    }
-
-    public void setpPrice(BigDecimal pPrice) {
-        this.pPrice = pPrice;
-    }
-
-    public Integer getpOrdQty() {
-        return pOrdQty;
-    }
-
-    public void setpOrdQty(Integer pOrdQty) {
-        this.pOrdQty = pOrdQty;
-    }
-
-    public BigDecimal getpRealPrice() {
-        return pRealPrice;
-    }
-
-    public void setpRealPrice(BigDecimal pRealPrice) {
-        this.pRealPrice = pRealPrice;
-    }
-
-    public String getpComContent() {
-        return pComContent;
-    }
-
-    public void setpComContent(String pComContent) {
-        this.pComContent = pComContent;
-    }
-
-    public Integer getpScore() {
-        return pScore;
-    }
-
-    public void setpScore(Integer pScore) {
-        this.pScore = pScore;
-    }
-
+    // 需要宣告一個有包含複合主鍵屬性的類別，並一定實作 java.io.Serializable 介面
     @Embeddable
-    public static class CompositepOrdNopNo implements Serializable {
+    public static class CompositeDetail implements Serializable {
         private static final long serialVersionUID = 1L;
-        @Column(name = "pOrdNo")
+        @Column(name = "pOrdNo", updatable = false)
         private Integer pOrdNo;
-        @Column(name = "pNo")
+        @Column(name = "pNo", updatable = false)
         private Integer pNo;
 
-        public CompositepOrdNopNo() {
+        public CompositeDetail() {
             super();
         }
 
-        public CompositepOrdNopNo(Integer pOrdNo, Integer pNo) {
+        public CompositeDetail(Integer pOrdNo, Integer pNo) {
             super();
             this.pOrdNo = pOrdNo;
             this.pNo = pNo;
@@ -115,6 +67,7 @@ public class ProductOrderDetailVO {
             this.pNo = pNo;
         }
 
+        //一定要 override 此類別的 hashCode() 與 equals() 方法！
         @Override
         public int hashCode() {
             final int prime = 31;
@@ -126,17 +79,16 @@ public class ProductOrderDetailVO {
 
         @Override
         public boolean equals(Object obj) {
-
-            if (this == obj) {
+            if (this == obj)
                 return true;
-            }
 
             if (obj != null && getClass() == obj.getClass()) {
-                CompositepOrdNopNo compositepOrdNopNo = (CompositepOrdNopNo) obj;
-                if (pOrdNo.equals(compositepOrdNopNo.pOrdNo) && pNo.equals(compositepOrdNopNo.pNo)) {
+                CompositeDetail compositeKey = (CompositeDetail) obj;
+                if (pOrdNo.equals(compositeKey.pOrdNo) && pNo.equals(compositeKey.pNo)) {
                     return true;
                 }
             }
+
             return false;
         }
     }

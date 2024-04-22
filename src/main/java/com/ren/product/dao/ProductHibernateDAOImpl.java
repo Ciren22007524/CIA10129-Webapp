@@ -39,31 +39,6 @@ public class ProductHibernateDAOImpl implements ProductDAO_interface {
     }
 
     @Override
-    public int update(ProductVO entity) {
-        try {
-            getSession().update(entity);
-            // 回傳給 service，1代表刪除成功
-            return 1;
-        } catch (Exception e) {
-            // 回傳給 service，-1代表刪除失敗
-            return -1;
-        }
-    }
-
-    @Override
-    public int delete(Integer id) {
-        ProductVO product = getSession().get(ProductVO.class, id);
-        if (product != null) {
-            getSession().delete(product);
-            // 回傳給 service，1代表刪除成功
-            return 1;
-        } else {
-            // 回傳給 service，-1代表刪除失敗
-            return -1;
-        }
-    }
-
-    @Override
     public ProductVO getById(Integer id) {
         return getSession().get(ProductVO.class, id);
     }
@@ -142,6 +117,31 @@ public class ProductHibernateDAOImpl implements ProductDAO_interface {
                 .setFirstResult(first)
                 .setMaxResults(PAGE_MAX_RESULT)
                 .list();
+    }
+
+    @Override
+    public int update(ProductVO entity) {
+        try {
+            getSession().update(entity);
+            // 回傳給 service，1代表刪除成功
+            return 1;
+        } catch (Exception e) {
+            // 回傳給 service，-1代表刪除失敗
+            return -1;
+        }
+    }
+
+    @Override
+    public int delete(Integer id) {
+        ProductVO product = getSession().get(ProductVO.class, id);
+        if (product != null) {
+            getSession().delete(product);
+            // 回傳給 service，1代表刪除成功
+            return 1;
+        } else {
+            // 回傳給 service，-1代表刪除失敗
+            return -1;
+        }
     }
 
     @Override

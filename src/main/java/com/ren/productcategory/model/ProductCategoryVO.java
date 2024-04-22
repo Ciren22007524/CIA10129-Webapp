@@ -18,6 +18,16 @@ public class ProductCategoryVO {
     @OrderBy("pCatNo asc")
     private Set<ProductVO> products;
 
+    public ProductCategoryVO() {
+
+    }
+
+    public ProductCategoryVO(Integer pCatNo, String pCatName, Set<ProductVO> products) {
+        this.pCatNo = pCatNo;
+        this.pCatName = pCatName;
+        this.products = products;
+    }
+
     public Integer getpCatNo() {
         return pCatNo;
     }
@@ -41,4 +51,5 @@ public class ProductCategoryVO {
     public void setProducts(Set<ProductVO> products) {
         this.products = products;
     }
+
 }
