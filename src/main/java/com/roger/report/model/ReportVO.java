@@ -19,19 +19,19 @@ public class ReportVO implements java.io.Serializable {
 
     @ManyToOne
     @JoinColumn(name = "artReplyNo", referencedColumnName = "columnReplyNo")
-    private ColumnReplyVO columnReplyVo;
+    private ColumnReplyVO columnReply;
 
     // private Integer artReplyNo;
 
     @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private MemberVO memberVO;
+    private MemberVO member;
 
     // private Integer memNo;
 
     @ManyToOne
     @JoinColumn(name = "admNo", referencedColumnName = "admNo")
-    private AdministratorVO administratorVO;
+    private AdministratorVO administrator;
 
     // private Integer admNo;
 
@@ -52,28 +52,28 @@ public class ReportVO implements java.io.Serializable {
         this.reportNo = reportNo;
     }
 
-    public ColumnReplyVO getColumnReplyVo() {
-        return columnReplyVo;
+    public ColumnReplyVO getColumnReply() {
+        return columnReply;
     }
 
-    public void setColumnReplyVo(ColumnReplyVO columnReplyVo) {
-        this.columnReplyVo = columnReplyVo;
+    public void setColumnReply(ColumnReplyVO columnReply) {
+        this.columnReply = columnReply;
     }
 
-    public MemberVO getMemberVO() {
-        return memberVO;
+    public MemberVO getMember() {
+        return member;
     }
 
-    public void setMemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
 
-    public AdministratorVO getAdministratorVO() {
-        return administratorVO;
+    public AdministratorVO getAdministrator() {
+        return administrator;
     }
 
-    public void setAdministratorVO(AdministratorVO administratorVO) {
-        this.administratorVO = administratorVO;
+    public void setAdministrator(AdministratorVO administrator) {
+        this.administrator = administrator;
     }
 
     public Timestamp getReportTime() {

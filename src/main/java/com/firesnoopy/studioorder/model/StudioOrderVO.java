@@ -2,6 +2,7 @@ package com.firesnoopy.studioorder.model;
 
 
 import com.firesnoopy.studioinfo.model.StudioInfoVO;
+import com.firesnoopy.studiotimebooking.model.StudioTimeBookingVO;
 import com.ren.administrator.model.AdministratorVO;
 import com.ren.productcategory.model.ProductCategoryVO;
 import com.roger.member.model.MemberVO;
@@ -31,11 +32,11 @@ public class StudioOrderVO {
     @Column(name = "bookedDate")
     private Date bookedDate;
     @Column(name = "bookedTimeMorning")
-    private Boolean bookedTimeMorning;
+    private Byte bookedTimeMorning;
     @Column(name = "bookedTimeAfternoon")
-    private Boolean bookedTimeAfternoon;
+    private Byte bookedTimeAfternoon;
     @Column(name = "bookedTimeNight")
-    private Boolean bookedTimeNight;
+    private Byte bookedTimeNight;
     @Column(name = "sOrdTime")
     private Timestamp sOrdTime;
     @Column(name = "sOrdStat")
@@ -55,13 +56,13 @@ public class StudioOrderVO {
     @Column(name = "sPayStat")
     private Byte sPayStat;
     @Column(name = "checkInStat")
-    private Boolean checkInStat;
+    private Byte checkInStat;
     @Column(name = "sReturnMark")
     private String sReturnMark;
     @Column(name = "sCompensation")
     private BigDecimal sCompensation;
-    @OneToMany(mappedBy = "studioTimeBooking", cascade = CascadeType.ALL)
-    private Set<StudioOrderVO> studioTimeBookings;
+    @OneToMany(mappedBy = "studioOrder", cascade = CascadeType.ALL)
+    private Set<StudioTimeBookingVO> studioTimeBookings;
 
     public Integer getsOrdNo() {
         return sOrdNo;
@@ -103,27 +104,27 @@ public class StudioOrderVO {
         this.bookedDate = bookedDate;
     }
 
-    public Boolean getBookedTimeMorning() {
+    public Byte getBookedTimeMorning() {
         return bookedTimeMorning;
     }
 
-    public void setBookedTimeMorning(Boolean bookedTimeMorning) {
+    public void setBookedTimeMorning(Byte bookedTimeMorning) {
         this.bookedTimeMorning = bookedTimeMorning;
     }
 
-    public Boolean getBookedTimeAfternoon() {
+    public Byte getBookedTimeAfternoon() {
         return bookedTimeAfternoon;
     }
 
-    public void setBookedTimeAfternoon(Boolean bookedTimeAfternoon) {
+    public void setBookedTimeAfternoon(Byte bookedTimeAfternoon) {
         this.bookedTimeAfternoon = bookedTimeAfternoon;
     }
 
-    public Boolean getBookedTimeNight() {
+    public Byte getBookedTimeNight() {
         return bookedTimeNight;
     }
 
-    public void setBookedTimeNight(Boolean bookedTimeNight) {
+    public void setBookedTimeNight(Byte bookedTimeNight) {
         this.bookedTimeNight = bookedTimeNight;
     }
 
@@ -199,11 +200,11 @@ public class StudioOrderVO {
         this.sPayStat = sPayStat;
     }
 
-    public Boolean getCheckInStat() {
+    public Byte getCheckInStat() {
         return checkInStat;
     }
 
-    public void setCheckInStat(Boolean checkInStat) {
+    public void setCheckInStat(Byte checkInStat) {
         this.checkInStat = checkInStat;
     }
 
@@ -223,11 +224,11 @@ public class StudioOrderVO {
         this.sCompensation = sCompensation;
     }
 
-    public Set<StudioOrderVO> getStudioTimeBookings() {
+    public Set<StudioTimeBookingVO> getStudioTimeBookings() {
         return studioTimeBookings;
     }
 
-    public void setStudioTimeBookings(Set<StudioOrderVO> studioTimeBookings) {
+    public void setStudioTimeBookings(Set<StudioTimeBookingVO> studioTimeBookings) {
         this.studioTimeBookings = studioTimeBookings;
     }
 }

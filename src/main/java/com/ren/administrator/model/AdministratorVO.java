@@ -1,6 +1,11 @@
 package com.ren.administrator.model;
 
+import com.chihyun.servicerecord.model.ServiceRecordVO;
+import com.firesnoopy.studioorder.model.StudioOrderVO;
 import com.ren.title.model.TitleVO;
+import com.roger.columnarticle.model.ColumnArticleVO;
+import com.roger.member.model.MemberVO;
+import com.roger.report.model.ReportVO;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -23,35 +28,35 @@ public class AdministratorVO {
     private String admEmail;
     @ManyToOne
     @JoinColumn(name = "titleNo", referencedColumnName = "titleNo")
-    private TitleVO titleVO;
+    private TitleVO title;
     @Column(name = "admHireDate")
     private Date admHireDate;
-    @Column(name = "admPhoto")
+    @Column(name = "admPhoto", columnDefinition = "blob")
     private byte[] admPhoto;
-    @OneToMany(mappedBy = "StudioOrder", cascade = CascadeType.ALL)
-    private Set<AdministratorVO> studioOrders;
-    @OneToMany(mappedBy = "Title", cascade = CascadeType.ALL)
-    private Set<AdministratorVO> titles;
-    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
-    private Set<AdministratorVO> members;
-    @OneToMany(mappedBy = "ColumnArticle", cascade = CascadeType.ALL)
-    private Set<AdministratorVO> columnArticles;
+    @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL)
+    private Set<StudioOrderVO> studioOrders;
+    @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL)
+    private Set<ReportVO> reports;
+    @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL)
+    private Set<ServiceRecordVO> serviceRecords;
+    @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL)
+    private Set<ColumnArticleVO> columnArticles;
 
     public AdministratorVO() {
     }
 
-    public AdministratorVO(Integer admNo, String admPwd, String admName, Byte admStat, String admEmail, TitleVO titleVO, Date admHireDate, byte[] admPhoto, Set<AdministratorVO> studioOrders, Set<AdministratorVO> titles, Set<AdministratorVO> members, Set<AdministratorVO> columnArticles) {
+    public AdministratorVO(Integer admNo, String admPwd, String admName, Byte admStat, String admEmail, TitleVO title, Date admHireDate, byte[] admPhoto, Set<StudioOrderVO> studioOrders, Set<ReportVO> reports, Set<ServiceRecordVO> serviceRecords, Set<ColumnArticleVO> columnArticles) {
         this.admNo = admNo;
         this.admPwd = admPwd;
         this.admName = admName;
         this.admStat = admStat;
         this.admEmail = admEmail;
-        this.titleVO = titleVO;
+        this.title = title;
         this.admHireDate = admHireDate;
         this.admPhoto = admPhoto;
         this.studioOrders = studioOrders;
-        this.titles = titles;
-        this.members = members;
+        this.reports = reports;
+        this.serviceRecords = serviceRecords;
         this.columnArticles = columnArticles;
     }
 
@@ -95,12 +100,12 @@ public class AdministratorVO {
         this.admEmail = admEmail;
     }
 
-    public TitleVO getTitleVO() {
-        return titleVO;
+    public TitleVO getTitle() {
+        return title;
     }
 
-    public void setTitleVO(TitleVO titleVO) {
-        this.titleVO = titleVO;
+    public void setTitle(TitleVO title) {
+        this.title = title;
     }
 
     public Date getAdmHireDate() {
@@ -119,36 +124,35 @@ public class AdministratorVO {
         this.admPhoto = admPhoto;
     }
 
-    public Set<AdministratorVO> getStudioOrders() {
+    public Set<StudioOrderVO> getStudioOrders() {
         return studioOrders;
     }
 
-    public void setStudioOrders(Set<AdministratorVO> studioOrders) {
+    public void setStudioOrders(Set<StudioOrderVO> studioOrders) {
         this.studioOrders = studioOrders;
     }
 
-    public Set<AdministratorVO> getTitles() {
-        return titles;
+    public Set<ReportVO> getReports() {
+        return reports;
     }
 
-    public void setTitles(Set<AdministratorVO> titles) {
-        this.titles = titles;
+    public void setReports(Set<ReportVO> reports) {
+        this.reports = reports;
     }
 
-    public Set<AdministratorVO> getMembers() {
-        return members;
+    public Set<ServiceRecordVO> getServiceRecords() {
+        return serviceRecords;
     }
 
-    public void setMembers(Set<AdministratorVO> members) {
-        this.members = members;
+    public void setServiceRecords(Set<ServiceRecordVO> serviceRecords) {
+        this.serviceRecords = serviceRecords;
     }
 
-    public Set<AdministratorVO> getColumnArticles() {
+    public Set<ColumnArticleVO> getColumnArticles() {
         return columnArticles;
     }
 
-    public void setColumnArticles(Set<AdministratorVO> columnArticles) {
+    public void setColumnArticles(Set<ColumnArticleVO> columnArticles) {
         this.columnArticles = columnArticles;
     }
-
 }

@@ -54,5 +54,4 @@ public class ProductCategoryVO {
     public void setProducts(Set<ProductVO> products) {
         this.products = products;
     }
-
 }

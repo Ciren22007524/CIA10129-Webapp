@@ -31,6 +31,21 @@ public class ProductServiceImpl implements ProductService_interface {
     }
 
     @Override
+    public List<ProductVO> getAll() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            List<ProductVO> list = dao.getAll();
+            session.getTransaction().commit();
+            return list;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public List<ProductVO> getAll(int currentPage) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {

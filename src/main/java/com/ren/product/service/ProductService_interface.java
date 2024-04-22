@@ -12,6 +12,7 @@ public interface ProductService_interface {
 	ProductVO addProduct(ProductVO productVO);
 	// 查詢單筆商品資料
 	ProductVO getOneProduct(Integer pNo);
+	List<ProductVO> getAll();
 	// 查詢所有商品資料
 	List<ProductVO> getAll(int currentPage);
 	// 複合查詢

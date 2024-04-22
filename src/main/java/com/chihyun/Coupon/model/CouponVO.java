@@ -1,37 +1,39 @@
-package com.chihyun.Coupon.model;
+package com.chihyun.coupon.model;
 
-import com.chihyun.Mycoupon.model.MycouponVO;
+import com.chihyun.mycoupon.model.MyCouponVO;
+import com.iting.productorder.model.ProductOrderVO;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
 @Table(name = "Coupon")
 public class CouponVO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coupNo")
     private Integer coupNo;
+    @ManyToOne
+    @JoinColumn(name = "coupNo", referencedColumnName = "coupNo", insertable = false, updatable = false)
+    private MyCouponVO myCoupon;
     @Column(name = "coupName")
     private String coupName;
     @Column(name = "coupCond")
     private String coupCond;
     @Column(name = "coupDisc")
-    private Double coupDisc;
+    private BigDecimal coupDisc;
     @Column(name = "coupAddDate")
-    private Date coupAddDate;
+    private Timestamp coupAddDate;
     @Column(name = "coupExpDate")
-    private Date coupExpDate;
+    private Timestamp coupExpDate;
     @Column(name = "coupRelDate")
-    private Date coupRelDate;
-    @Column(name = "coupRealStat")
-    private Integer coupRealStat;
-
-    @OneToMany(mappedBy = "couponVO", cascade = CascadeType.ALL)
-    @OrderBy("coupNo asc")
-    private Set<MycouponVO> mycoupons;
-
+    private Timestamp coupRelDate;
+    @Column(name = "coupRelStat")
+    private Byte coupRelStat;
+    @OneToMany(mappedBy = "coupon", cascade = CascadeType.ALL)
+    private Set<ProductOrderVO> productOrders;
 
     public Integer getCoupNo() {
         return coupNo;
@@ -39,6 +41,14 @@ public class CouponVO {
 
     public void setCoupNo(Integer coupNo) {
         this.coupNo = coupNo;
+    }
+
+    public MyCouponVO getMyCoupon() {
+        return myCoupon;
+    }
+
+    public void setMyCoupon(MyCouponVO myCoupon) {
+        this.myCoupon = myCoupon;
     }
 
     public String getCoupName() {
@@ -57,43 +67,51 @@ public class CouponVO {
         this.coupCond = coupCond;
     }
 
-    public Double getCoupDisc() {
+    public BigDecimal getCoupDisc() {
         return coupDisc;
     }
 
-    public void setCoupDisc(Double coupDisc) {
+    public void setCoupDisc(BigDecimal coupDisc) {
         this.coupDisc = coupDisc;
     }
 
-    public Date getCoupAddDate() {
+    public Timestamp getCoupAddDate() {
         return coupAddDate;
     }
 
-    public void setCoupAddDate(Date coupAddDate) {
+    public void setCoupAddDate(Timestamp coupAddDate) {
         this.coupAddDate = coupAddDate;
     }
 
-    public Date getCoupExpDate() {
+    public Timestamp getCoupExpDate() {
         return coupExpDate;
     }
 
-    public void setCoupExpDate(Date coupExpDate) {
+    public void setCoupExpDate(Timestamp coupExpDate) {
         this.coupExpDate = coupExpDate;
     }
 
-    public Date getCoupRelDate() {
+    public Timestamp getCoupRelDate() {
         return coupRelDate;
     }
 
-    public void setCoupRelDate(Date coupRelDate) {
+    public void setCoupRelDate(Timestamp coupRelDate) {
         this.coupRelDate = coupRelDate;
     }
 
-    public Integer getCoupRealStat() {
-        return coupRealStat;
+    public Byte getCoupRelStat() {
+        return coupRelStat;
     }
 
-    public void setCoupRealStat(Integer coupRealStat) {
-        this.coupRealStat = coupRealStat;
+    public void setCoupRelStat(Byte coupRelStat) {
+        this.coupRelStat = coupRelStat;
+    }
+
+    public Set<ProductOrderVO> getProductOrders() {
+        return productOrders;
+    }
+
+    public void setProductOrders(Set<ProductOrderVO> productOrders) {
+        this.productOrders = productOrders;
     }
 }

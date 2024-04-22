@@ -1,7 +1,10 @@
 package com.yu.rental.model;
 
 
+import com.howard.rentalorderdetails.model.RentalOrderDetailsVO;
 import com.yu.rentalcategory.model.RentalCategoryVO;
+import com.yu.rentalmyfavorite.model.RentalMyFavoriteVO;
+import com.yu.rentalpic.model.RentalPicVO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,69 +17,28 @@ public class RentalVO{
 
     @Id //標示為PK
     @Column(name="rNo")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rNo;
-
-    @Column(name="rName", length=40)
-    private String rName;
-
-    @Column(name="rPrice",columnDefinition="BigDecimal")
-    private BigDecimal rPrice;
-
-    @Column(name="rSize")
-    private Integer rSize;
-
-    @Column(name="rColor", length=10)
-    private String rColor;
-
-    @Column(name="rInfo", length=1000)
-    private String rInfo;
-
-    @Column(name="rStat",columnDefinition = "TINYINT")
-    private Byte rStat;
-
     @ManyToOne
     @JoinColumn(name = "rCatNo", referencedColumnName = "rCatNo") //對應rental的rCatNo
     private RentalCategoryVO rentalCategory;
-    public RentalCategoryVO getRentalCategory() {
-        return rentalCategory;
-    }
-
-    public void setRentalCategory(RentalCategoryVO rentalCategory) {
-        this.rentalCategory = rentalCategory;
-    }
-
-
-    @OneToMany(mappedBy = "RentalOrderDetails", cascade = CascadeType.ALL)
-    private Set<RentalCategoryVO> rentalOrderDetails;
-
-    public Set<RentalCategoryVO> getRentalOrderDetails() {
-        return rentalOrderDetails;
-    }
-    public void setRentalOrderDetails(Set<RentalCategoryVO> rentalOrderDetails) {
-        this.rentalOrderDetails = rentalOrderDetails;
-    }
-
-    @OneToMany(mappedBy = "RentalMyFavorite",cascade = CascadeType.ALL)
-    private Set<RentalCategoryVO> rentalMyFavorites;
-    public Set<RentalCategoryVO> getRentalMyFavorites() {
-        return rentalMyFavorites;
-    }
-
-    public void setRentalMyFavorites(Set<RentalCategoryVO> rentalMyFavorites) {
-        this.rentalMyFavorites = rentalMyFavorites;
-    }
-
-
-    @OneToMany(mappedBy = "RentalPic", cascade = CascadeType.ALL)
-    private Set<RentalCategoryVO> rentalPics;
-    public Set<RentalCategoryVO> getRentalPics() {
-        return rentalPics;
-    }
-
-    public void setRentalPics(Set<RentalCategoryVO> rentalPics) {
-        this.rentalPics = rentalPics;
-    }
+    @Column(name="rName", length=40)
+    private String rName;
+    @Column(name="rPrice",columnDefinition="BigDecimal")
+    private BigDecimal rPrice;
+    @Column(name="rSize")
+    private Integer rSize;
+    @Column(name="rColor", length=10)
+    private String rColor;
+    @Column(name="rInfo", length=1000)
+    private String rInfo;
+    @Column(name="rStat",columnDefinition = "TINYINT")
+    private Byte rStat;
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
+    private Set<RentalOrderDetailsVO> rentalOrderDetails;
+    @OneToMany(mappedBy = "rental",cascade = CascadeType.ALL)
+    private Set<RentalMyFavoriteVO> rentalMyFavorites;
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
+    private Set<RentalPicVO> rentalPics;
 
     public Integer getrNo() {
         return rNo;
@@ -84,6 +46,14 @@ public class RentalVO{
 
     public void setrNo(Integer rNo) {
         this.rNo = rNo;
+    }
+
+    public RentalCategoryVO getRentalCategory() {
+        return rentalCategory;
+    }
+
+    public void setRentalCategory(RentalCategoryVO rentalCategory) {
+        this.rentalCategory = rentalCategory;
     }
 
     public String getrName() {
@@ -134,9 +104,27 @@ public class RentalVO{
         this.rStat = rStat;
     }
 
-//    @Override
-//    public String toString() {
-//        return "RentalCategory [rNo=" + rNo + "," +  "rName=" + rName + "," + "rPic=" + rPic + ","
-//                +  "rSize=" + rSize + "," + "rColor=" + rColor  + ","+  "rInfo=" + rInfo + "," + "rStat=" + rStat + "]";
-//    }
+    public Set<RentalOrderDetailsVO> getRentalOrderDetails() {
+        return rentalOrderDetails;
+    }
+
+    public void setRentalOrderDetails(Set<RentalOrderDetailsVO> rentalOrderDetails) {
+        this.rentalOrderDetails = rentalOrderDetails;
+    }
+
+    public Set<RentalMyFavoriteVO> getRentalMyFavorites() {
+        return rentalMyFavorites;
+    }
+
+    public void setRentalMyFavorites(Set<RentalMyFavoriteVO> rentalMyFavorites) {
+        this.rentalMyFavorites = rentalMyFavorites;
+    }
+
+    public Set<RentalPicVO> getRentalPics() {
+        return rentalPics;
+    }
+
+    public void setRentalPics(Set<RentalPicVO> rentalPics) {
+        this.rentalPics = rentalPics;
+    }
 }

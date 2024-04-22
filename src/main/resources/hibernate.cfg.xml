@@ -19,16 +19,16 @@
         <property name="hibernate.format_sql">true</property>
 
         <!-- chihyun -->
-        <mapping class="com.chihyun.Coupon.model.CouponVO"/>
-        <mapping class="com.chihyun.Mycoupon.model.MycouponVO"/>
-        <mapping class="com.chihyun.News.model.NewsVO"/>
-        <mapping class="com.chihyun.ServicePicture.model.ServicePictureVO"/>
-        <mapping class="com.chihyun.ServiceRecord.model.ServiceRecordVO"/>
-        <mapping class="com.chihyun.ServiceRobot.model.ServiceRobotVO"/>
+        <mapping class="com.chihyun.coupon.model.CouponVO"/>
+        <mapping class="com.chihyun.mycoupon.model.MyCouponVO"/>
+        <mapping class="com.chihyun.news.model.NewsVO"/>
+        <mapping class="com.chihyun.servicepicture.model.ServicePictureVO"/>
+        <mapping class="com.chihyun.servicerecord.model.ServiceRecordVO"/>
+        <mapping class="com.chihyun.servicerobot.model.ServiceRobotVO"/>
         <!-- firesnoopy -->
         <mapping class="com.firesnoopy.studioinfo.model.StudioInfoVO"/>
         <mapping class="com.firesnoopy.studioorder.model.StudioOrderVO"/>
-        <mapping class="com.firesnoopy.studiotimebooking.model.StudioTimeBooking"/>
+        <mapping class="com.firesnoopy.studiotimebooking.model.StudioTimeBookingVO"/>
         <!-- howard -->
         <mapping class="com.howard.rentalmytrack.model.RentalMyTrackVO"/>
         <mapping class="com.howard.rentalorder.model.RentalOrderVO"/>

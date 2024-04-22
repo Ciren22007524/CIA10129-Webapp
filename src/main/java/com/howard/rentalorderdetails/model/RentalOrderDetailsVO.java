@@ -30,7 +30,7 @@ public class RentalOrderDetailsVO implements Serializable{
     @Id
     @ManyToOne
     @JoinColumn(name = "rOrdNo", referencedColumnName = "rOrdNo")
-    private RentalOrderVO rentalOrderVoOrm;
+    private RentalOrderVO rentalOrder;
 
 //    @Id
 //    @Column(name = "rNo")
@@ -38,31 +38,29 @@ public class RentalOrderDetailsVO implements Serializable{
     @Id
     @ManyToOne
     @JoinColumn(name = "rNo", referencedColumnName = "rNo")
-    private RentalVO rentalVO;
+    private RentalVO rental;
 
     @Column(name = "rPrice")
     private BigDecimal rPrice;
     @Column(name = "rDesPrice")
     private BigDecimal rDesPrice;
 
-/*-------------------------------聯合映射用的的getter、setter--------------------------------------*/
-
-    public RentalOrderVO getRentalOrderVoOrm() {
-        return rentalOrderVoOrm;
+    public RentalOrderVO getRentalOrder() {
+        return rentalOrder;
     }
 
-    public void setRentalOrderVoOrm(RentalOrderVO rentalOrderVoOrm) {
-        this.rentalOrderVoOrm = rentalOrderVoOrm;
+    public void setRentalOrder(RentalOrderVO rentalOrder) {
+        this.rentalOrder = rentalOrder;
     }
 
-    public RentalVO getRentalVO() {
-        return rentalVO;
+    public RentalVO getRental() {
+        return rental;
     }
 
-    public void setRentalVO(RentalVO rentalVO) {
-        this.rentalVO = rentalVO;
+    public void setRental(RentalVO rental) {
+        this.rental = rental;
     }
-/*-------------------------------getter、setter--------------------------------------*/
+
     public BigDecimal getrPrice() {
         return rPrice;
     }
@@ -79,47 +77,47 @@ public class RentalOrderDetailsVO implements Serializable{
         this.rDesPrice = rDesPrice;
     }
 
-/*-------------------------------內部類別的 getter、setter--------------------------------------*/
+    /*-------------------------------內部類別的 getter、setter--------------------------------------*/
 
     public CompositeDetail getCompositeDetail() {
-        return new CompositeDetail(rentalOrderVoOrm, rentalVO);
+        return new CompositeDetail(rentalOrder, rental);
     }
 
     public void setCompositeDetail(CompositeDetail key) {
-        key.setRentalOrderVoOrm(this.rentalOrderVoOrm);
-        key.setRentalVO(this.rentalVO);
+        key.setRentalOrderVoOrm(this.rentalOrder);
+        key.setRentalVO(this.rental);
     }
 
 /*-------------------------------因為複合主鍵所以加上的內部類別--------------------------------------*/
 
     static class CompositeDetail implements Serializable {
 
-        private RentalOrderVO rentalOrderVoOrm;
-        private RentalVO rentalVO;
+        private RentalOrderVO rentalOrder;
+        private RentalVO rental;
 
         public CompositeDetail() {
 
         }
 
-        public CompositeDetail(RentalOrderVO rentalOrderVoOrm, RentalVO rentalVO) {
-            this.rentalOrderVoOrm = rentalOrderVoOrm;
-            this.rentalVO = rentalVO;
+        public CompositeDetail(RentalOrderVO rentalOrder, RentalVO rental) {
+            this.rentalOrder = rentalOrder;
+            this.rental = rental;
         }
 
         public RentalOrderVO getRentalOrderVoOrm() {
-            return rentalOrderVoOrm;
+            return rentalOrder;
         }
 
-        public void setRentalOrderVoOrm(RentalOrderVO rentalOrderVoOrm) {
-            this.rentalOrderVoOrm = rentalOrderVoOrm;
+        public void setRentalOrderVoOrm(RentalOrderVO rentalOrder) {
+            this.rentalOrder = rentalOrder;
         }
 
         public RentalVO getRentalVO() {
-            return rentalVO;
+            return rental;
         }
 
-        public void setRentalVO(RentalVO rentalVO) {
-            this.rentalVO = rentalVO;
+        public void setRentalVO(RentalVO rental) {
+            this.rental = rental;
         }
 
         @Override
@@ -139,8 +137,8 @@ public class RentalOrderDetailsVO implements Serializable{
     @Override
     public String toString() {
         return "RentalOrderDetails_ORM{" +
-                "rentalOrderVoOrm=" + rentalOrderVoOrm +
-                ", rental=" + rentalVO +
+                "rentalOrder=" + rentalOrder +
+                ", rental=" + rental +
                 ", rPrice=" + rPrice +
                 ", rDesPrice=" + rDesPrice +
                 '}';

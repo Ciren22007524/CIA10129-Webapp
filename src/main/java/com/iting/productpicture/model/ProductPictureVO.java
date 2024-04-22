@@ -13,7 +13,7 @@ public class ProductPictureVO implements java.io.Serializable {
     private Integer pPicNo;
     @ManyToOne
     @JoinColumn(name = "pNo", referencedColumnName = "pNo")
-    private ProductVO productVO;
+    private ProductVO product;
     @Column(name = "pPic", columnDefinition = "longblob")
     private byte[] pPic;
 
@@ -25,12 +25,12 @@ public class ProductPictureVO implements java.io.Serializable {
         this.pPicNo = pPicNo;
     }
 
-    public ProductVO getProductVO() {
-        return productVO;
+    public ProductVO getProduct() {
+        return product;
     }
 
-    public void setProductVO(ProductVO productVO) {
-        this.productVO = productVO;
+    public void setProduct(ProductVO product) {
+        this.product = product;
     }
 
     public byte[] getpPic() {
@@ -40,5 +40,4 @@ public class ProductPictureVO implements java.io.Serializable {
     public void setpPic(byte[] pPic) {
         this.pPic = pPic;
     }
-
 }
