@@ -2,6 +2,7 @@ package com.roger.columnreply.model;
 
 import com.roger.columnarticle.model.ColumnArticleVO;
 import com.roger.member.model.MemberVO;
+import com.roger.report.model.ReportVO;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -17,18 +18,18 @@ public class ColumnReplyVO implements java.io.Serializable {
     private Integer columnReplyNo;
     @ManyToOne
     @JoinColumn(name = "artNo", referencedColumnName = "artNo")
-    private ColumnArticleVO columnArticleVO;
+    private ColumnArticleVO columnArticle;
     @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private MemberVO memberVO;
+    private MemberVO member;
     @Column(name = "comContent")
     private String comContent;
     @Column(name = "comTime")
     private Timestamp comTime;
     @Column(name = "comStat")
     private Byte comStat;
-    @OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
-    private Set<ColumnReplyVO> reports;
+    @OneToMany(mappedBy = "columnReply", cascade = CascadeType.ALL)
+    private Set<ReportVO> reports;
 
     public Integer getColumnReplyNo() {
         return columnReplyNo;
@@ -38,20 +39,20 @@ public class ColumnReplyVO implements java.io.Serializable {
         this.columnReplyNo = columnReplyNo;
     }
 
-    public ColumnArticleVO getColumnArticleVO() {
-        return columnArticleVO;
+    public ColumnArticleVO getColumnArticle() {
+        return columnArticle;
     }
 
-    public void setColumnArticleVO(ColumnArticleVO columnArticleVO) {
-        this.columnArticleVO = columnArticleVO;
+    public void setColumnArticle(ColumnArticleVO columnArticle) {
+        this.columnArticle = columnArticle;
     }
 
-    public MemberVO getMemberVO() {
-        return memberVO;
+    public MemberVO getMember() {
+        return member;
     }
 
-    public void setMemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
 
     public String getComContent() {
@@ -78,11 +79,11 @@ public class ColumnReplyVO implements java.io.Serializable {
         this.comStat = comStat;
     }
 
-    public Set<ColumnReplyVO> getReports() {
+    public Set<ReportVO> getReports() {
         return reports;
     }
 
-    public void setReports(Set<ColumnReplyVO> reports) {
+    public void setReports(Set<ReportVO> reports) {
         this.reports = reports;
     }
 }

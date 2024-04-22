@@ -1,7 +1,8 @@
 package com.firesnoopy.studioinfo.model;
 
 
-import com.ren.product.model.ProductVO;
+import com.firesnoopy.studioorder.model.StudioOrderVO;
+import com.firesnoopy.studiotimebooking.model.StudioTimeBookingVO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,10 +20,10 @@ public class StudioInfoVO {
     private String sInfo;
     @Column(name = "sPrice")
     private BigDecimal sPrice;
-    @OneToMany(mappedBy = "studioOrder", cascade = CascadeType.ALL)
-    private Set<StudioInfoVO> studioOrders;
-    @OneToMany(mappedBy = "studioTimeBooking", cascade = CascadeType.ALL)
-    private Set<StudioInfoVO> studioTimeBookings;
+    @OneToMany(mappedBy = "studioInfo", cascade = CascadeType.ALL)
+    private Set<StudioOrderVO> studioOrders;
+    @OneToMany(mappedBy = "studioInfo", cascade = CascadeType.ALL)
+    private Set<StudioTimeBookingVO> studioTimeBookings;
 
     public Integer getsNo() {
         return sNo;
@@ -56,19 +57,19 @@ public class StudioInfoVO {
         this.sPrice = sPrice;
     }
 
-    public Set<StudioInfoVO> getStudioOrders() {
+    public Set<StudioOrderVO> getStudioOrders() {
         return studioOrders;
     }
 
-    public void setStudioOrders(Set<StudioInfoVO> studioOrders) {
+    public void setStudioOrders(Set<StudioOrderVO> studioOrders) {
         this.studioOrders = studioOrders;
     }
 
-    public Set<StudioInfoVO> getStudioTimeBookings() {
+    public Set<StudioTimeBookingVO> getStudioTimeBookings() {
         return studioTimeBookings;
     }
 
-    public void setStudioTimeBookings(Set<StudioInfoVO> studioTimeBookings) {
+    public void setStudioTimeBookings(Set<StudioTimeBookingVO> studioTimeBookings) {
         this.studioTimeBookings = studioTimeBookings;
     }
 }

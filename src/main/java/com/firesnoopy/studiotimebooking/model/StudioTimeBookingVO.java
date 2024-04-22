@@ -3,14 +3,13 @@ package com.firesnoopy.studiotimebooking.model;
 
 import com.firesnoopy.studioinfo.model.StudioInfoVO;
 import com.firesnoopy.studioorder.model.StudioOrderVO;
-import com.ren.productcategory.model.ProductCategoryVO;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name = "StudioTimeBooking")
-public class StudioTimeBooking {
+public class StudioTimeBookingVO {
     @Id
     @Column(name = "sTimeNo")
     private Integer sTimeNo;
@@ -22,12 +21,12 @@ public class StudioTimeBooking {
     private StudioInfoVO studioInfo;
     @Column(name = "closeDate")
     private Date closeDate;
-    @Column(name = "closeTimeMornig")
-    private Boolean closeTimeMorning;
+    @Column(name = "closeTimeMorning")
+    private Byte closeTimeMorning;
     @Column(name = "closeTimeAfternoon")
-    private Boolean closeTimeAfternoon;
+    private Byte closeTimeAfternoon;
     @Column(name = "closeTimeNight")
-    private Boolean closeTimeNight;
+    private Byte closeTimeNight;
 
     public Integer getsTimeNo() {
         return sTimeNo;
@@ -61,27 +60,27 @@ public class StudioTimeBooking {
         this.closeDate = closeDate;
     }
 
-    public Boolean getCloseTimeMorning() {
+    public Byte getCloseTimeMorning() {
         return closeTimeMorning;
     }
 
-    public void setCloseTimeMorning(Boolean closeTimeMorning) {
+    public void setCloseTimeMorning(Byte closeTimeMorning) {
         this.closeTimeMorning = closeTimeMorning;
     }
 
-    public Boolean getCloseTimeAfternoon() {
+    public Byte getCloseTimeAfternoon() {
         return closeTimeAfternoon;
     }
 
-    public void setCloseTimeAfternoon(Boolean closeTimeAfternoon) {
+    public void setCloseTimeAfternoon(Byte closeTimeAfternoon) {
         this.closeTimeAfternoon = closeTimeAfternoon;
     }
 
-    public Boolean getCloseTimeNight() {
+    public Byte getCloseTimeNight() {
         return closeTimeNight;
     }
 
-    public void setCloseTimeNight(Boolean closeTimeNight) {
+    public void setCloseTimeNight(Byte closeTimeNight) {
         this.closeTimeNight = closeTimeNight;
     }
 }

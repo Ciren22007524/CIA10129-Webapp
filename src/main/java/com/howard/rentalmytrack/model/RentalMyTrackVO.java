@@ -15,30 +15,30 @@ public class RentalMyTrackVO implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "rNo", referencedColumnName = "rNo")
-    private RentalVO rentalVO;
+    private RentalVO rental;
     @Id
     @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private  MemberVO memberVO;
+    private  MemberVO member;
 	@Column(name = "rTrackTime")
     private Timestamp rTrackTime;
 	@Column(name = "expRentalDate")
     private Date expRentalDate;
 
-    public RentalVO getRentalVO() {
-        return rentalVO;
+    public RentalVO getRental() {
+        return rental;
     }
 
-    public void setRentalVO(RentalVO rentalVO) {
-        this.rentalVO = rentalVO;
+    public void setRental(RentalVO rental) {
+        this.rental = rental;
     }
 
-    public MemberVO getMemberVO() {
-        return memberVO;
+    public MemberVO getMember() {
+        return member;
     }
 
-    public void setMemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
 
     public Timestamp getrTrackTime() {
@@ -57,55 +57,46 @@ public class RentalMyTrackVO implements Serializable {
         this.expRentalDate = expRentalDate;
     }
 
-    public void setCompositeTrack(CompositeTrack key) {
-        key.setRentalVO(this.rentalVO);
-        key.setMemberVO(this.memberVO);
-    }
-
-    public CompositeTrack getCompositeTrack() {
-        return new CompositeTrack(this.rentalVO, this.memberVO);
-    }
-
     static class CompositeTrack implements Serializable {
 
-        private RentalVO rentalVO;
-        private MemberVO memberVO;
+        private RentalVO rental;
+        private MemberVO member;
 
         public CompositeTrack() {
 
         }
 
-        public CompositeTrack(RentalVO rentalVO, MemberVO memberVO) {
-            this.rentalVO = rentalVO;
-            this.memberVO = memberVO;
+        public CompositeTrack(RentalVO rental, MemberVO member) {
+            this.rental = rental;
+            this.member = member;
         }
 
-        public RentalVO getRentalVO() {
-            return rentalVO;
+        public RentalVO getRental() {
+            return rental;
         }
 
-        public void setRentalVO(RentalVO rentalVO) {
-            this.rentalVO = rentalVO;
+        public void setRental(RentalVO rental) {
+            this.rental = rental;
         }
 
-        public MemberVO getMemberVO() {
-            return memberVO;
+        public MemberVO getMember() {
+            return member;
         }
 
-        public void setMemberVO(MemberVO memberVO) {
-            this.memberVO = memberVO;
+        public void setMember(MemberVO member) {
+            this.member = member;
         }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (!(o instanceof CompositeTrack that)) return false;
-            return Objects.equals(getRentalVO(), that.getRentalVO()) && Objects.equals(getMemberVO(), that.getMemberVO());
+            return Objects.equals(getRental(), that.getRental()) && Objects.equals(getMember(), that.getMember());
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(getRentalVO(), getMemberVO());
+            return Objects.hash(getRental(), getMember());
         }
 
     }
@@ -113,8 +104,8 @@ public class RentalMyTrackVO implements Serializable {
     @Override
     public String toString() {
         return "RentalMyTrackVO{" +
-                "rentalVO=" + rentalVO +
-                ", memberVO=" + memberVO +
+                "rental=" + rental +
+                ", member=" + member +
                 ", rTrackTime=" + rTrackTime +
                 ", expRentalDate=" + expRentalDate +
                 '}';

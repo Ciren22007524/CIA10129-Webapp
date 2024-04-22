@@ -1,6 +1,6 @@
 package com.iting.productorder.model;
 
-import com.chihyun.Coupon.model.CouponVO;
+import com.chihyun.coupon.model.CouponVO;
 import com.iting.productorderdetail.model.ProductOrderDetailVO;
 import com.roger.member.model.MemberVO;
 
@@ -18,7 +18,7 @@ public class ProductOrderVO {
     private Integer pOrdNo;
     @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private MemberVO memberVO;
+    private MemberVO member;
     @Column(name = "pByrName")
     private String pByrName;
     @Column(name = "pByrPhone")
@@ -39,7 +39,7 @@ public class ProductOrderVO {
     private BigDecimal pAllPrice;
     @ManyToOne
     @JoinColumn(name = "coupNo", referencedColumnName = "coupNo")
-    private CouponVO couponVO;
+    private CouponVO coupon;
     @Column(name = "pDisc")
     private BigDecimal pDisc;
     @Column(name = "pRealPrice")
@@ -50,7 +50,7 @@ public class ProductOrderVO {
     private Byte pOrdStat;
     @Column(name = "pStat")
     private Byte pStat;
-    @OneToMany(mappedBy = "productorder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productOrder", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Set<ProductOrderDetailVO> productOrderDetails;
 
@@ -62,12 +62,12 @@ public class ProductOrderVO {
         this.pOrdNo = pOrdNo;
     }
 
-    public MemberVO getMemberVO() {
-        return memberVO;
+    public MemberVO getMember() {
+        return member;
     }
 
-    public void setMemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
 
     public String getpByrName() {
@@ -142,12 +142,12 @@ public class ProductOrderVO {
         this.pAllPrice = pAllPrice;
     }
 
-    public CouponVO getCouponVO() {
-        return couponVO;
+    public CouponVO getCoupon() {
+        return coupon;
     }
 
-    public void setCouponVO(CouponVO couponVO) {
-        this.couponVO = couponVO;
+    public void setCoupon(CouponVO coupon) {
+        this.coupon = coupon;
     }
 
     public BigDecimal getpDisc() {
@@ -197,5 +197,4 @@ public class ProductOrderVO {
     public void setProductOrderDetails(Set<ProductOrderDetailVO> productOrderDetails) {
         this.productOrderDetails = productOrderDetails;
     }
-
 }

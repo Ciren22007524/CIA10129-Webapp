@@ -16,16 +16,17 @@ public class ArticleCollectionVO implements java.io.Serializable {
     private CompositeArticleCollection compositeArticleCollection;
 
     @ManyToOne
-    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private MemberVO memberVO;
+    @JoinColumn(name = "memNo", referencedColumnName = "memNo", insertable = false, updatable = false)
+    private MemberVO member;
 
     // private Integer memNo;
 
     @ManyToOne
-    @JoinColumn(name = "artNo", referencedColumnName = "artNo")
-    private ColumnArticleVO columnArticleVO;
+    @JoinColumn(name = "artNo", referencedColumnName = "artNo", insertable = false, updatable = false)
+    private ColumnArticleVO columnArticle;
 
     // private Integer artNo;
+
 
     public CompositeArticleCollection getCompositeArticleCollection() {
         return compositeArticleCollection;
@@ -35,20 +36,20 @@ public class ArticleCollectionVO implements java.io.Serializable {
         this.compositeArticleCollection = compositeArticleCollection;
     }
 
-    public MemberVO getMemberVO() {
-        return memberVO;
+    public MemberVO getMember() {
+        return member;
     }
 
-    public void setMemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
 
-    public ColumnArticleVO getColumnArticleVO() {
-        return columnArticleVO;
+    public ColumnArticleVO getColumnArticle() {
+        return columnArticle;
     }
 
-    public void setColumnArticleVO(ColumnArticleVO columnArticleVO) {
-        this.columnArticleVO = columnArticleVO;
+    public void setColumnArticle(ColumnArticleVO columnArticle) {
+        this.columnArticle = columnArticle;
     }
 
     @Embeddable

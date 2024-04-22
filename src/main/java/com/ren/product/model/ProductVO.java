@@ -1,5 +1,9 @@
 package com.ren.product.model;
 
+import com.iting.cart.model.CartVO;
+import com.iting.productmyfavorite.model.ProductMyFavoriteVO;
+import com.iting.productorderdetail.model.ProductOrderDetailVO;
+import com.iting.productpicture.model.ProductPictureVO;
 import com.ren.productcategory.model.ProductCategoryVO;
 
 import javax.persistence.*;
@@ -34,14 +38,14 @@ public class ProductVO {
     private Integer pComPeople;
     @Column(name = "pComScore")
     private Integer pComScore;
-    @OneToMany(mappedBy = "productOrderDetail", cascade = CascadeType.ALL)
-    private Set<ProductVO> productOrderDetails;
-    @OneToMany(mappedBy = "productMyFavorite",cascade = CascadeType.ALL)
-    private Set<ProductVO> productMyFavorites;
-    @OneToMany(mappedBy = "Cart", cascade = CascadeType.ALL)
-    private Set<ProductVO> carts;
-    @OneToMany(mappedBy = "productPicture", cascade = CascadeType.ALL)
-    private Set<ProductVO> productPictures;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<ProductOrderDetailVO> productOrderDetails;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private Set<ProductMyFavoriteVO> productMyFavorites;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<CartVO> carts;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<ProductPictureVO> productPictures;
 
     public  ProductVO () {
 
@@ -164,35 +168,35 @@ public class ProductVO {
         this.pComScore = pComScore;
     }
 
-    public Set<ProductVO> getProductOrderDetails() {
+    public Set<ProductOrderDetailVO> getProductOrderDetails() {
         return productOrderDetails;
     }
 
-    public void setProductOrderDetails(Set<ProductVO> productOrderDetails) {
+    public void setProductOrderDetails(Set<ProductOrderDetailVO> productOrderDetails) {
         this.productOrderDetails = productOrderDetails;
     }
 
-    public Set<ProductVO> getProductMyFavorites() {
+    public Set<ProductMyFavoriteVO> getProductMyFavorites() {
         return productMyFavorites;
     }
 
-    public void setProductMyFavorites(Set<ProductVO> productMyFavorites) {
+    public void setProductMyFavorites(Set<ProductMyFavoriteVO> productMyFavorites) {
         this.productMyFavorites = productMyFavorites;
     }
 
-    public Set<ProductVO> getCarts() {
+    public Set<CartVO> getCarts() {
         return carts;
     }
 
-    public void setCarts(Set<ProductVO> carts) {
+    public void setCarts(Set<CartVO> carts) {
         this.carts = carts;
     }
 
-    public Set<ProductVO> getProductPictures() {
+    public Set<ProductPictureVO> getProductPictures() {
         return productPictures;
     }
 
-    public void setProductPictures(Set<ProductVO> productPictures) {
+    public void setProductPictures(Set<ProductPictureVO> productPictures) {
         this.productPictures = productPictures;
     }
 }

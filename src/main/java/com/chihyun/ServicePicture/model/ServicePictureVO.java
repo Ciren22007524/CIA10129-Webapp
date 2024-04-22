@@ -1,6 +1,6 @@
-package com.chihyun.ServicePicture.model;
+package com.chihyun.servicepicture.model;
 
-import com.chihyun.ServiceRecord.model.ServiceRecordVO;
+import com.chihyun.servicerecord.model.ServiceRecordVO;
 
 import javax.persistence.*;
 
@@ -8,16 +8,13 @@ import javax.persistence.*;
 @Table(name = "ServicePicture")
 public class ServicePictureVO {
     @Id
+    @Column(name = "servicePicNo")
     private Integer servicePicNo;
-
-//    private Integer recordNo;
-
-    @Column(columnDefinition = "longblob")
-    private Byte[] servicePic;
-
     @ManyToOne
     @JoinColumn(name = "recordNo", referencedColumnName = "recordNo")
-    private ServiceRecordVO serviceRecordVO;
+    private ServiceRecordVO serviceRecord;
+    @Column(name = "servicePic", columnDefinition = "longblob")
+    private byte[] servicePic;
 
     public Integer getServicePicNo() {
         return servicePicNo;
@@ -27,19 +24,19 @@ public class ServicePictureVO {
         this.servicePicNo = servicePicNo;
     }
 
-//    public Integer getRecordNo() {
-//        return recordNo;
-//    }
+    public ServiceRecordVO getServiceRecord() {
+        return serviceRecord;
+    }
 
-//    public void setRecordNo(Integer recordNo) {
-//        this.recordNo = recordNo;
-//    }
+    public void setServiceRecord(ServiceRecordVO serviceRecord) {
+        this.serviceRecord = serviceRecord;
+    }
 
-    public Byte[] getServicePic() {
+    public byte[] getServicePic() {
         return servicePic;
     }
 
-    public void setServicePic(Byte[] servicePic) {
+    public void setServicePic(byte[] servicePic) {
         this.servicePic = servicePic;
     }
 }

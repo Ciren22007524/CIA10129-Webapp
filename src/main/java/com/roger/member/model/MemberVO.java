@@ -1,6 +1,19 @@
 package com.roger.member.model;
 
-import org.hibernate.annotations.CreationTimestamp;
+import com.chihyun.mycoupon.model.MyCouponVO;
+import com.chihyun.servicerecord.model.ServiceRecordVO;
+import com.firesnoopy.studioorder.model.StudioOrderVO;
+import com.howard.rentalmytrack.model.RentalMyTrackVO;
+import com.howard.rentalorder.model.RentalOrderVO;
+import com.iting.cart.model.CartVO;
+import com.iting.productmyfavorite.model.ProductMyFavoriteVO;
+import com.iting.productorder.model.ProductOrderVO;
+import com.roger.articlecollection.model.ArticleCollectionVO;
+import com.roger.clicklike.model.ClickLikeVO;
+import com.roger.columnreply.model.ColumnReplyVO;
+import com.roger.notice.model.NoticeVO;
+import com.roger.report.model.ReportVO;
+import com.yu.rentalmyfavorite.model.RentalMyFavoriteVO;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -51,34 +64,34 @@ public class MemberVO implements java.io.Serializable {
     @Column(name = "memStat")
     private Byte memStat;
 
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
-    private Set<MemberVO> notices;
-    @OneToMany(mappedBy = "mycoupon", cascade = CascadeType.ALL)
-    private Set<MemberVO> mycoupons;
-    @OneToMany(mappedBy = "productOrder", cascade = CascadeType.ALL)
-    private Set<MemberVO> productOrders;
-    @OneToMany(mappedBy = "productMyFavorite", cascade = CascadeType.ALL)
-    private Set<MemberVO> productMyFavorites;
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private Set<MemberVO> carts;
-    @OneToMany(mappedBy = "clickLike", cascade = CascadeType.ALL)
-    private Set<MemberVO> clickLikes;
-    @OneToMany(mappedBy = "articleCollection", cascade = CascadeType.ALL)
-    private Set<MemberVO> articleCollections;
-    @OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
-    private Set<MemberVO> reports;
-    @OneToMany(mappedBy = "columnReply", cascade = CascadeType.ALL)
-    private Set<MemberVO> columnReplys;
-    @OneToMany(mappedBy = "rentalOrder", cascade = CascadeType.ALL)
-    private Set<MemberVO> rentalOrders;
-    @OneToMany(mappedBy = "rentalMyTrack", cascade = CascadeType.ALL)
-    private Set<MemberVO> rentalMyTracks;
-    @OneToMany(mappedBy = "rentalMyFavorite", cascade = CascadeType.ALL)
-    private Set<MemberVO> rentalMyFavorites;
-    @OneToMany(mappedBy = "studioOrder", cascade = CascadeType.ALL)
-    private Set<MemberVO> studioOrders;
-    @OneToMany(mappedBy = "serviceRecord", cascade = CascadeType.ALL)
-    private Set<MemberVO> serviceRecords;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<NoticeVO> notices;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<MyCouponVO> myCoupons;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<ProductOrderVO> productOrders;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<ProductMyFavoriteVO> productMyFavorites;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<CartVO> carts;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<ClickLikeVO> clickLikes;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<ArticleCollectionVO> articleCollections;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<ReportVO> reports;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<ColumnReplyVO> columnReplies;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<RentalOrderVO> rentalOrders;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<RentalMyTrackVO> rentalMyTracks;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<RentalMyFavoriteVO> rentalMyFavorites;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<StudioOrderVO> studioOrders;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<ServiceRecordVO> serviceRecords;
 
     public Integer getMemNo() {
         return memNo;
@@ -232,115 +245,115 @@ public class MemberVO implements java.io.Serializable {
         this.memStat = memStat;
     }
 
-    public Set<MemberVO> getNotices() {
+    public Set<NoticeVO> getNotices() {
         return notices;
     }
 
-    public void setNotices(Set<MemberVO> notices) {
+    public void setNotices(Set<NoticeVO> notices) {
         this.notices = notices;
     }
 
-    public Set<MemberVO> getMycoupons() {
-        return mycoupons;
+    public Set<MyCouponVO> getMyCoupons() {
+        return myCoupons;
     }
 
-    public void setMycoupons(Set<MemberVO> mycoupons) {
-        this.mycoupons = mycoupons;
+    public void setMyCoupons(Set<MyCouponVO> myCoupons) {
+        this.myCoupons = myCoupons;
     }
 
-    public Set<MemberVO> getProductOrders() {
+    public Set<ProductOrderVO> getProductOrders() {
         return productOrders;
     }
 
-    public void setProductOrders(Set<MemberVO> productOrders) {
+    public void setProductOrders(Set<ProductOrderVO> productOrders) {
         this.productOrders = productOrders;
     }
 
-    public Set<MemberVO> getProductMyFavorites() {
+    public Set<ProductMyFavoriteVO> getProductMyFavorites() {
         return productMyFavorites;
     }
 
-    public void setProductMyFavorites(Set<MemberVO> productMyFavorites) {
+    public void setProductMyFavorites(Set<ProductMyFavoriteVO> productMyFavorites) {
         this.productMyFavorites = productMyFavorites;
     }
 
-    public Set<MemberVO> getCarts() {
+    public Set<CartVO> getCarts() {
         return carts;
     }
 
-    public void setCarts(Set<MemberVO> carts) {
+    public void setCarts(Set<CartVO> carts) {
         this.carts = carts;
     }
 
-    public Set<MemberVO> getClickLikes() {
+    public Set<ClickLikeVO> getClickLikes() {
         return clickLikes;
     }
 
-    public void setClickLikes(Set<MemberVO> clickLikes) {
+    public void setClickLikes(Set<ClickLikeVO> clickLikes) {
         this.clickLikes = clickLikes;
     }
 
-    public Set<MemberVO> getArticleCollections() {
+    public Set<ArticleCollectionVO> getArticleCollections() {
         return articleCollections;
     }
 
-    public void setArticleCollections(Set<MemberVO> articleCollections) {
+    public void setArticleCollections(Set<ArticleCollectionVO> articleCollections) {
         this.articleCollections = articleCollections;
     }
 
-    public Set<MemberVO> getReports() {
+    public Set<ReportVO> getReports() {
         return reports;
     }
 
-    public void setReports(Set<MemberVO> reports) {
+    public void setReports(Set<ReportVO> reports) {
         this.reports = reports;
     }
 
-    public Set<MemberVO> getColumnReplys() {
-        return columnReplys;
+    public Set<ColumnReplyVO> getColumnReplies() {
+        return columnReplies;
     }
 
-    public void setColumnReplys(Set<MemberVO> columnReplys) {
-        this.columnReplys = columnReplys;
+    public void setColumnReplies(Set<ColumnReplyVO> columnReplies) {
+        this.columnReplies = columnReplies;
     }
 
-    public Set<MemberVO> getRentalOrders() {
+    public Set<RentalOrderVO> getRentalOrders() {
         return rentalOrders;
     }
 
-    public void setRentalOrders(Set<MemberVO> rentalOrders) {
+    public void setRentalOrders(Set<RentalOrderVO> rentalOrders) {
         this.rentalOrders = rentalOrders;
     }
 
-    public Set<MemberVO> getRentalMyTracks() {
+    public Set<RentalMyTrackVO> getRentalMyTracks() {
         return rentalMyTracks;
     }
 
-    public void setRentalMyTracks(Set<MemberVO> rentalMyTracks) {
+    public void setRentalMyTracks(Set<RentalMyTrackVO> rentalMyTracks) {
         this.rentalMyTracks = rentalMyTracks;
     }
 
-    public Set<MemberVO> getRentalMyFavorites() {
+    public Set<RentalMyFavoriteVO> getRentalMyFavorites() {
         return rentalMyFavorites;
     }
 
-    public void setRentalMyFavorites(Set<MemberVO> rentalMyFavorites) {
+    public void setRentalMyFavorites(Set<RentalMyFavoriteVO> rentalMyFavorites) {
         this.rentalMyFavorites = rentalMyFavorites;
     }
 
-    public Set<MemberVO> getStudioOrders() {
+    public Set<StudioOrderVO> getStudioOrders() {
         return studioOrders;
     }
 
-    public void setStudioOrders(Set<MemberVO> studioOrders) {
+    public void setStudioOrders(Set<StudioOrderVO> studioOrders) {
         this.studioOrders = studioOrders;
     }
 
-    public Set<MemberVO> getServiceRecords() {
+    public Set<ServiceRecordVO> getServiceRecords() {
         return serviceRecords;
     }
 
-    public void setServiceRecords(Set<MemberVO> serviceRecords) {
+    public void setServiceRecords(Set<ServiceRecordVO> serviceRecords) {
         this.serviceRecords = serviceRecords;
     }
 }

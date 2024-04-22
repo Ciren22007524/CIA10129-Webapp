@@ -12,19 +12,11 @@ import javax.persistence.*;
         private Integer rPicNo;
 
         @Column(name="rPic", columnDefinition = "LongBLOB")
-
         private byte[] rPic;
 
         @ManyToOne
         @JoinColumn(name="rNo", referencedColumnName="rNo")
         private RentalVO rental;
-        public RentalVO getRental() {
-            return rental;
-        }
-        public void setRental(RentalVO rental) {
-            this.rental = rental;
-        }
-
 
         public Integer getrPicNo() {
             return rPicNo;
@@ -42,8 +34,11 @@ import javax.persistence.*;
             this.rPic = rPic;
         }
 
-//        @Override
-//        public String toString() {
-//            return "RentalCategory [rPicNo=" + rPicNo + "," +  " rNo=" + rNo  + "," + " rPic=" + rPic + "]";
-//        }
+        public RentalVO getRental() {
+            return rental;
+        }
+
+        public void setRental(RentalVO rental) {
+            this.rental = rental;
+        }
     }

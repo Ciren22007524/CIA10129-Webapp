@@ -14,7 +14,7 @@ public class AuthorityFunctionVO {
     private Integer authFuncNo;
     @Column(name = "authFuncInfo")
     private String authFuncInfo;
-    @OneToMany(mappedBy = "AdmAuthority", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "authorityFunction", cascade = CascadeType.ALL)
     private Set<AdmAuthorityVO> admAuthorities;
 
     public  AuthorityFunctionVO() {

@@ -1,9 +1,12 @@
-package com.chihyun.ServiceRecord.model;
+package com.chihyun.servicerecord.model;
 
-import com.chihyun.ServicePicture.model.ServicePictureVO;
+import com.chihyun.servicepicture.model.ServicePictureVO;
+import com.ren.administrator.model.AdministratorVO;
+import com.roger.member.model.MemberVO;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -12,19 +15,19 @@ public class ServiceRecordVO {
 	@Id
     @Column(name = "recordNo")
 	private Integer recordNo;
-    @Column(name = "admNo")
-    private Integer admNo;
-    @Column(name = "memNo")
-    private Integer memNo;
+    @ManyToOne
+    @JoinColumn(name = "admNo", referencedColumnName = "admNo")
+    private AdministratorVO administrator;
+    @ManyToOne
+    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
+    private MemberVO member;
     @Column(name = "recordTime")
-    private Date recordTime;
+    private Timestamp recordTime;
     @Column(name = "recordContent")
     private String recordContent;
     @Column(name = "speaker")
-    private Integer speaker;
-
-    @OneToMany(mappedBy = "serviceRecordVO")
-    @OrderBy("servicePicNo asc")
+    private Byte speaker;
+    @OneToMany(mappedBy = "serviceRecord", cascade = CascadeType.ALL)
     private Set<ServicePictureVO> ServicePictures;
 
     public Integer getRecordNo() {
@@ -35,27 +38,27 @@ public class ServiceRecordVO {
         this.recordNo = recordNo;
     }
 
-    public Integer getAdmNo() {
-        return admNo;
+    public AdministratorVO getAdministrator() {
+        return administrator;
     }
 
-    public void setAdmNo(Integer admNo) {
-        this.admNo = admNo;
+    public void setAdministrator(AdministratorVO administrator) {
+        this.administrator = administrator;
     }
 
-    public Integer getMemNo() {
-        return memNo;
+    public MemberVO getMember() {
+        return member;
     }
 
-    public void setMemNo(Integer memNo) {
-        this.memNo = memNo;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
 
-    public Date getRecordTime() {
+    public Timestamp getRecordTime() {
         return recordTime;
     }
 
-    public void setRecordTime(Date recordTime) {
+    public void setRecordTime(Timestamp recordTime) {
         this.recordTime = recordTime;
     }
 
@@ -67,11 +70,19 @@ public class ServiceRecordVO {
         this.recordContent = recordContent;
     }
 
-    public Integer getSpeaker() {
+    public Byte getSpeaker() {
         return speaker;
     }
 
-    public void setSpeaker(Integer speaker) {
+    public void setSpeaker(Byte speaker) {
         this.speaker = speaker;
+    }
+
+    public Set<ServicePictureVO> getServicePictures() {
+        return ServicePictures;
+    }
+
+    public void setServicePictures(Set<ServicePictureVO> servicePictures) {
+        ServicePictures = servicePictures;
     }
 }

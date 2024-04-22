@@ -1,5 +1,8 @@
 package com.ren.title.model;
 
+import com.ren.admauthority.model.AdmAuthorityVO;
+import com.ren.administrator.model.AdministratorVO;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,16 +14,16 @@ public class TitleVO {
     private Integer titleNo;
     @Column(name = "titleName")
     private String titleName;
-    @OneToMany(mappedBy = "AdmAuthority", cascade = CascadeType.ALL)
-    private Set<TitleVO> admAuthoritys;
-    @OneToMany(mappedBy = "Administrator", cascade = CascadeType.ALL)
-    private Set<TitleVO> administrators;
+    @OneToMany(mappedBy = "title", cascade = CascadeType.ALL)
+    private Set<AdmAuthorityVO> admAuthoritys;
+    @OneToMany(mappedBy = "title", cascade = CascadeType.ALL)
+    private Set<AdministratorVO> administrators;
 
     public TitleVO() {
 
     }
 
-    public TitleVO(Integer titleNo, String titleName, Set<TitleVO> admAuthoritys, Set<TitleVO> administrators) {
+    public TitleVO(Integer titleNo, String titleName, Set<AdmAuthorityVO> admAuthoritys, Set<AdministratorVO> administrators) {
         this.titleNo = titleNo;
         this.titleName = titleName;
         this.admAuthoritys = admAuthoritys;
@@ -43,19 +46,19 @@ public class TitleVO {
         this.titleName = titleName;
     }
 
-    public Set<TitleVO> getAdmAuthoritys() {
+    public Set<AdmAuthorityVO> getAdmAuthoritys() {
         return admAuthoritys;
     }
 
-    public void setAdmAuthoritys(Set<TitleVO> admAuthoritys) {
+    public void setAdmAuthoritys(Set<AdmAuthorityVO> admAuthoritys) {
         this.admAuthoritys = admAuthoritys;
     }
 
-    public Set<TitleVO> getAdministrators() {
+    public Set<AdministratorVO> getAdministrators() {
         return administrators;
     }
 
-    public void setAdministrators(Set<TitleVO> administrators) {
+    public void setAdministrators(Set<AdministratorVO> administrators) {
         this.administrators = administrators;
     }
 }

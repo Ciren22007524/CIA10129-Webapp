@@ -1,10 +1,12 @@
-package com.chihyun.News.model;
+package com.chihyun.news.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Date;
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "News")
 public class NewsVO {
@@ -13,10 +15,10 @@ public class NewsVO {
     private Integer newsNo;
     @Column(name = "newsTitle")
     private String newsTitle;
-    @Column(name = "newsContent")
+    @Column(name = "newsContent", columnDefinition = "longtext")
     private String newsContent;
     @Column(name = "postTime")
-    private Date postTime;
+    private Timestamp postTime;
 
     public Integer getNewsNo() {
         return newsNo;
@@ -42,11 +44,11 @@ public class NewsVO {
         this.newsContent = newsContent;
     }
 
-    public Date getPostTime() {
+    public Timestamp getPostTime() {
         return postTime;
     }
 
-    public void setPostTime(Date postTime) {
+    public void setPostTime(Timestamp postTime) {
         this.postTime = postTime;
     }
 }

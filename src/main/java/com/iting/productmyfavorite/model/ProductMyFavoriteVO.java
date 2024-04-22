@@ -15,11 +15,11 @@ public class ProductMyFavoriteVO {
     @EmbeddedId
     private CompositeProductMyFavorite compositeProductMyFavorite;
     @ManyToOne
-    @JoinColumn(name = "pNo", referencedColumnName = "pNo")
-    private ProductVO productVO;
+    @JoinColumn(name = "pNo", referencedColumnName = "pNo", insertable = false, updatable = false)
+    private ProductVO product;
     @ManyToOne
-    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private MemberVO memberVO;
+    @JoinColumn(name = "memNo", referencedColumnName = "memNo", insertable = false, updatable = false)
+    private MemberVO member;
     @Embeddable
     public static class CompositeProductMyFavorite implements Serializable {
         private static final long serialVersionUID = 1L;
@@ -78,20 +78,19 @@ public class ProductMyFavoriteVO {
         this.compositeProductMyFavorite = compositeProductMyFavorite;
     }
 
-    public ProductVO getProductVO() {
-        return productVO;
+    public ProductVO getProduct() {
+        return product;
     }
 
-    public void setProductVO(ProductVO productVO) {
-        this.productVO = productVO;
+    public void setProduct(ProductVO product) {
+        this.product = product;
     }
 
-    public MemberVO getMemberVO() {
-        return memberVO;
+    public MemberVO getMember() {
+        return member;
     }
 
-    public void setMemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
-
 }

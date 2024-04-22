@@ -15,11 +15,11 @@ public class CartVO {
     @Column(name = "pBuyQty")
     private Integer pBuyQty;
     @ManyToOne
-    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private MemberVO  memberVO;
+    @JoinColumn(name = "memNo", referencedColumnName = "memNo", insertable = false, updatable = false)
+    private MemberVO  member;
     @ManyToOne
-    @JoinColumn(name = "pNo", referencedColumnName = "pNo")
-    private ProductVO productVO;
+    @JoinColumn(name = "pNo", referencedColumnName = "pNo", insertable = false, updatable = false)
+    private ProductVO product;
 
     public CompositeDetail2 getCompositeKey2() {
         return compositeKey2;
@@ -37,20 +37,20 @@ public class CartVO {
         this.pBuyQty = pBuyQty;
     }
 
-    public MemberVO getMemberVO() {
-        return memberVO;
+    public MemberVO getMember() {
+        return member;
     }
 
-    public void setMemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
 
-    public ProductVO getProductVO() {
-        return productVO;
+    public ProductVO getProduct() {
+        return product;
     }
 
-    public void setProductVO(ProductVO productVO) {
-        this.productVO = productVO;
+    public void setProduct(ProductVO product) {
+        this.product = product;
     }
 
     @Embeddable

@@ -23,7 +23,7 @@ public class RentalOrderVO implements Serializable {
     private Integer rOrdNo; // -> 租借品訂單編號
     @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private MemberVO memberVO;
+    private MemberVO member;
     @Column(name = "rByrName")
     private String rByrName; // -> 訂購人姓名
     @Column(name = "rByrPhone")
@@ -62,9 +62,8 @@ public class RentalOrderVO implements Serializable {
     private String rtnRemark; // -> 歸還註記
     @Column(name = "rtnCompensation")
     private BigDecimal rtnCompensation; // -> 賠償金額
-
-    @OneToMany(mappedBy = "rentalOrderVoOrm", cascade = CascadeType.ALL)
-    private Set<RentalOrderDetailsVO> detailsOrms;
+    @OneToMany(mappedBy = "rentalOrder", cascade = CascadeType.ALL)
+    private Set<RentalOrderDetailsVO> rentalOrderDetailses;
 
 /*----------------------getter、setter--------------------------*/
 
@@ -228,22 +227,22 @@ public class RentalOrderVO implements Serializable {
         this.rtnCompensation = rtnCompensation;
     }
 
-/*--------------------------聯合映射用的 getter、setter( rentalorder 是主表)------------------------------*/
-    public Set<RentalOrderDetailsVO> getDetailsOrms() {
-        return detailsOrms;
+    /*--------------------------聯合映射用的 getter、setter( rentalorder 是主表)------------------------------*/
+    public Set<RentalOrderDetailsVO> getRentalOrderDetailses() {
+        return rentalOrderDetailses;
     }
 
-    public void setDetailsOrms(Set<RentalOrderDetailsVO> detailsOrms) {
-        this.detailsOrms = detailsOrms;
+    public void setRentalOrderDetailses(Set<RentalOrderDetailsVO> rentalOrderDetailses) {
+        this.rentalOrderDetailses = rentalOrderDetailses;
     }
 
 /*--------------------------聯合映射用的 getter、setter( member 是主表)------------------------------*/
-    public MemberVO getMemberVO() {
-        return this.memberVO;
+    public MemberVO getMember() {
+        return this.member;
     }
 
-    public void setMemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
+    public void setMember(MemberVO member) {
+        this.member = member;
     }
 
 
@@ -251,7 +250,7 @@ public class RentalOrderVO implements Serializable {
     public String toString() {
         return "RentalOrderVo_ORM{" +
                 "rOrdNo=" + rOrdNo +
-                ", memberVO=" + memberVO +
+                ", member=" + member +
                 ", rByrName='" + rByrName + '\'' +
                 ", rByrPhone='" + rByrPhone + '\'' +
                 ", rByrEmail='" + rByrEmail + '\'' +
@@ -271,7 +270,7 @@ public class RentalOrderVO implements Serializable {
                 ", rtnStat=" + rtnStat +
                 ", rtnRemark='" + rtnRemark + '\'' +
                 ", rtnCompensation=" + rtnCompensation +
-                ", detailsOrms=" + detailsOrms +
+                ", rentalOrderDetailses=" + rentalOrderDetailses +
                 '}';
     }
 

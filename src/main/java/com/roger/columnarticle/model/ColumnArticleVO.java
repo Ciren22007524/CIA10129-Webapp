@@ -1,6 +1,9 @@
 package com.roger.columnarticle.model;
 
 import com.ren.administrator.model.AdministratorVO;
+import com.roger.articlecollection.model.ArticleCollectionVO;
+import com.roger.clicklike.model.ClickLikeVO;
+import com.roger.columnreply.model.ColumnReplyVO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -17,7 +20,7 @@ public class ColumnArticleVO implements java.io.Serializable {
 
     @ManyToOne
     @JoinColumn(name = "admNo", referencedColumnName = "admNo")
-    private AdministratorVO administratorVO;
+    private AdministratorVO administrator;
 
 //    @Column(name = "admNo")
 //    private Integer admNo;
@@ -25,7 +28,7 @@ public class ColumnArticleVO implements java.io.Serializable {
     @Column(name = "artTitle")
     private String artTitle;
 
-    @Column(name = "artContent")
+    @Column(name = "artContent", columnDefinition = "longtext")
     private String artContent;
 
     @Column(name = "artTime")
@@ -37,15 +40,14 @@ public class ColumnArticleVO implements java.io.Serializable {
     @Column(name = "artStat")
     private Byte artStat;
 
-    @OneToMany(mappedBy = "clickLike", cascade = CascadeType.ALL)
-    private Set<ColumnArticleVO> clickLikes;
+    @OneToMany(mappedBy = "columnArticle", cascade = CascadeType.ALL)
+    private Set<ClickLikeVO> clickLikes;
 
-    @OneToMany(mappedBy = "articleCollection", cascade = CascadeType.ALL)
-    private Set<ColumnArticleVO> articleCollections;
+    @OneToMany(mappedBy = "columnArticle", cascade = CascadeType.ALL)
+    private Set<ArticleCollectionVO> articleCollections;
 
-    @OneToMany(mappedBy = "columnReply", cascade = CascadeType.ALL)
-    private Set<ColumnArticleVO> columnReplys;
-
+    @OneToMany(mappedBy = "columnArticle", cascade = CascadeType.ALL)
+    private Set<ColumnReplyVO> columnReplies;
 
     public Integer getArtNo() {
         return artNo;
@@ -55,12 +57,12 @@ public class ColumnArticleVO implements java.io.Serializable {
         this.artNo = artNo;
     }
 
-    public AdministratorVO getAdministratorVO() {
-        return administratorVO;
+    public AdministratorVO getAdministrator() {
+        return administrator;
     }
 
-    public void setAdministratorVO(AdministratorVO administratorVO) {
-        this.administratorVO = administratorVO;
+    public void setAdministrator(AdministratorVO administrator) {
+        this.administrator = administrator;
     }
 
     public String getArtTitle() {
@@ -103,27 +105,27 @@ public class ColumnArticleVO implements java.io.Serializable {
         this.artStat = artStat;
     }
 
-    public Set<ColumnArticleVO> getClickLikes() {
+    public Set<ClickLikeVO> getClickLikes() {
         return clickLikes;
     }
 
-    public void setClickLikes(Set<ColumnArticleVO> clickLikes) {
+    public void setClickLikes(Set<ClickLikeVO> clickLikes) {
         this.clickLikes = clickLikes;
     }
 
-    public Set<ColumnArticleVO> getArticleCollections() {
+    public Set<ArticleCollectionVO> getArticleCollections() {
         return articleCollections;
     }
 
-    public void setArticleCollections(Set<ColumnArticleVO> articleCollections) {
+    public void setArticleCollections(Set<ArticleCollectionVO> articleCollections) {
         this.articleCollections = articleCollections;
     }
 
-    public Set<ColumnArticleVO> getColumnReplys() {
-        return columnReplys;
+    public Set<ColumnReplyVO> getColumnReplies() {
+        return columnReplies;
     }
 
-    public void setColumnReplys(Set<ColumnArticleVO> columnReplys) {
-        this.columnReplys = columnReplys;
+    public void setColumnReplies(Set<ColumnReplyVO> columnReplies) {
+        this.columnReplies = columnReplies;
     }
 }

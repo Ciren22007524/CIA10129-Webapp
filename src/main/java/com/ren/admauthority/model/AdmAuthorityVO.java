@@ -13,10 +13,10 @@ public class AdmAuthorityVO {
     @EmbeddedId
     private CompositeAdmAuthority compositeAdmAuthority;
     @ManyToOne
-    @JoinColumn(name = "titleNo", referencedColumnName = "titleNo")
+    @JoinColumn(name = "titleNo", referencedColumnName = "titleNo", insertable = false, updatable = false)
     private TitleVO title;
     @ManyToOne
-    @JoinColumn(name = "authFuncNo", referencedColumnName = "authFuncNo")
+    @JoinColumn(name = "authFuncNo", referencedColumnName = "authFuncNo", insertable = false, updatable = false)
     private AuthorityFunctionVO authorityFunction;
     @Embeddable
     public static class CompositeAdmAuthority implements Serializable {
@@ -69,6 +69,7 @@ public class AdmAuthorityVO {
     }
 
     public AdmAuthorityVO() {
+
     }
 
     public AdmAuthorityVO(CompositeAdmAuthority compositeAdmAuthority, TitleVO title, AuthorityFunctionVO authorityFunction) {

@@ -24,11 +24,11 @@ public class ProductOrderDetailVO {
     @Column(name = "pScore")
     private Integer pScore;
     @ManyToOne
-    @JoinColumn(name = "pNo", referencedColumnName = "pNo")
-    private ProductVO productVO;
+    @JoinColumn(name = "pNo", referencedColumnName = "pNo", insertable = false, updatable = false)
+    private ProductVO product;
     @ManyToOne
-    @JoinColumn(name = "pOrdNo", referencedColumnName = "pOrdNo")
-    private ProductOrderVO productOrderVO ;
+    @JoinColumn(name = "pOrdNo", referencedColumnName = "pOrdNo", insertable = false, updatable = false)
+    private ProductOrderVO productOrder ;
     // 需要宣告一個有包含複合主鍵屬性的類別，並一定實作 java.io.Serializable 介面
     @Embeddable
     public static class CompositeDetail implements Serializable {
@@ -138,19 +138,19 @@ public class ProductOrderDetailVO {
         this.pScore = pScore;
     }
 
-    public ProductVO getProductVO() {
-        return productVO;
+    public ProductVO getProduct() {
+        return product;
     }
 
-    public void setProductVO(ProductVO productVO) {
-        this.productVO = productVO;
+    public void setProduct(ProductVO product) {
+        this.product = product;
     }
 
-    public ProductOrderVO getProductOrderVO() {
-        return productOrderVO;
+    public ProductOrderVO getProductOrder() {
+        return productOrder;
     }
 
-    public void setProductOrderVO(ProductOrderVO productOrderVO) {
-        this.productOrderVO = productOrderVO;
+    public void setProductOrder(ProductOrderVO productOrder) {
+        this.productOrder = productOrder;
     }
 }
