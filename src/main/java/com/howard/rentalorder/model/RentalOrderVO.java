@@ -1,7 +1,7 @@
 package com.howard.rentalorder.model;
 
 import com.howard.rentalorderdetails.model.RentalOrderDetailsVO;
-import com.roger.member.vo.MemberVO;
+import com.roger.member.model.MemberVO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,8 +21,6 @@ public class RentalOrderVO implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rOrdNo", updatable = false)
     private Integer rOrdNo; // -> 租借品訂單編號
-//    @Column(name = "memNo")
-//    private Integer memNo; // -> 會員編號
     @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
     private MemberVO memberVO;
@@ -66,7 +64,6 @@ public class RentalOrderVO implements Serializable {
     private BigDecimal rtnCompensation; // -> 賠償金額
 
     @OneToMany(mappedBy = "rentalOrderVoOrm", cascade = CascadeType.ALL)
-//    @OrderBy("rOrdNo asc")
     private Set<RentalOrderDetailsVO> detailsOrms;
 
 /*----------------------getter、setter--------------------------*/

@@ -35,8 +35,6 @@ public class ReportVO implements java.io.Serializable {
 
     // private Integer admNo;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "reportTime")
     private Timestamp reportTime;
 

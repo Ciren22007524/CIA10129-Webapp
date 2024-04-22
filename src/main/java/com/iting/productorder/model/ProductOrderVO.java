@@ -52,7 +52,7 @@ public class ProductOrderVO {
     private Byte pStat;
     @OneToMany(mappedBy = "productorder", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Set<ProductOrderDetailVO> productOrderDetail;
+    private Set<ProductOrderDetailVO> productOrderDetails;
 
     public Integer getpOrdNo() {
         return pOrdNo;
@@ -190,12 +190,12 @@ public class ProductOrderVO {
         this.pStat = pStat;
     }
 
-    public Set<ProductOrderDetailVO> getProductOrderDetail() {
-        return productOrderDetail;
+    public Set<ProductOrderDetailVO> getProductOrderDetails() {
+        return productOrderDetails;
     }
 
-    public void setProductOrderDetail(Set<ProductOrderDetailVO> productOrderDetail) {
-        this.productOrderDetail = productOrderDetail;
+    public void setProductOrderDetails(Set<ProductOrderDetailVO> productOrderDetails) {
+        this.productOrderDetails = productOrderDetails;
     }
 
 }

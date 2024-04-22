@@ -13,20 +13,45 @@ public class CartVO {
     @EmbeddedId
     private CompositeDetail2 compositeKey2;
     @Column(name = "pBuyQty")
-        private Integer pBuyQty;
+    private Integer pBuyQty;
+    @ManyToOne
+    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
+    private MemberVO  memberVO;
+    @ManyToOne
+    @JoinColumn(name = "pNo", referencedColumnName = "pNo")
+    private ProductVO productVO;
 
-    public CompositeDetail2 getcompositeKey2() {
+    public CompositeDetail2 getCompositeKey2() {
         return compositeKey2;
     }
 
-    public void setcompositeKey2(CompositeDetail2 compositeKey) {
-        this.compositeKey2 = compositeKey2;}
-        public Integer getpBuyQty() {
-            return pBuyQty;
-        }
-        public void setpBuyQty(Integer pBuyQty) {
-            this.pBuyQty = pBuyQty;
-        }
+    public void setCompositeKey2(CompositeDetail2 compositeKey2) {
+        this.compositeKey2 = compositeKey2;
+    }
+
+    public Integer getpBuyQty() {
+        return pBuyQty;
+    }
+
+    public void setpBuyQty(Integer pBuyQty) {
+        this.pBuyQty = pBuyQty;
+    }
+
+    public MemberVO getMemberVO() {
+        return memberVO;
+    }
+
+    public void setMemberVO(MemberVO memberVO) {
+        this.memberVO = memberVO;
+    }
+
+    public ProductVO getProductVO() {
+        return productVO;
+    }
+
+    public void setProductVO(ProductVO productVO) {
+        this.productVO = productVO;
+    }
 
     @Embeddable
     public static class CompositeDetail2 implements Serializable {
@@ -82,26 +107,7 @@ public class CartVO {
             return false;
         }
     }
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
-    private MemberVO  memberVO;
-    //優惠券一對多未設
-    // fetch 預設為 EAGER
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pNo", referencedColumnName = "pNo")
-    private ProductVO productVO;
-    public MemberVO getmemberVO() {
-        return memberVO;
-    }
-    public void setmemberVO(MemberVO memberVO) {
-        this.memberVO = memberVO;
-    }
-    public ProductVO getproductVO() {
-        return productVO;
-    }
-    public void setproductVO(ProductVO productVO) {
-        this.productVO = productVO;
-    }
+
 }
 
 

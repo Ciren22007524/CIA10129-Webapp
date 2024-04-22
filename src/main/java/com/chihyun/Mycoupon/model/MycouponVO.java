@@ -13,11 +13,16 @@ import java.sql.Date;
 @IdClass(MycouponVO.CompositeMycoupon.class)
 public class MycouponVO {
     @Id
+    @Column(name = "coupNo")
     private Integer coupNo;
     @Id
+    @Column(name = "memNo")
     private Integer memNo;
+    @Column(name = "coupUsedStat")
     private Integer coupUsedStat;
+    @Column(name = "coupInfo")
     private String coupInfo;
+    @Column(name = "coupExpDate")
     private Date coupExpDate;
 
     @ManyToOne
@@ -33,7 +38,6 @@ public class MycouponVO {
     }
 
     public void setCompositekey(CompositeMycoupon key) {
-
         this.coupNo = key.getCoupNo();
         this.memNo = key.getMemNo();
     }

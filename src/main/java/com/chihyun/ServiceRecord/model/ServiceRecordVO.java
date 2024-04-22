@@ -9,14 +9,18 @@ import java.util.Set;
 @Entity
 @Table(name = "ServiceRecord")
 public class ServiceRecordVO {
-
 	@Id
+    @Column(name = "recordNo")
 	private Integer recordNo;
-
+    @Column(name = "admNo")
     private Integer admNo;
+    @Column(name = "memNo")
     private Integer memNo;
+    @Column(name = "recordTime")
     private Date recordTime;
+    @Column(name = "recordContent")
     private String recordContent;
+    @Column(name = "speaker")
     private Integer speaker;
 
     @OneToMany(mappedBy = "serviceRecordVO")

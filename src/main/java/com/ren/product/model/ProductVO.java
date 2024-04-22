@@ -13,9 +13,6 @@ public class ProductVO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pNo")
     private Integer pNo;
-    // JDBC、JNDI使用(Hibernate換成ManyToOne)
-//    @Column(name = "pCatNo")
-//    private Integer pCatNo;
     @ManyToOne
     @JoinColumn(name = "pCatNo", referencedColumnName = "pCatNo")
     private ProductCategoryVO productCategory;
@@ -37,19 +34,34 @@ public class ProductVO {
     private Integer pComPeople;
     @Column(name = "pComScore")
     private Integer pComScore;
-    @OneToMany(mappedBy = "ProductOrderDetail", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productOrderDetail", cascade = CascadeType.ALL)
     private Set<ProductVO> productOrderDetails;
-    @OneToMany(mappedBy = "ProductMyFavorite",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productMyFavorite",cascade = CascadeType.ALL)
     private Set<ProductVO> productMyFavorites;
     @OneToMany(mappedBy = "Cart", cascade = CascadeType.ALL)
     private Set<ProductVO> carts;
-    @OneToMany(mappedBy = "ProductPicture", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productPicture", cascade = CascadeType.ALL)
     private Set<ProductVO> productPictures;
 
     public  ProductVO () {
 
     }
 
+    // insert用建構子
+    public ProductVO(ProductCategoryVO productCategory, String pName, String pInfo, Integer pSize, String pColor, BigDecimal pPrice, Byte pStat, Integer pSalQty, Integer pComPeople, Integer pComScore) {
+        this.productCategory = productCategory;
+        this.pName = pName;
+        this.pInfo = pInfo;
+        this.pSize = pSize;
+        this.pColor = pColor;
+        this.pPrice = pPrice;
+        this.pStat = pStat;
+        this.pSalQty = pSalQty;
+        this.pComPeople = pComPeople;
+        this.pComScore = pComScore;
+    }
+
+    // Update用建構子
     public ProductVO(Integer pNo, ProductCategoryVO productCategory, String pName, String pInfo, Integer pSize, String pColor, BigDecimal pPrice, Byte pStat, Integer pSalQty, Integer pComPeople, Integer pComScore) {
         this.pNo = pNo;
         this.productCategory = productCategory;

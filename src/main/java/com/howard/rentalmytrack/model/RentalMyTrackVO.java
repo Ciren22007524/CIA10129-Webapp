@@ -1,7 +1,7 @@
 package com.howard.rentalmytrack.model;
 
-import com.roger.member.vo.MemberVO;
-import com.yu.rental.model.Rental;
+import com.roger.member.model.MemberVO;
+import com.yu.rental.model.RentalVO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,40 +12,25 @@ import java.util.Objects;
 @Table(name = "rentalmytrack")
 @IdClass(RentalMyTrackVO.CompositeTrack.class)
 public class RentalMyTrackVO implements Serializable {
-
-	/*
-	 * rNo -> 租借品編號
-	 * memNo -> 會員編號
-	 * rTrackTime -> 加入追蹤時間
-	 * expRentalDate -> 期望租借時間
-	 */
-//    @Id
-//    @Column(name = "rNo", updatable = false)
-//    private Integer rNo;
     @Id
     @ManyToOne
     @JoinColumn(name = "rNo", referencedColumnName = "rNo")
-    private Rental rental;
-
-//    @Id
-//    @Column(name = "memNo", updatable = false)
-//    private Integer memNo;
+    private RentalVO rentalVO;
     @Id
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
     private  MemberVO memberVO;
-
 	@Column(name = "rTrackTime")
     private Timestamp rTrackTime;
 	@Column(name = "expRentalDate")
     private Date expRentalDate;
 
-    public Rental getRental() {
-        return rental;
+    public RentalVO getRentalVO() {
+        return rentalVO;
     }
 
-    public void setRental(Rental rental) {
-        this.rental = rental;
+    public void setRentalVO(RentalVO rentalVO) {
+        this.rentalVO = rentalVO;
     }
 
     public MemberVO getMemberVO() {
@@ -73,36 +58,34 @@ public class RentalMyTrackVO implements Serializable {
     }
 
     public void setCompositeTrack(CompositeTrack key) {
-        key.setRental(this.rental);
+        key.setRentalVO(this.rentalVO);
         key.setMemberVO(this.memberVO);
     }
 
     public CompositeTrack getCompositeTrack() {
-        return new CompositeTrack(this.rental, this.memberVO);
+        return new CompositeTrack(this.rentalVO, this.memberVO);
     }
-
-
 
     static class CompositeTrack implements Serializable {
 
-        private Rental rental;
+        private RentalVO rentalVO;
         private MemberVO memberVO;
 
         public CompositeTrack() {
 
         }
 
-        public CompositeTrack(Rental rental, MemberVO memberVO) {
-            this.rental = rental;
+        public CompositeTrack(RentalVO rentalVO, MemberVO memberVO) {
+            this.rentalVO = rentalVO;
             this.memberVO = memberVO;
         }
 
-        public Rental getRental() {
-            return rental;
+        public RentalVO getRentalVO() {
+            return rentalVO;
         }
 
-        public void setRental(Rental rental) {
-            this.rental = rental;
+        public void setRentalVO(RentalVO rentalVO) {
+            this.rentalVO = rentalVO;
         }
 
         public MemberVO getMemberVO() {
@@ -117,20 +100,20 @@ public class RentalMyTrackVO implements Serializable {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (!(o instanceof CompositeTrack that)) return false;
-            return Objects.equals(getRental(), that.getRental()) && Objects.equals(getMemberVO(), that.getMemberVO());
+            return Objects.equals(getRentalVO(), that.getRentalVO()) && Objects.equals(getMemberVO(), that.getMemberVO());
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(getRental(), getMemberVO());
+            return Objects.hash(getRentalVO(), getMemberVO());
         }
 
     }
 
     @Override
     public String toString() {
-        return "RentalMyTrackVo_ORM{" +
-                "rental=" + rental +
+        return "RentalMyTrackVO{" +
+                "rentalVO=" + rentalVO +
                 ", memberVO=" + memberVO +
                 ", rTrackTime=" + rTrackTime +
                 ", expRentalDate=" + expRentalDate +

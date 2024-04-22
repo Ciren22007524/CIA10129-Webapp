@@ -11,37 +11,22 @@ import java.util.Set;
 @Entity
 @Table(name = "columnReply")
 public class ColumnReplyVO implements java.io.Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "columnReplyNo")
     private Integer columnReplyNo;
-
     @ManyToOne
     @JoinColumn(name = "artNo", referencedColumnName = "artNo")
     private ColumnArticleVO columnArticleVO;
-
-//    @Column(name = "artNo")
-//    private Integer artNo;
-
     @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
     private MemberVO memberVO;
-
-//    @Column(name = "memNo")
-//    private Integer memNo;
-
     @Column(name = "comContent")
     private String comContent;
-
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "comTime")
     private Timestamp comTime;
-
     @Column(name = "comStat")
     private Byte comStat;
-
     @OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
     private Set<ColumnReplyVO> reports;
 

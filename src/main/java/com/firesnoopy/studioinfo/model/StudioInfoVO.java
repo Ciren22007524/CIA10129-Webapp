@@ -19,9 +19,9 @@ public class StudioInfoVO {
     private String sInfo;
     @Column(name = "sPrice")
     private BigDecimal sPrice;
-    @OneToMany(mappedBy = "StudioOrder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "studioOrder", cascade = CascadeType.ALL)
     private Set<StudioInfoVO> studioOrders;
-    @OneToMany(mappedBy = "StudioTimeBooking", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "studioTimeBooking", cascade = CascadeType.ALL)
     private Set<StudioInfoVO> studioTimeBookings;
 
     public Integer getsNo() {
