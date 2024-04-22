@@ -1,41 +1,57 @@
 package com.iting.productpicture.model;
-
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "ProductPicture")
-public class ProductPictureVO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pPicNo")
-    private Integer pPicNo;
-    @Column(name = "pNo")
-    private Integer pNo;
-    @Column(name = "pPic")
-    private byte[] pPic;
+@Table(name = "productpicture")
+public class ProductPictureVO implements java.io.Serializable {
+	@Id
+	@Column(name = "pPicNo", updatable = false)
+	    private Integer pPicNo;
+	@Column(name = "pNo")
+	    private Integer pNo;
 
-    public Integer getpPicNo() {
-        return pPicNo;
-    }
+	@Column(name = "pPic", columnDefinition = "longblob")
+	    private byte[] pPic;
 
-    public void setpPicNo(Integer pPicNo) {
-        this.pPicNo = pPicNo;
-    }
 
-    public Integer getpNo() {
-        return pNo;
-    }
+	public Integer getpPicNo() {
+			return pPicNo;
+		}
 
-    public void setpNo(Integer pNo) {
-        this.pNo = pNo;
-    }
+		public void setpPicNo(Integer pPicNo) {
+			this.pPicNo = pPicNo;
+		}
 
-    public byte[] getpPic() {
-        return pPic;
-    }
+		public byte[] getpPic() {
+			return pPic;
+		}
 
-    public void setpPic(byte[] pPic) {
-        this.pPic = pPic;
-    }
+		public void setpPic(byte[] pPic) {
+			this.pPic = pPic;
+		}
+
+		public Integer getpNo() {
+	        return pNo;
+	    }
+
+	    public void setpNo(Integer pNo) {
+	        this.pNo = pNo;
+	    }
+
+
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pNo", referencedColumnName = "pNo")
+	private ProductVO productVO;
+
+	public ProductVO getproductVO() {
+		return productVO;
+	}
+
+	public void setproductVO(ProductVO productVO) {
+		this.productVO = productVO;
+	}
+
 
 }

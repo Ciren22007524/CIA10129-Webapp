@@ -1,6 +1,5 @@
 package com.iting.productmyfavorite.model;
 
-
 import com.ren.product.model.ProductVO;
 import com.roger.member.model.MemberVO;
 
@@ -15,8 +14,6 @@ public class ProductMyFavoriteVO {
     @Id
     @Column(name = "memNo", updatable = false)
     private Integer memNo;
-
-
 
     public Integer getpNo() {
         return pNo;

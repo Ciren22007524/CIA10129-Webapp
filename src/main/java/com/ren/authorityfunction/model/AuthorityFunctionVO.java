@@ -1,6 +1,9 @@
 package com.ren.authorityfunction.model;
 
+import com.ren.admauthority.model.AdmAuthorityVO;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "AuthorityFunction")
@@ -11,6 +14,18 @@ public class AuthorityFunctionVO {
     private Integer authFuncNo;
     @Column(name = "authFuncInfo")
     private String authFuncInfo;
+    @OneToMany(mappedBy = "AdmAuthority", cascade = CascadeType.ALL)
+    private Set<AdmAuthorityVO> admAuthorities;
+
+    public  AuthorityFunctionVO() {
+
+    }
+
+    public AuthorityFunctionVO(Integer authFuncNo, String authFuncInfo, Set<AdmAuthorityVO> admAuthorities) {
+        this.authFuncNo = authFuncNo;
+        this.authFuncInfo = authFuncInfo;
+        this.admAuthorities = admAuthorities;
+    }
 
     public Integer getAuthFuncNo() {
         return authFuncNo;
@@ -28,4 +43,11 @@ public class AuthorityFunctionVO {
         this.authFuncInfo = authFuncInfo;
     }
 
+    public Set<AdmAuthorityVO> getAdmAuthorities() {
+        return admAuthorities;
+    }
+
+    public void setAdmAuthorities(Set<AdmAuthorityVO> admAuthorities) {
+        this.admAuthorities = admAuthorities;
+    }
 }

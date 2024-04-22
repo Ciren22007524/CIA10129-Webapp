@@ -46,6 +46,24 @@ public class ProductVO {
     @OneToMany(mappedBy = "ProductPicture", cascade = CascadeType.ALL)
     private Set<ProductVO> productPictures;
 
+    public  ProductVO () {
+
+    }
+
+    public ProductVO(Integer pNo, ProductCategoryVO productCategory, String pName, String pInfo, Integer pSize, String pColor, BigDecimal pPrice, Byte pStat, Integer pSalQty, Integer pComPeople, Integer pComScore) {
+        this.pNo = pNo;
+        this.productCategory = productCategory;
+        this.pName = pName;
+        this.pInfo = pInfo;
+        this.pSize = pSize;
+        this.pColor = pColor;
+        this.pPrice = pPrice;
+        this.pStat = pStat;
+        this.pSalQty = pSalQty;
+        this.pComPeople = pComPeople;
+        this.pComScore = pComScore;
+    }
+
     public Integer getpNo() {
         return pNo;
     }
