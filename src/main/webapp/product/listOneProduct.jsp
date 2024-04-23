@@ -114,7 +114,7 @@
         </tr>
         <tr>
             <td>${productVO.pNo}</td>
-            <td>${productVO.pCatNo}</td>
+            <td>${productVO.productCategory.pCatNo}</td>
             <td>${productVO.pName}</td>
             <td>${productVO.pInfo}</td>
             <td>${productVO.pSize}</td>
@@ -130,7 +130,7 @@
                     <button type="submit">
                         <i class="fa-solid fa-pen-to-square"></i>
                         <input type="hidden" name="pNo" value="${productVO.pNo}">
-                        <input type="hidden" name="action" value="getOne_For_Update">
+                        <input type="hidden" name="action" value="getOne_For_Update"></button>
                 </form>
             </td>
             <td>

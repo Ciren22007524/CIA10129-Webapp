@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class ProductServiceImpl implements ProductService_interface {
+    private final int SUCCESS = 1;
+    private final int FAILURE = -1;
 
     private ProductDAO_interface dao;
 
@@ -22,12 +24,30 @@ public class ProductServiceImpl implements ProductService_interface {
 
     @Override
     public ProductVO addProduct(ProductVO productVO) {
-        return dao.getById(dao.insert(productVO));
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            ProductVO addedProduct = dao.getById(dao.insert(productVO));
+            session.getTransaction().commit();
+            return addedProduct;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            return null;
+        }
     }
 
     @Override
     public ProductVO getOneProduct(Integer pNo) {
-        return dao.getById(pNo);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            ProductVO productVO = dao.getById(pNo);
+            session.getTransaction().commit();
+            return productVO;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            return null;
+        }
     }
 
     @Override
@@ -94,15 +114,41 @@ public class ProductServiceImpl implements ProductService_interface {
 
     @Override
     public ProductVO updateProduct(ProductVO productVO) {
-        if (dao.update(productVO) == 1) {
-            return dao.getById(productVO.getpNo());
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            int result = dao.update(productVO);
+            if (result == SUCCESS) {
+                System.out.println("修改成功");
+            } else if (result == FAILURE) {
+                System.out.println("修改失敗");
+            }
+            ProductVO updatedProduct = dao.getById(productVO.getpNo());
+            session.getTransaction().commit();
+            return updatedProduct;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
         }
-        return productVO;
     }
 
     @Override
     public void deleteProduct(Integer pNo) {
-        dao.delete(pNo);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            int result = dao.delete(pNo);
+            if (result == SUCCESS) {
+                System.out.println("刪除成功");
+            } else if (result == FAILURE) {
+                System.out.println("刪除失敗");
+            }
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
     }
 
 }
