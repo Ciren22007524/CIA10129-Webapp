@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<jsp:useBean id="productSvc" scope="page" class="com.ren.product.service.ProductServiceImpl"/>
 <html>
 <head>
     <title>商品管理頁面</title>
@@ -99,9 +99,6 @@
             <input type="submit" value="送出">
         </FORM>
     </li>
-
-    <jsp:useBean id="productSvc" scope="page"
-                 class="com.ren.product.service.ProductServiceImpl"/>
 
     <li>
         <FORM METHOD="post" ACTION="product.do">

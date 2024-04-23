@@ -103,9 +103,11 @@ public class ProductServlet extends HttpServlet {
                 forwardPath = SELECT;
         }
 
-        res.setContentType("text/html; charset=UTF-8");
-        RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-        dispatcher.forward(req, res);
+        if (forwardPath != "") {
+            res.setContentType("text/html; charset=UTF-8");
+            RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+            dispatcher.forward(req, res);
+        }
     }
 
     private String getOne(HttpServletRequest req, HttpServletResponse res) {
@@ -312,7 +314,7 @@ public class ProductServlet extends HttpServlet {
         return emailRegex.matcher(email).find();
     }
 
-    /**********錯誤處理區**********/
+    /***********************************錯誤處理區******************************/
     // 編號的錯誤處理
     private Integer checkSerialNumber(String parameter, List<String> errorMsgs) {
         if (!validateSpace(parameter)) {

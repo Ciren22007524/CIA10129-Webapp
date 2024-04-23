@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.ren.product.model.*" %>
-
+<jsp:useBean id="productSvc" scope="page" class="com.ren.product.service.ProductServiceImpl"/>
 <% //見com.product.com.controller.ProductServlet.java第163行存入req的productVO物件 (此為從資料庫取出的productVO, 也可以是輸入格式有錯誤時的productVO物件)
     ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 %>
@@ -102,9 +102,6 @@
 
 <FORM METHOD="post" ACTION="product.do" name="form1">
 
-    <jsp:useBean id="productSvc" scope="page"
-                 class="com.ren.product.service.ProductServiceImpl"/>
-
     <table>
         <tr>
             <td>商品編號:</td>
@@ -118,7 +115,7 @@
         </tr>
         <tr>
             <td>商品類別編號:</td>
-            <td><span name="pCatNo" id="pCatNo"><%= (productVO == null) ? "1" : productVO.getpCatNo() %></span></td>
+            <td><span name="pCatNo" id="pCatNo"><%= (productVO == null) ? "1" : productVO.getProductCategory().getpCatNo() %></span></td>
         </tr>
         <tr>
             <td>商品名稱:</td>

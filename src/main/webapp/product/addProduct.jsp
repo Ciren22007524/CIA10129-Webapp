@@ -5,7 +5,7 @@
 <% //見com.product.com.controller.ProductServlet.java第238行存入req的productVO物件 (此為輸入格式有錯誤時的productVO物件)
    ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 %>
---<%= productVO==null %>--${productVO.pCatNo}-- <!-- line 100 -->
+--<%= productVO==null %>--${productVO.productCategory.pCatNo}-- <!-- line 100 -->
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -147,7 +147,7 @@
 		<td>商品類別編號:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="pCatNo">
 			<c:forEach var="productCategoryVO" items="${productCategorySvc.all}">
-				<option value="${productCategoryVO.pCatNo}" ${(productVO.pCatNo==productCategoryVO.pCatNo)? 'selected':'' } >${productCategoryVO.pCatName}
+				<option value="${productCategoryVO.pCatNo}" ${(productVO.prodcutCategory.pCatNo==productCategoryVO.pCatNo)? 'selected':'' } >${productCategoryVO.pCatName}
 			</c:forEach>
 		</select></td>
 	</tr>
