@@ -5,7 +5,6 @@ import com.roger.member.model.MemberVO;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -14,8 +13,9 @@ import java.util.Set;
 public class MyCouponVO {
     @EmbeddedId
     private CompositeCouponMember compositeCouponMember;
-    @Column(name = "coupNo", insertable = false, updatable = false)
-    private  Integer coupNo;
+    @ManyToOne
+    @JoinColumn(name = "coupNo", referencedColumnName = "coupNo", insertable = false, updatable = false)
+    private CouponVO coupon ;
     @ManyToOne
     @JoinColumn(name = "memNo", referencedColumnName = "memNo", insertable = false, updatable = false)
     private MemberVO member;
@@ -25,8 +25,7 @@ public class MyCouponVO {
     private String coupInfo;
     @Column(name = "coupExpDate")
     private Timestamp coupExpDate;
-    @OneToMany(mappedBy = "myCoupon", cascade = CascadeType.ALL)
-    private Set<CouponVO> coupons;
+
     @Embeddable
     public static class CompositeCouponMember implements Serializable {
         private static final long serialVersionUID = 1L;
@@ -85,12 +84,12 @@ public class MyCouponVO {
         this.compositeCouponMember = compositeCouponMember;
     }
 
-    public Integer getCoupNo() {
-        return coupNo;
+    public CouponVO getCoupon() {
+        return coupon;
     }
 
-    public void setCoupNo(Integer coupNo) {
-        this.coupNo = coupNo;
+    public void setCoupon(CouponVO coupon) {
+        this.coupon = coupon;
     }
 
     public MemberVO getMember() {
@@ -123,13 +122,5 @@ public class MyCouponVO {
 
     public void setCoupExpDate(Timestamp coupExpDate) {
         this.coupExpDate = coupExpDate;
-    }
-
-    public Set<CouponVO> getCoupons() {
-        return coupons;
-    }
-
-    public void setCoupons(Set<CouponVO> coupons) {
-        this.coupons = coupons;
     }
 }

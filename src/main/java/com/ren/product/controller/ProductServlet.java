@@ -22,6 +22,9 @@ import com.ren.product.model.ProductVO;
 import com.ren.product.service.ProductServiceImpl;
 import com.ren.product.service.ProductService_interface;
 import com.ren.productcategory.model.ProductCategoryVO;
+import com.ren.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 @WebServlet("/product/product.do")
 public class ProductServlet extends HttpServlet {
@@ -96,7 +99,7 @@ public class ProductServlet extends HttpServlet {
             case "delete":
                 forwardPath = delete(req, res);
                 break;
-            case "getProdcutDetails":
+            case "getProductDetails":
                 getProductDetails(req, res);
                 break;
             default:
@@ -157,8 +160,19 @@ public class ProductServlet extends HttpServlet {
         /*************************** 2.開始查詢資料 ****************************************/
         ProductServiceImpl productSvc = new ProductServiceImpl();
         ProductVO productVO = productSvc.getOneProduct(pNo);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        List<ProductVO> list = null;
+        try {
+            session.beginTransaction();
+            list = productSvc.getAll();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
 
         /*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+        req.setAttribute("list", list);
         req.setAttribute("productVO", productVO); // 資料庫取出的productVO物件,存入req
         return UPDATE;
     }
@@ -251,22 +265,31 @@ public class ProductServlet extends HttpServlet {
     private void getProductDetails(HttpServletRequest req, HttpServletResponse res) throws IOException {
         Integer pNo = Integer.valueOf(req.getParameter("pNo").trim());
 
-        // 根据商品编号获取商品的详细信息
         ProductServiceImpl productSvc = new ProductServiceImpl();
         ProductVO productVO = productSvc.getOneProduct(pNo);
 
         if (productVO != null) {
-            // 将商品详细信息转换为 JSON 格式
+            System.out.println("VO你還在嗎?");
+        } else {
+            System.out.println("VO你還好嗎?");
+        }
+
+        System.out.println("資料你還在嗎?");
+
+        if (productVO != null) {
+            // 轉成 JSON 格式傳到前端
             Gson gson = new Gson();
             String json = gson.toJson(productVO);
-
-            // 设置响应类型为 JSON
+            System.out.println(json);
+            System.out.println("資料你還在嗎???");
+            // 設置標頭為 JSON 格式
             res.setContentType("application/json");
             res.setCharacterEncoding("UTF-8");
 
-            // 将 JSON 数据发送到客户端
+            // 將 JSON 格式傳到前端
             res.getWriter().write(json);
         } else {
+            System.out.println("資料你還在嗎?火氣都上來了!ˋ_ˊ!");
             res.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }

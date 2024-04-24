@@ -1,9 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.ren.product.model.*" %>
-<jsp:useBean id="productSvc" scope="page" class="com.ren.product.service.ProductServiceImpl"/>
+<%@ page import="com.ren.product.service.ProductService_interface" %>
+<%@ page import="com.ren.product.service.ProductServiceImpl" %>
+<%@ page import="java.util.List" %>
+
+<%--<jsp:useBean id="productSvc" scope="page" class="com.ren.product.service.ProductServiceImpl"/>--%>
 <% //見com.product.com.controller.ProductServlet.java第163行存入req的productVO物件 (此為從資料庫取出的productVO, 也可以是輸入格式有錯誤時的productVO物件)
     ProductVO productVO = (ProductVO) request.getAttribute("productVO");
+    List<ProductVO> list = (List<ProductVO>) request.getAttribute("list");
 %>
 
 <html>
@@ -107,7 +112,7 @@
             <td>商品編號:</td>
             <td>
                 <select size="1" name="productSelect" id="productSelect" onchange="updateProductDetails()">
-                    <c:forEach var="productVO" items="${productSvc.all}">
+                    <c:forEach var="productVO" items="${list}">
                         <option value="${productVO.pNo}">${productVO.pNo}</option>
                     </c:forEach>
                 </select>
@@ -184,9 +189,8 @@
             if (xhr.status === 200) {
                 // 從響應中解析商品的詳細資料
                 var productDetails = JSON.parse(xhr.responseText);
-
                 // 更新頁面中的輸入框值
-                document.getElementById('pCatNo').textContent = productDetails.pCatNo;
+                document.getElementById('pCatNo').textContent = productDetails.productCategory.pCatNo;
                 document.getElementById('pName').value = productDetails.pName;
                 document.getElementById('pInfo').value = productDetails.pInfo;
                 document.getElementById('pSize').value = productDetails.pSize;

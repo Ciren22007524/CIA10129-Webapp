@@ -5,7 +5,6 @@ import com.iting.productorder.model.ProductOrderVO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -15,9 +14,6 @@ public class CouponVO {
     @Id
     @Column(name = "coupNo")
     private Integer coupNo;
-    @ManyToOne
-    @JoinColumn(name = "coupNo", referencedColumnName = "coupNo", insertable = false, updatable = false)
-    private MyCouponVO myCoupon;
     @Column(name = "coupName")
     private String coupName;
     @Column(name = "coupCond")
@@ -34,6 +30,8 @@ public class CouponVO {
     private Byte coupRelStat;
     @OneToMany(mappedBy = "coupon", cascade = CascadeType.ALL)
     private Set<ProductOrderVO> productOrders;
+    @OneToMany(mappedBy = "coupon", cascade = CascadeType.ALL)
+    private Set<MyCouponVO> myCoupons;
 
     public Integer getCoupNo() {
         return coupNo;
@@ -41,14 +39,6 @@ public class CouponVO {
 
     public void setCoupNo(Integer coupNo) {
         this.coupNo = coupNo;
-    }
-
-    public MyCouponVO getMyCoupon() {
-        return myCoupon;
-    }
-
-    public void setMyCoupon(MyCouponVO myCoupon) {
-        this.myCoupon = myCoupon;
     }
 
     public String getCoupName() {
@@ -113,5 +103,13 @@ public class CouponVO {
 
     public void setProductOrders(Set<ProductOrderVO> productOrders) {
         this.productOrders = productOrders;
+    }
+
+    public Set<MyCouponVO> getMyCoupons() {
+        return myCoupons;
+    }
+
+    public void setMyCoupons(Set<MyCouponVO> myCoupons) {
+        this.myCoupons = myCoupons;
     }
 }
