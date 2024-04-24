@@ -38,31 +38,24 @@ public class ProductServiceImpl implements ProductService_interface {
 
     @Override
     public ProductVO getOneProduct(Integer pNo) {
+        System.out.println("Service你有在嗎?");
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
             ProductVO productVO = dao.getById(pNo);
+            System.out.println("Service你有執行嗎?");
             session.getTransaction().commit();
             return productVO;
         } catch (Exception e) {
             session.getTransaction().rollback();
+            System.out.println("Service你還好嗎?");
             return null;
         }
     }
 
     @Override
     public List<ProductVO> getAll() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            List<ProductVO> list = dao.getAll();
-            session.getTransaction().commit();
-            return list;
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            e.printStackTrace();
-            return null;
-        }
+        return dao.getAll();
     }
 
     @Override
@@ -147,6 +140,7 @@ public class ProductServiceImpl implements ProductService_interface {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+            System.out.println("刪除失敗");
             e.printStackTrace();
         }
     }

@@ -40,6 +40,7 @@ public class ProductHibernateDAOImpl implements ProductDAO_interface {
 
     @Override
     public ProductVO getById(Integer id) {
+        System.out.println("DAO你有在嗎");
         return getSession().get(ProductVO.class, id);
     }
 
@@ -148,4 +149,5 @@ public class ProductHibernateDAOImpl implements ProductDAO_interface {
     public long getTotal() {
         return getSession().createQuery("select count(*) from ProductVO", Long.class).uniqueResult();
     }
+
 }
