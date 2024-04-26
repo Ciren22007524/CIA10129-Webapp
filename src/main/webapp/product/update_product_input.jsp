@@ -111,7 +111,7 @@
         <tr>
             <td>商品編號:</td>
             <td>
-                <select size="1" name="productSelect" id="productSelect" onchange="updateProductDetails()">
+                <select size="1" name="pNo" id="productSelect" onchange="updateProductDetails()">
                     <c:forEach var="productVO" items="${list}">
                         <option value="${productVO.pNo}">${productVO.pNo}</option>
                     </c:forEach>
@@ -120,7 +120,8 @@
         </tr>
         <tr>
             <td>商品類別編號:</td>
-            <td><span name="pCatNo" id="pCatNo"><%= (productVO == null) ? "1" : productVO.getProductCategory().getpCatNo() %></span></td>
+            <td><input type="TEXT" name="pCatNo" id="pCatNo"
+                       value="<%= (productVO == null)? "1" : productVO.getProductCategory().getpCatNo() %>" size="45"/>
         </tr>
         <tr>
             <td>商品名稱:</td>
@@ -173,8 +174,8 @@
     <br>
 
     <input type="hidden" name="action" value="update">
-    <input type="hidden" name="pNo" value="<%=productVO.getpNo()%>">
-    <input type="submit" value="送出修改"></FORM>
+    <input type="submit" value="送出修改">
+</FORM>
 
 <script>
     function updateProductDetails() {
@@ -190,7 +191,7 @@
                 // 從響應中解析商品的詳細資料
                 var productDetails = JSON.parse(xhr.responseText);
                 // 更新頁面中的輸入框值
-                document.getElementById('pCatNo').textContent = productDetails.productCategory.pCatNo;
+                document.getElementById('pCatNo').value = productDetails.productCategory.pCatNo;
                 document.getElementById('pName').value = productDetails.pName;
                 document.getElementById('pInfo').value = productDetails.pInfo;
                 document.getElementById('pSize').value = productDetails.pSize;

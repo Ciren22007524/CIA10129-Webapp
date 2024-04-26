@@ -1,5 +1,7 @@
 package com.ren.product.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.iting.cart.model.CartVO;
 import com.iting.productmyfavorite.model.ProductMyFavoriteVO;
 import com.iting.productorderdetail.model.ProductOrderDetailVO;
@@ -18,6 +20,7 @@ public class ProductVO {
     @Column(name = "pNo")
     private Integer pNo;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "pCatNo", referencedColumnName = "pCatNo")
     private ProductCategoryVO productCategory;
     @Column(name = "pName")
@@ -38,12 +41,16 @@ public class ProductVO {
     private Integer pComPeople;
     @Column(name = "pComScore")
     private Integer pComScore;
+    @JsonBackReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductOrderDetailVO> productOrderDetails;
+    @JsonBackReference
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private Set<ProductMyFavoriteVO> productMyFavorites;
+    @JsonBackReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<CartVO> carts;
+    @JsonBackReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductPictureVO> productPictures;
 

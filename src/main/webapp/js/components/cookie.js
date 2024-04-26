@@ -88,3 +88,106 @@ window.onload = function() {
 
     // 可以在这里执行其他初始化操作
 };
+
+// JavaScript版
+// 创建一个名为 CookieManager 的对象，用于管理 cookie 相关操作
+var CookieManager = {
+    cookieDivOr: true, // 控制 cookie 提示框的显示与隐藏
+
+    // 获取指定名称的 cookie 值
+    getCookie: function(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    },
+
+    // 设置 cookie
+    setCookie: function(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
+    },
+
+    // 清除指定名称的 cookie
+    clearCookie: function(cname) {
+        document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    },
+
+    // 检查是否存在指定名称的 cookie
+    checkCookie: function(cname) {
+        var user = this.getCookie(cname);
+        if (user) {
+            this.cookieDivOr = false;
+        } else {
+            this.cookieDivOr = true;
+        }
+    },
+
+    // 关闭 cookie 提示框并设置 cookie
+    closeDiv: function(cname) {
+        this.setCookie(cname, '1', 7); // 设置 cookie 值为 1，并保留 7 天
+        this.cookieDivOr = false;
+    }
+};
+
+// 页面加载完成后执行初始化操作
+window.onload = function() {
+    CookieManager.checkCookie("cookieConsent"); // 检查 cookie
+};
+
+// 獲取其他cookie
+// 添加商品到浏览历史
+function addToHistory(product) {
+    let history = JSON.parse(getCookie('history')) || [];
+    // 检查是否已经存在于历史记录中
+    if (!history.some(item => item.id === product.id)) {
+        history.push({ id: product.id, name: product.name });
+        // 最多保存最近的5个浏览记录
+        if (history.length > 5) {
+            history.shift();
+        }
+        setCookie('history', JSON.stringify(history), 30); // 保存30天
+    }
+}
+
+// 添加商品到购物车
+function addToCart(product) {
+    let cart = JSON.parse(getCookie('cart')) || [];
+    cart.push({ id: product.id, name: product.name, price: product.price });
+    setCookie('cart', JSON.stringify(cart), 1); // 保存1天
+}
+
+// 保存用户偏好设置
+function savePreferences(preferences) {
+    setCookie('preferences', JSON.stringify(preferences), 365); // 保存1年
+}
+
+// 获取指定名称的 Cookie 值
+function getCookie(name) {
+    let cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        let [cookieName, cookieValue] = cookie.trim().split('=');
+        if (cookieName === name) {
+            return decodeURIComponent(cookieValue);
+        }
+    }
+    return null;
+}
+
+// 设置 Cookie
+function setCookie(name, value, days) {
+    let expires = '';
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = '; expires=' + date.toUTCString();
+    }
+    document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+}

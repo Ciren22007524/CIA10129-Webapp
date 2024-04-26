@@ -1,5 +1,6 @@
 package com.ren.authorityfunction.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ren.admauthority.model.AdmAuthorityVO;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class AuthorityFunctionVO {
     private Integer authFuncNo;
     @Column(name = "authFuncInfo")
     private String authFuncInfo;
+    @JsonBackReference
     @OneToMany(mappedBy = "authorityFunction", cascade = CascadeType.ALL)
     private Set<AdmAuthorityVO> admAuthorities;
 

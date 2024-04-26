@@ -18,10 +18,15 @@ public class OpenSessionInViewFilter implements Filter {
             factory.getCurrentSession().beginTransaction();
             chain.doFilter(req, res);
             factory.getCurrentSession().getTransaction().commit();
+            System.out.println("commit執行");
         } catch (Exception e) {
-            factory.getCurrentSession().getTransaction().rollback();
+            if (factory.getCurrentSession().getTransaction().isActive()) {
+                factory.getCurrentSession().getTransaction().rollback();
+                System.out.println("rollback執行");
+            }
             e.printStackTrace();
-            chain.doFilter(req, res);
+            // 不要在發生異常後繼續過濾
+            // chain.doFilter(req, res);
         }
     }
 

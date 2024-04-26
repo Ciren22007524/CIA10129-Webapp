@@ -5,6 +5,7 @@ import com.ren.product.model.ProductVO;
 import com.ren.product.dao.ProductDAO_interface;
 import com.ren.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,8 @@ public class ProductServiceImpl implements ProductService_interface {
     public ProductServiceImpl() {
         dao = new ProductHibernateDAOImpl();
     }
+
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     @Override
     public ProductVO addProduct(ProductVO productVO) {
@@ -40,22 +43,47 @@ public class ProductServiceImpl implements ProductService_interface {
     public ProductVO getOneProduct(Integer pNo) {
         System.out.println("Service你有在嗎?");
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            ProductVO productVO = dao.getById(pNo);
-            System.out.println("Service你有執行嗎?");
-            session.getTransaction().commit();
-            return productVO;
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.out.println("Service你還好嗎?");
-            return null;
+        if (session.getTransaction().isActive()) {
+            System.out.println("啊呦，這就懸了哦~~~交易沒關");
+            return dao.getById(pNo);
+        } else {
+            try {
+                session.beginTransaction();
+                ProductVO productVO = dao.getById(pNo);
+                System.out.println("Service你還在嗎?");
+                session.getTransaction().commit();
+                return productVO;
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+                e.printStackTrace();
+                System.out.println("Service你還好嗎?");
+                return null;
+            }
         }
     }
 
     @Override
     public List<ProductVO> getAll() {
-        return dao.getAll();
+        System.out.println("Service你有在嗎?");
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        if (session.getTransaction().isActive()) {
+            System.out.println("啊呦，這就懸了哦~~~交易沒關");
+            return dao.getAll();
+        } else {
+            try {
+                session.beginTransaction();
+                List<ProductVO> list = dao.getAll();
+                System.out.println("Service你還在嗎?");
+                session.getTransaction().commit();
+                return list;
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+                e.printStackTrace();
+                System.out.println("Service你還好嗎?");
+                return null;
+            }
+        }
+
     }
 
     @Override
@@ -108,22 +136,31 @@ public class ProductServiceImpl implements ProductService_interface {
     @Override
     public ProductVO updateProduct(ProductVO productVO) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            int result = dao.update(productVO);
-            if (result == SUCCESS) {
-                System.out.println("修改成功");
-            } else if (result == FAILURE) {
-                System.out.println("修改失敗");
-            }
+        if (session.getTransaction().isActive()) {
+            System.out.println("啊呦，這就懸了哦~~~交易沒關");
+            dao.update(productVO);
             ProductVO updatedProduct = dao.getById(productVO.getpNo());
-            session.getTransaction().commit();
             return updatedProduct;
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            e.printStackTrace();
-            return null;
+        } else {
+            try {
+                session.beginTransaction();
+                int result = dao.update(productVO);
+                if (result == SUCCESS) {
+                    System.out.println("修改成功");
+                } else if (result == FAILURE) {
+                    System.out.println("修改失敗");
+                }
+                ProductVO updatedProduct = dao.getById(productVO.getpNo());
+                session.getTransaction().commit();
+                return updatedProduct;
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+                System.out.println("出問題囉~~~");
+                e.printStackTrace();
+                return null;
+            }
         }
+
     }
 
     @Override
@@ -140,7 +177,7 @@ public class ProductServiceImpl implements ProductService_interface {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
-            System.out.println("刪除失敗");
+            System.out.println("出問題囉~~~");
             e.printStackTrace();
         }
     }

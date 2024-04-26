@@ -1,6 +1,8 @@
 package com.ren.administrator.model;
 
 import com.chihyun.servicerecord.model.ServiceRecordVO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.firesnoopy.studioorder.model.StudioOrderVO;
 import com.ren.title.model.TitleVO;
 import com.roger.columnarticle.model.ColumnArticleVO;
@@ -27,18 +29,23 @@ public class AdministratorVO {
     @Column(name = "admEmail")
     private String admEmail;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "titleNo", referencedColumnName = "titleNo")
     private TitleVO title;
     @Column(name = "admHireDate")
     private Date admHireDate;
     @Column(name = "admPhoto", columnDefinition = "blob")
     private byte[] admPhoto;
+    @JsonBackReference
     @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL)
     private Set<StudioOrderVO> studioOrders;
+    @JsonBackReference
     @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL)
     private Set<ReportVO> reports;
+    @JsonBackReference
     @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL)
     private Set<ServiceRecordVO> serviceRecords;
+    @JsonBackReference
     @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL)
     private Set<ColumnArticleVO> columnArticles;
 
