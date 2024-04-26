@@ -1,5 +1,7 @@
 package com.ren.productcategory.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ren.product.model.ProductVO;
 
 import javax.persistence.*;
@@ -14,6 +16,7 @@ public class ProductCategoryVO {
     private Integer pCatNo;
     @Column(name = "pCatName")
     private String pCatName;
+    @JsonBackReference
     @OneToMany(mappedBy = "productCategory", cascade = CascadeType.ALL)
     private Set<ProductVO> products;
 

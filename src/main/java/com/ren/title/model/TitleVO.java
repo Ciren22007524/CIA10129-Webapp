@@ -1,5 +1,6 @@
 package com.ren.title.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ren.admauthority.model.AdmAuthorityVO;
 import com.ren.administrator.model.AdministratorVO;
 
@@ -14,8 +15,10 @@ public class TitleVO {
     private Integer titleNo;
     @Column(name = "titleName")
     private String titleName;
+    @JsonBackReference
     @OneToMany(mappedBy = "title", cascade = CascadeType.ALL)
     private Set<AdmAuthorityVO> admAuthoritys;
+    @JsonBackReference
     @OneToMany(mappedBy = "title", cascade = CascadeType.ALL)
     private Set<AdministratorVO> administrators;
 

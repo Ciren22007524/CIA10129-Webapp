@@ -1,6 +1,7 @@
 package com.ren.admauthority.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ren.authorityfunction.model.AuthorityFunctionVO;
 import com.ren.title.model.TitleVO;
 
@@ -13,9 +14,11 @@ public class AdmAuthorityVO {
     @EmbeddedId
     private CompositeAdmAuthority compositeAdmAuthority;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "titleNo", referencedColumnName = "titleNo", insertable = false, updatable = false)
     private TitleVO title;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "authFuncNo", referencedColumnName = "authFuncNo", insertable = false, updatable = false)
     private AuthorityFunctionVO authorityFunction;
     @Embeddable
